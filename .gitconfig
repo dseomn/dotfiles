@@ -1,0 +1,11 @@
+[user]
+	email = david@mandelberg.org
+	name = David Mandelberg
+[color]
+	ui = true
+[push]
+	default = upstream
+[merge]
+	conflictStyle = diff3
+[include]
+	path = .gitconfig.local
