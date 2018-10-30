@@ -12,16 +12,20 @@
 " See the License for the specific language governing permissions and
 " limitations under the License.
 
+" Don't try to be compatible with Vi.
 set nocompatible
 
+" Make text pretty.
 syntax on
 filetype plugin on
 
+" Configure indentation.
 set autoindent
 set copyindent
 set preserveindent
 filetype indent on
 
+" Process local overrides.
 if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local
 endif
