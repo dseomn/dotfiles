@@ -25,6 +25,10 @@ set copyindent
 set preserveindent
 filetype indent on
 
+" When joining lines, use single spaces instead of double spaces between
+" sentences.
+set nojoinspaces
+
 " Process local overrides.
 if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local
