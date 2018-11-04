@@ -51,9 +51,24 @@ prompt_extra_yadm=
 if [ -n "$prompt_extra_git" -a -d ~/.yadm/repo.git ]; then
   prompt_extra_yadm='$(GIT_DIR=~/.yadm/repo.git GIT_PS1_SHOWUNTRACKEDFILES= __git_ps1 " (yadm: %s)")'
 fi
+__status_ps1_count_args() {
+  printf $#
+}
 __status_ps1() {
+  # Show counts of running and stopped jobs, and the return value of the
+  # previous command.
   local ret=$?
-  [ $ret != 0 ] && printf ' [\e[01;31m%s\e[00m]' $ret
+  local ret_part=
+  [ $ret != 0 ] && ret_part='\e[01;31m'${ret}'\e[00m'
+  local running_jobs=$(__status_ps1_count_args $(jobs -rp))
+  local stopped_jobs=$(__status_ps1_count_args $(jobs -sp))
+  local jobs_part=
+  [ $running_jobs != 0 -o $stopped_jobs != 0 ] &&
+      jobs_part='\e[01;32m'${running_jobs}'\e[00m+\e[01;33m'${stopped_jobs}'\e[00m'
+  local divider=
+  [ -n "$ret_part" -a -n "$jobs_part" ] && divider='|'
+  [ -n "$ret_part" -o -n "$jobs_part" ] &&
+      printf " [${jobs_part}${divider}${ret_part}]"
 }
 prompt_extra_status='$(__status_ps1)'
 if command -v tput > /dev/null && tput setaf 1 >&/dev/null; then
