@@ -23,6 +23,11 @@ case $- in
 esac
 
 
+# Save $? before anything else in PROMPT_COMMAND can change it.
+PROMPT_COMMAND='__command_ret=$?
+    '"${PROMPT_COMMAND}"
+
+
 HISTCONTROL=ignoredups
 HISTSIZE=1000
 HISTFILESIZE=2000
@@ -37,70 +42,84 @@ if command -v lesspipe > /dev/null; then
 fi
 
 
+# If running under tmux, regularly update environment variables. (This makes
+# things like $DISPLAY and $SSH_AUTH_SOCK point to the right places.)
+if [ -n "${TMUX+set}" ]; then
+  PROMPT_COMMAND="${PROMPT_COMMAND}"'
+      eval "$(tmux show-environment -s)"'
+fi
+
+
 # Set PS1.
-prompt_user_at='\[\e[01;32m\]\u@\[\e[00m\]'
-if [ "$UID" = 0 ]; then
-  prompt_user_at='\[\e[01;31m\]\u@\[\e[00m\]'
-fi
-__prompt_host_color() {
-  # Re-test $SSH_CONNECTION at each prompt because it can change when running
-  # under tmux. See below where PROMPT_COMMAND is used to update the
-  # environment from tmux.
-  if [ -n "$SSH_CONNECTION" ]; then
-    printf '\x01\e[01;33m\x02'
-  else
-    printf '\x01\e[01;32m\x02'
-  fi
-}
-prompt_host='$(__prompt_host_color)\h\[\e[00m\]'
-prompt_dir='\[\e[01;34m\]\w\[\e[00m\]'
-prompt_end='\$ '
-prompt_pre_mux=
-if [ -z "${TMUX+set}" ]; then
-  prompt_pre_mux='\[\e[01;31m\]*\[\e[00m\] '
-fi
-prompt_post_git=
+__do_git_ps1=
 if [ -f /usr/lib/git-core/git-sh-prompt ]; then
   . /usr/lib/git-core/git-sh-prompt
-  prompt_post_git='$(__git_ps1 " (git: %s)")'
+  __do_git_ps1=yes
   GIT_PS1_SHOWDIRTYSTATE=yes
   GIT_PS1_SHOWSTASHSTATE=yes
   GIT_PS1_SHOWUNTRACKEDFILES=yes
   GIT_PS1_SHOWUPSTREAM=auto
 fi
-prompt_post_yadm=
-if [ -n "$prompt_post_git" -a -d ~/.yadm/repo.git ]; then
-  prompt_post_yadm='$(GIT_DIR=~/.yadm/repo.git GIT_PS1_SHOWUNTRACKEDFILES= __git_ps1 " (yadm: %s)")'
+
+__do_yadm_ps1=
+if [ -n "$__do_git_ps1" -a -d ~/.yadm/repo.git ]; then
+  __do_yadm_ps1=yes
 fi
+
 __status_ps1_count_args() {
   printf $#
 }
-__status_ps1() {
+
+__set_ps1() {
+  local prompt_user_at='\[\e[01;32m\]\u@\[\e[00m\]'
+  if [ "$UID" = 0 ]; then
+    prompt_user_at='\[\e[01;31m\]\u@\[\e[00m\]'
+  fi
+
+  local prompt_host='\[\e[01;32m\]\h\[\e[00m\]'
+  if [ -n "$SSH_CONNECTION" ]; then
+    prompt_host='\[\e[01;33m\]\h\[\e[00m\]'
+  fi
+
+  local prompt_dir='\[\e[01;34m\]\w\[\e[00m\]'
+
+  local prompt_end='\$ '
+
+  local prompt_pre_mux=
+  if [ -z "${TMUX+set}" ]; then
+    prompt_pre_mux='\[\e[01;31m\]*\[\e[00m\] '
+  fi
+
+  local prompt_post_git=
+  if [ -n "$__do_git_ps1" ]; then
+    prompt_post_git='$(__git_ps1 " (git: %s)")'
+  fi
+
+  local prompt_post_yadm=
+  if [ -n "$__do_yadm_ps1" ]; then
+    prompt_post_yadm='$(GIT_DIR=~/.yadm/repo.git GIT_PS1_SHOWUNTRACKEDFILES= __git_ps1 " (yadm: %s)")'
+  fi
+
   # Show counts of running and stopped jobs, and the return value of the
   # previous command.
-  local ret=$?
-  local ret_part=
-  [ $ret != 0 ] && ret_part='\x01\e[01;31m\x02'${ret}'\x01\e[00m\x02'
-  local running_jobs=$(__status_ps1_count_args $(jobs -rp))
-  local stopped_jobs=$(__status_ps1_count_args $(jobs -sp))
-  local jobs_part=
-  [ $running_jobs != 0 -o $stopped_jobs != 0 ] &&
-      jobs_part='\x01\e[01;32m\x02'${running_jobs}'\x01\e[00m\x02+\x01\e[01;33m\x02'${stopped_jobs}'\x01\e[00m\x02'
-  local divider=
-  [ -n "$ret_part" -a -n "$jobs_part" ] && divider='|'
-  [ -n "$ret_part" -o -n "$jobs_part" ] &&
-      printf " [${jobs_part}${divider}${ret_part}]"
+  local prompt_post_status=
+  local status_ret_part=
+  [ $__command_ret != 0 ] && status_ret_part='\[\e[01;31m\]'${__command_ret}'\[\e[00m\]'
+  local status_running_jobs=$(__status_ps1_count_args $(jobs -rp))
+  local status_stopped_jobs=$(__status_ps1_count_args $(jobs -sp))
+  local status_jobs_part=
+  [ $status_running_jobs != 0 -o $status_stopped_jobs != 0 ] &&
+      status_jobs_part='\[\e[01;32m\]'${status_running_jobs}'\[\e[00m\]+\[\e[01;33m\]'${status_stopped_jobs}'\[\e[00m\]'
+  local status_divider=
+  [ -n "$status_ret_part" -a -n "$status_jobs_part" ] && status_divider='|'
+  [ -n "$status_ret_part" -o -n "$status_jobs_part" ] &&
+      prompt_post_status=" [${status_jobs_part}${status_divider}${status_ret_part}]"
+
+  PS1="${prompt_pre_mux}${prompt_user_at}${prompt_host}:${prompt_dir}${prompt_post_yadm}${prompt_post_git}${prompt_post_status}${prompt_end}"
 }
-prompt_post_status='$(__status_ps1)'
-PS1="${prompt_pre_mux}${prompt_user_at}${prompt_host}:${prompt_dir}${prompt_post_yadm}${prompt_post_git}${prompt_post_status}${prompt_end}"
-unset prompt_user_at
-unset prompt_host
-unset prompt_dir
-unset prompt_end
-unset prompt_pre_mux
-unset prompt_post_git
-unset prompt_post_yadm
-unset prompt_post_status
+
+PROMPT_COMMAND="${PROMPT_COMMAND}"'
+    __set_ps1'
 
 
 # Enable colors by default.
@@ -132,14 +151,6 @@ for editor_candidate in vim vi nano; do
   fi
 done
 unset editor_candidate
-
-
-# If running under tmux, regularly update environment variables. (This makes
-# things like $DISPLAY and $SSH_AUTH_SOCK point to the right places.)
-if [ -n "${TMUX+set}" ]; then
-  PROMPT_COMMAND="${PROMPT_COMMAND}"'
-      eval "$(tmux show-environment -s)"'
-fi
 
 
 # Disable Ctrl-S/Ctrl-Q flow control. See also ~/.tmux.conf, which re-purposes
