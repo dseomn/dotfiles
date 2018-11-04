@@ -39,7 +39,20 @@ fi
 
 # Set PS1.
 prompt_user_at='\[\e[01;32m\]\u@\[\e[00m\]'
-prompt_host='\[\e[01;32m\]\h\[\e[00m\]'
+if [ "$UID" = 0 ]; then
+  prompt_user_at='\[\e[01;31m\]\u@\[\e[00m\]'
+fi
+__prompt_host_color() {
+  # Re-test $SSH_CONNECTION at each prompt because it can change when running
+  # under tmux. See below where PROMPT_COMMAND is used to update the
+  # environment from tmux.
+  if [ -n "$SSH_CONNECTION" ]; then
+    printf '\e[01;33m'
+  else
+    printf '\e[01;32m'
+  fi
+}
+prompt_host='$(__prompt_host_color)\h\[\e[00m\]'
 prompt_dir='\[\e[01;34m\]\w\[\e[00m\]'
 prompt_end='\$ '
 prompt_pre_mux=
