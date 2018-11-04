@@ -95,6 +95,19 @@ done
 unset editor_candidate
 
 
+# If running under tmux, regularly update environment variables. (This makes
+# things like $DISPLAY and $SSH_AUTH_SOCK point to the right places.)
+if [ -n "${TMUX+set}" ]; then
+  PROMPT_COMMAND="${PROMPT_COMMAND}"'
+      eval "$(tmux show-environment -s)"'
+fi
+
+
+# Disable Ctrl-S/Ctrl-Q flow control. See also ~/.tmux.conf, which re-purposes
+# Ctrl-S.
+stty -ixon
+
+
 # Local overrides.
 if [ -f ~/.bashrc.local ]; then
   . ~/.bashrc.local
