@@ -17,6 +17,5 @@ $include /etc/inputrc
 set colored-stats on
 set completion-query-items 200
 set enable-bracketed-paste on
-set mark-directories off
 
 $include .inputrc.local
