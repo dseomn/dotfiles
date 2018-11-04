@@ -42,6 +42,10 @@ prompt_user_at='\[\e[01;32m\]\u@\[\e[00m\]'
 prompt_host='\[\e[01;32m\]\h\[\e[00m\]'
 prompt_dir='\[\e[01;34m\]\w\[\e[00m\]'
 prompt_end='\$ '
+prompt_pre_mux=
+if [ -z "${TMUX+set}" ]; then
+  prompt_pre_mux='\[\e[01;31m\]*\[\e[00m\] '
+fi
 prompt_post_git=
 if [ -f /usr/lib/git-core/git-sh-prompt ]; then
   . /usr/lib/git-core/git-sh-prompt
@@ -75,11 +79,12 @@ __status_ps1() {
       printf " [${jobs_part}${divider}${ret_part}]"
 }
 prompt_post_status='$(__status_ps1)'
-PS1="${prompt_user_at}${prompt_host}:${prompt_dir}${prompt_post_yadm}${prompt_post_git}${prompt_post_status}${prompt_end}"
+PS1="${prompt_pre_mux}${prompt_user_at}${prompt_host}:${prompt_dir}${prompt_post_yadm}${prompt_post_git}${prompt_post_status}${prompt_end}"
 unset prompt_user_at
 unset prompt_host
 unset prompt_dir
 unset prompt_end
+unset prompt_pre_mux
 unset prompt_post_git
 unset prompt_post_yadm
 unset prompt_post_status
