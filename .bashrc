@@ -51,15 +51,21 @@ prompt_extra_yadm=
 if [ -n "$prompt_extra_git" -a -d ~/.yadm/repo.git ]; then
   prompt_extra_yadm='$(GIT_DIR=~/.yadm/repo.git GIT_PS1_SHOWUNTRACKEDFILES= __git_ps1 " (yadm: %s)")'
 fi
+__status_ps1() {
+  local ret=$?
+  [ $ret != 0 ] && printf ' [\e[01;31m%s\e[00m]' $ret
+}
+prompt_extra_status='$(__status_ps1)'
 if command -v tput > /dev/null && tput setaf 1 >&/dev/null; then
   prompt_core='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]'
 else
   prompt_core='\u@\h:\w'
 fi
 prompt_end='\$ '
-PS1="${prompt_core}${prompt_extra_yadm}${prompt_extra_git}${prompt_end}"
+PS1="${prompt_core}${prompt_extra_yadm}${prompt_extra_git}${prompt_extra_status}${prompt_end}"
 unset prompt_extra_git
 unset prompt_extra_yadm
+unset prompt_extra_status
 unset prompt_core
 unset prompt_end
 
