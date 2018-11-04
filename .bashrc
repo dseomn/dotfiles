@@ -38,18 +38,22 @@ fi
 
 
 # Set PS1.
-prompt_extra_git=
+prompt_user_at='\[\e[01;32m\]\u@\[\e[00m\]'
+prompt_host='\[\e[01;32m\]\h\[\e[00m\]'
+prompt_dir='\[\e[01;34m\]\w\[\e[00m\]'
+prompt_end='\$ '
+prompt_post_git=
 if [ -f /usr/lib/git-core/git-sh-prompt ]; then
   . /usr/lib/git-core/git-sh-prompt
-  prompt_extra_git='$(__git_ps1 " (git: %s)")'
+  prompt_post_git='$(__git_ps1 " (git: %s)")'
   GIT_PS1_SHOWDIRTYSTATE=yes
   GIT_PS1_SHOWSTASHSTATE=yes
   GIT_PS1_SHOWUNTRACKEDFILES=yes
   GIT_PS1_SHOWUPSTREAM=auto
 fi
-prompt_extra_yadm=
-if [ -n "$prompt_extra_git" -a -d ~/.yadm/repo.git ]; then
-  prompt_extra_yadm='$(GIT_DIR=~/.yadm/repo.git GIT_PS1_SHOWUNTRACKEDFILES= __git_ps1 " (yadm: %s)")'
+prompt_post_yadm=
+if [ -n "$prompt_post_git" -a -d ~/.yadm/repo.git ]; then
+  prompt_post_yadm='$(GIT_DIR=~/.yadm/repo.git GIT_PS1_SHOWUNTRACKEDFILES= __git_ps1 " (yadm: %s)")'
 fi
 __status_ps1_count_args() {
   printf $#
@@ -70,19 +74,15 @@ __status_ps1() {
   [ -n "$ret_part" -o -n "$jobs_part" ] &&
       printf " [${jobs_part}${divider}${ret_part}]"
 }
-prompt_extra_status='$(__status_ps1)'
-if command -v tput > /dev/null && tput setaf 1 >&/dev/null; then
-  prompt_core='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]'
-else
-  prompt_core='\u@\h:\w'
-fi
-prompt_end='\$ '
-PS1="${prompt_core}${prompt_extra_yadm}${prompt_extra_git}${prompt_extra_status}${prompt_end}"
-unset prompt_extra_git
-unset prompt_extra_yadm
-unset prompt_extra_status
-unset prompt_core
+prompt_post_status='$(__status_ps1)'
+PS1="${prompt_user_at}${prompt_host}:${prompt_dir}${prompt_post_yadm}${prompt_post_git}${prompt_post_status}${prompt_end}"
+unset prompt_user_at
+unset prompt_host
+unset prompt_dir
 unset prompt_end
+unset prompt_post_git
+unset prompt_post_yadm
+unset prompt_post_status
 
 
 # Enable colors by default.
