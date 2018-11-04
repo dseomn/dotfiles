@@ -46,6 +46,19 @@ cmap <expr> <ESC>[200~ ""
 cmap <expr> <ESC>[201~ ""
 set pastetoggle=<ESC>[201~
 
+" Highlight search results, and map <C-L> to stop highlighting the most recent
+" search.
+set hlsearch
+nnoremap <C-L> :nohlsearch<CR><C-L>
+
+" Configure insert-mode completion.
+set completeopt=menu,preview,longest
+inoremap <expr> <CR> pumvisible() ? "<C-Y>" : "<CR>"
+
+" Configure things shown on the screen.
+set laststatus=2
+set showcmd
+
 " Process local overrides.
 if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local
