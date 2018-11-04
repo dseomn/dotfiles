@@ -47,9 +47,9 @@ __prompt_host_color() {
   # under tmux. See below where PROMPT_COMMAND is used to update the
   # environment from tmux.
   if [ -n "$SSH_CONNECTION" ]; then
-    printf '\e[01;33m'
+    printf '\x01\e[01;33m\x02'
   else
-    printf '\e[01;32m'
+    printf '\x01\e[01;32m\x02'
   fi
 }
 prompt_host='$(__prompt_host_color)\h\[\e[00m\]'
@@ -80,12 +80,12 @@ __status_ps1() {
   # previous command.
   local ret=$?
   local ret_part=
-  [ $ret != 0 ] && ret_part='\e[01;31m'${ret}'\e[00m'
+  [ $ret != 0 ] && ret_part='\x01\e[01;31m\x02'${ret}'\x01\e[00m\x02'
   local running_jobs=$(__status_ps1_count_args $(jobs -rp))
   local stopped_jobs=$(__status_ps1_count_args $(jobs -sp))
   local jobs_part=
   [ $running_jobs != 0 -o $stopped_jobs != 0 ] &&
-      jobs_part='\e[01;32m'${running_jobs}'\e[00m+\e[01;33m'${stopped_jobs}'\e[00m'
+      jobs_part='\x01\e[01;32m\x02'${running_jobs}'\x01\e[00m\x02+\x01\e[01;33m\x02'${stopped_jobs}'\x01\e[00m\x02'
   local divider=
   [ -n "$ret_part" -a -n "$jobs_part" ] && divider='|'
   [ -n "$ret_part" -o -n "$jobs_part" ] &&
