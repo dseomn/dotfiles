@@ -29,8 +29,8 @@ PROMPT_COMMAND='__command_ret=$?
 
 
 HISTCONTROL=ignoredups
-HISTSIZE=1000
-HISTFILESIZE=2000
+[[ 1000 -gt "${HISTSIZE:-0}" ]] && HISTSIZE=1000
+[[ 2000 -gt "${HISTFILESIZE:-0}" ]] && HISTFILESIZE=2000
 shopt -s histappend
 
 
