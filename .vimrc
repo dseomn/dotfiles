@@ -54,6 +54,7 @@ nnoremap <C-L> :nohlsearch<CR><C-L>
 " Configure insert-mode completion.
 set completeopt=menu,preview,longest
 inoremap <expr> <CR> pumvisible() ? "<C-Y>" : "<CR>"
+inoremap <expr> <ESC> pumvisible() ? "<C-E>" : "<ESC>"
 
 " Configure things shown on the screen.
 set laststatus=2
