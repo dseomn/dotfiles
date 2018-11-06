@@ -86,8 +86,10 @@ __set_ps1() {
   local prompt_end='\$ '
 
   local prompt_pre_mux=
+  local prompt_pre_mux_simple=
   if [ -z "${TMUX+set}" ]; then
     prompt_pre_mux='\[\e[01;31m\]*\[\e[00m\] '
+    prompt_pre_mux_simple='* '
   fi
 
   local prompt_post_git=
@@ -103,19 +105,31 @@ __set_ps1() {
   # Show counts of running and stopped jobs, and the return value of the
   # previous command.
   local prompt_post_status=
+  local prompt_post_status_simple=
   local status_ret_part=
-  [ $__command_ret != 0 ] && status_ret_part='\[\e[01;31m\]'${__command_ret}'\[\e[00m\]'
+  local status_ret_part_simple=
+  if [[ $__command_ret != 0 ]]; then
+    status_ret_part='\[\e[01;31m\]'${__command_ret}'\[\e[00m\]'
+    status_ret_part_simple=${__command_ret}
+  fi
   local status_running_jobs=$(__status_ps1_count_args $(jobs -rp))
   local status_stopped_jobs=$(__status_ps1_count_args $(jobs -sp))
   local status_jobs_part=
-  [ $status_running_jobs != 0 -o $status_stopped_jobs != 0 ] &&
-      status_jobs_part='\[\e[01;32m\]'${status_running_jobs}'\[\e[00m\]+\[\e[01;33m\]'${status_stopped_jobs}'\[\e[00m\]'
+  local status_jobs_part_simple=
+  if [[ $status_running_jobs != 0 ]] || [[ $status_stopped_jobs != 0 ]]; then
+    status_jobs_part='\[\e[01;32m\]'${status_running_jobs}'\[\e[00m\]+\[\e[01;33m\]'${status_stopped_jobs}'\[\e[00m\]'
+    status_jobs_part_simple="${status_running_jobs}+${status_stopped_jobs}"
+  fi
   local status_divider=
   [ -n "$status_ret_part" -a -n "$status_jobs_part" ] && status_divider='|'
-  [ -n "$status_ret_part" -o -n "$status_jobs_part" ] &&
-      prompt_post_status=" [${status_jobs_part}${status_divider}${status_ret_part}]"
+  if [[ -n "$status_ret_part" ]] || [[ -n "$status_jobs_part" ]]; then
+    prompt_post_status=" [${status_jobs_part}${status_divider}${status_ret_part}]"
+    prompt_post_status_simple=" [${status_jobs_part_simple}${status_divider}${status_ret_part_simple}]"
+  fi
 
-  PS1="${prompt_pre_mux}${prompt_user_at}${prompt_host}:${prompt_dir}${prompt_post_yadm}${prompt_post_git}${prompt_post_status}${prompt_end}"
+  local prompt_ctrl_title='\[\e]0;'"${prompt_pre_mux_simple}"'\u@\h:\w'"${prompt_post_status_simple}"'\007\]'
+
+  PS1="${prompt_pre_mux}${prompt_user_at}${prompt_host}:${prompt_dir}${prompt_post_yadm}${prompt_post_git}${prompt_post_status}${prompt_end}${prompt_ctrl_title}"
 }
 
 PROMPT_COMMAND="${PROMPT_COMMAND}"'
