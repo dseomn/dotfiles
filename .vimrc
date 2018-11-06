@@ -56,6 +56,13 @@ set completeopt=menu,preview,longest
 inoremap <expr> <CR> pumvisible() ? "<C-Y>" : "<CR>"
 inoremap <expr> <ESC> pumvisible() ? "<C-E>" : "<ESC>"
 
+" Timeout quickly when waiting to see whether another mapping or key character
+" is coming. So far everything I'm mapping is either machine entered (e.g.,
+" bracketed paste control codes) or a single keystroke.
+set timeout
+set timeoutlen=100
+set ttimeoutlen=-1
+
 " Configure things shown on the screen.
 set laststatus=2
 set showcmd
