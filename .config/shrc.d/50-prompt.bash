@@ -13,83 +13,169 @@
 # limitations under the License.
 
 
-__do_git_ps1=
-if [ -f /usr/lib/git-core/git-sh-prompt ]; then
+# Prompt Components
+#
+# Prompt component functions print text that will be included in the PS1
+# variable, so they can output any of the PS1 codes that bash supports,
+# including '\[' and '\]'. Functions with names like __prompt_post_* are meant
+# to go after the core part of the prompt, and typically print a space
+# character before anything else. __prompt_pre_* functions similarly print a
+# space at the end of their output.
+#
+# For each component, $? is initially set to the return value of the last
+# user-run command.
+#
+# To support either color or text-only output, see __prompt_component_color and
+# __prompt_component_textonly below, which provide variables that prompt
+# component functions can use.
+
+
+__prompt_core() {
+  local user_color="$BGreen"
+  if [[ "$UID" = 0 ]]; then
+    user_color="$BRed"
+  fi
+
+  local host_color="$BGreen"
+  if [[ -n "$SSH_CONNECTION" ]]; then
+    host_color="$BYellow"
+  fi
+
+  printf '%s' "${user_color}\\u@${Clear}${host_color}\\h${Clear}:${BBlue}\\w${Clear}"
+}
+
+
+__prompt_end() {
+  printf '%s' '\$ '
+}
+
+
+# Indicate if we're not running under a multiplexer.
+__prompt_pre_mux() {
+  if [[ -z "${TMUX+set}" ]]; then
+    printf '%s' "${BRed}*${Clear} "
+  fi
+}
+
+
+# __prompt_post_git for git repo status and __prompt_post_yadm for yadm
+# (https://thelocehiliosan.github.io/yadm/) repo status.
+if [[ -f /usr/lib/git-core/git-sh-prompt ]]; then
   . /usr/lib/git-core/git-sh-prompt
-  __do_git_ps1=yes
   GIT_PS1_SHOWDIRTYSTATE=yes
   GIT_PS1_SHOWSTASHSTATE=yes
   GIT_PS1_SHOWUNTRACKEDFILES=yes
   GIT_PS1_SHOWUPSTREAM=auto
+
+  __prompt_post_git() {
+    __git_ps1 " (git: %s)"
+  }
+
+  if [[ -d ~/.yadm/repo.git ]]; then
+    __prompt_post_yadm() {
+      local GIT_PS1_SHOWUNTRACKEDFILES=
+      GIT_DIR=~/.yadm/repo.git __git_ps1 " (yadm: %s)"
+    }
+  else
+    __prompt_post_yadm() { :; }
+  fi
+else
+  __prompt_post_git() { :; }
+  __prompt_post_yadm() { :; }
 fi
 
-__do_yadm_ps1=
-if [ -n "$__do_git_ps1" -a -d ~/.yadm/repo.git ]; then
-  __do_yadm_ps1=yes
-fi
 
-__set_ps1() {
+# Show counts of running and stopped jobs, and the return value of the previous
+# command.
+__prompt_post_status() {
   local command_ret=$?
 
-  local prompt_user_at='\[\e[01;32m\]\u@\[\e[00m\]'
-  if [ "$UID" = 0 ]; then
-    prompt_user_at='\[\e[01;31m\]\u@\[\e[00m\]'
+  local ret_part=
+  if [[ "$command_ret" != 0 ]]; then
+    ret_part="${BRed}${command_ret}${Clear}"
   fi
 
-  local prompt_host='\[\e[01;32m\]\h\[\e[00m\]'
-  if [ -n "$SSH_CONNECTION" ]; then
-    prompt_host='\[\e[01;33m\]\h\[\e[00m\]'
+  local jobs_part=
+  local running_jobs=$(shrcutil_count_args $(jobs -rp))
+  local stopped_jobs=$(shrcutil_count_args $(jobs -sp))
+  if [[ "$running_jobs" != 0 ]] || [[ "$stopped_jobs" != 0 ]]; then
+    jobs_part="${BGreen}${running_jobs}${Clear}+${BYellow}${stopped_jobs}${Clear}"
   fi
 
-  local prompt_dir='\[\e[01;34m\]\w\[\e[00m\]'
-
-  local prompt_end='\$ '
-
-  local prompt_pre_mux=
-  local prompt_pre_mux_simple=
-  if [ -z "${TMUX+set}" ]; then
-    prompt_pre_mux='\[\e[01;31m\]*\[\e[00m\] '
-    prompt_pre_mux_simple='* '
+  local divider=
+  if [[ -n "$ret_part" ]] && [[ -n "$jobs_part" ]]; then
+    divider='|'
   fi
 
-  local prompt_post_git=
-  if [ -n "$__do_git_ps1" ]; then
-    prompt_post_git='$(__git_ps1 " (git: %s)")'
+  if [[ -n "$ret_part" ]] || [[ -n "$jobs_part" ]]; then
+    printf '%s' " [${jobs_part}${divider}${ret_part}]"
   fi
-
-  local prompt_post_yadm=
-  if [ -n "$__do_yadm_ps1" ]; then
-    prompt_post_yadm='$(GIT_DIR=~/.yadm/repo.git GIT_PS1_SHOWUNTRACKEDFILES= __git_ps1 " (yadm: %s)")'
-  fi
-
-  # Show counts of running and stopped jobs, and the return value of the
-  # previous command.
-  local prompt_post_status=
-  local prompt_post_status_simple=
-  local status_ret_part=
-  local status_ret_part_simple=
-  if [[ $command_ret != 0 ]]; then
-    status_ret_part='\[\e[01;31m\]'${command_ret}'\[\e[00m\]'
-    status_ret_part_simple=${command_ret}
-  fi
-  local status_running_jobs=$(shrcutil_count_args $(jobs -rp))
-  local status_stopped_jobs=$(shrcutil_count_args $(jobs -sp))
-  local status_jobs_part=
-  local status_jobs_part_simple=
-  if [[ $status_running_jobs != 0 ]] || [[ $status_stopped_jobs != 0 ]]; then
-    status_jobs_part='\[\e[01;32m\]'${status_running_jobs}'\[\e[00m\]+\[\e[01;33m\]'${status_stopped_jobs}'\[\e[00m\]'
-    status_jobs_part_simple="${status_running_jobs}+${status_stopped_jobs}"
-  fi
-  local status_divider=
-  [ -n "$status_ret_part" -a -n "$status_jobs_part" ] && status_divider='|'
-  if [[ -n "$status_ret_part" ]] || [[ -n "$status_jobs_part" ]]; then
-    prompt_post_status=" [${status_jobs_part}${status_divider}${status_ret_part}]"
-    prompt_post_status_simple=" [${status_jobs_part_simple}${status_divider}${status_ret_part_simple}]"
-  fi
-
-  local prompt_ctrl_title='\[\e]0;'"${prompt_pre_mux_simple}"'\u@\h:\w'"${prompt_post_status_simple}"'\007\]'
-
-  PS1="${prompt_pre_mux}${prompt_user_at}${prompt_host}:${prompt_dir}${prompt_post_yadm}${prompt_post_git}${prompt_post_status}${prompt_end}${prompt_ctrl_title}"
 }
 
-pcc_append __set_ps1
+
+# Set window titles. Note that this component uses other components to define
+# the contents of the title.
+__prompt_ctrl_title() {
+  printf '%s' '\[\e]0;'
+  local component
+  for component in \
+      __prompt_pre_mux \
+      __prompt_core \
+      __prompt_post_status \
+      ; do
+    __prompt_component_textonly "$component"
+  done
+  printf '%s' '\007\]'
+}
+
+
+# Prompt Setting
+#
+# The below code is used to set the prompt, using the components defined above.
+
+__prompt_save_command_ret() {
+  __prompt_command_ret=$?
+}
+
+__prompt_restore_command_ret() {
+  return $__prompt_command_ret
+}
+
+__prompt_component_color() {
+  local BRed='\[\e[1;31m\]'
+  local BGreen='\[\e[1;32m\]'
+  local BYellow='\[\e[1;33m\]'
+  local BBlue='\[\e[1;34m\]'
+  local Clear='\[\e[0m\]'
+  __prompt_restore_command_ret
+  "$@"
+}
+
+__prompt_component_textonly() {
+  local BRed=
+  local BGreen=
+  local BYellow=
+  local BBlue=
+  local Clear=
+  __prompt_restore_command_ret
+  "$@"
+}
+
+__prompt_set_ps1() {
+  __prompt_save_command_ret
+  PS1="$(
+      for component in \
+          __prompt_pre_mux \
+          __prompt_core \
+          __prompt_post_yadm \
+          __prompt_post_git \
+          __prompt_post_status \
+          __prompt_end \
+          __prompt_ctrl_title \
+          ; do
+        __prompt_component_color "$component"
+      done
+  )"
+}
+
+pcc_append __prompt_set_ps1
