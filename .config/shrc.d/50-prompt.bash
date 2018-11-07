@@ -33,6 +33,8 @@ __status_ps1_count_args() {
 }
 
 __set_ps1() {
+  local command_ret=$?
+
   local prompt_user_at='\[\e[01;32m\]\u@\[\e[00m\]'
   if [ "$UID" = 0 ]; then
     prompt_user_at='\[\e[01;31m\]\u@\[\e[00m\]'
@@ -70,9 +72,9 @@ __set_ps1() {
   local prompt_post_status_simple=
   local status_ret_part=
   local status_ret_part_simple=
-  if [[ $__command_ret != 0 ]]; then
-    status_ret_part='\[\e[01;31m\]'${__command_ret}'\[\e[00m\]'
-    status_ret_part_simple=${__command_ret}
+  if [[ $command_ret != 0 ]]; then
+    status_ret_part='\[\e[01;31m\]'${command_ret}'\[\e[00m\]'
+    status_ret_part_simple=${command_ret}
   fi
   local status_running_jobs=$(__status_ps1_count_args $(jobs -rp))
   local status_stopped_jobs=$(__status_ps1_count_args $(jobs -sp))
@@ -94,5 +96,4 @@ __set_ps1() {
   PS1="${prompt_pre_mux}${prompt_user_at}${prompt_host}:${prompt_dir}${prompt_post_yadm}${prompt_post_git}${prompt_post_status}${prompt_end}${prompt_ctrl_title}"
 }
 
-PROMPT_COMMAND="${PROMPT_COMMAND}"'
-    __set_ps1'
+pcc_append __set_ps1

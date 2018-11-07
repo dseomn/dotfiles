@@ -16,6 +16,5 @@
 # If running under tmux, regularly update environment variables. (This makes
 # things like $DISPLAY and $SSH_AUTH_SOCK point to the right places.)
 if [ -n "${TMUX+set}" ]; then
-  PROMPT_COMMAND="${PROMPT_COMMAND}"'
-      eval "$(tmux show-environment -s)"'
+  pcc_append 'eval "$(tmux show-environment -s)"'
 fi
