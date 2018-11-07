@@ -29,8 +29,10 @@ PROMPT_COMMAND='__command_ret=$?
 
 
 HISTCONTROL=ignoredups
-[[ 1000 -gt "${HISTSIZE:-0}" ]] && HISTSIZE=1000
-[[ 2000 -gt "${HISTFILESIZE:-0}" ]] && HISTFILESIZE=2000
+__set_at_least() { eval "[[ $2 -gt \${$1:-0} ]] && $1=$2"; }
+__set_at_least HISTSIZE 1000
+__set_at_least HISTFILESIZE 2000
+unset -f __set_at_least
 shopt -s histappend
 
 
