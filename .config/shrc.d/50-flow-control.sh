@@ -13,21 +13,6 @@
 # limitations under the License.
 
 
-# Return immediately if this isn't an interactive shell.
-case $- in
-  *i*)
-    ;;
-  *)
-    return
-    ;;
-esac
-
-
-for shrc in ~/.config/shrc.d/*; do
-  case "$shrc" in
-    *.sh|*.bash)
-      . "$shrc"
-      ;;
-  esac
-done
-unset shrc
+# Disable Ctrl-S/Ctrl-Q flow control. See also ~/.tmux.conf, which re-purposes
+# Ctrl-S.
+stty -ixon

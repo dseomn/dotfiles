@@ -13,21 +13,10 @@
 # limitations under the License.
 
 
-# Return immediately if this isn't an interactive shell.
-case $- in
-  *i*)
-    ;;
-  *)
-    return
-    ;;
-esac
-
-
-for shrc in ~/.config/shrc.d/*; do
-  case "$shrc" in
-    *.sh|*.bash)
-      . "$shrc"
-      ;;
-  esac
-done
-unset shrc
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi

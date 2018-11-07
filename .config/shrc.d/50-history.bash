@@ -13,21 +13,15 @@
 # limitations under the License.
 
 
-# Return immediately if this isn't an interactive shell.
-case $- in
-  *i*)
-    ;;
-  *)
-    return
-    ;;
-esac
+__set_at_least() {
+  # Ensure that the environment variable named in $1 is greater than or equal
+  # to $2.
+  eval "[[ $2 -gt \${$1:-0} ]] && $1=$2"
+}
 
+HISTCONTROL=ignoredups
+__set_at_least HISTSIZE $((10 * 1000))
+__set_at_least HISTFILESIZE $((100 * 1000))
+shopt -s histappend
 
-for shrc in ~/.config/shrc.d/*; do
-  case "$shrc" in
-    *.sh|*.bash)
-      . "$shrc"
-      ;;
-  esac
-done
-unset shrc
+unset -f __set_at_least

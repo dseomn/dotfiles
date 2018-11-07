@@ -13,21 +13,6 @@
 # limitations under the License.
 
 
-# Return immediately if this isn't an interactive shell.
-case $- in
-  *i*)
-    ;;
-  *)
-    return
-    ;;
-esac
-
-
-for shrc in ~/.config/shrc.d/*; do
-  case "$shrc" in
-    *.sh|*.bash)
-      . "$shrc"
-      ;;
-  esac
-done
-unset shrc
+# Save $? before anything else in PROMPT_COMMAND can change it.
+PROMPT_COMMAND='__command_ret=$?
+    '"${PROMPT_COMMAND}"

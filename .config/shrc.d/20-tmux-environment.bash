@@ -13,21 +13,9 @@
 # limitations under the License.
 
 
-# Return immediately if this isn't an interactive shell.
-case $- in
-  *i*)
-    ;;
-  *)
-    return
-    ;;
-esac
-
-
-for shrc in ~/.config/shrc.d/*; do
-  case "$shrc" in
-    *.sh|*.bash)
-      . "$shrc"
-      ;;
-  esac
-done
-unset shrc
+# If running under tmux, regularly update environment variables. (This makes
+# things like $DISPLAY and $SSH_AUTH_SOCK point to the right places.)
+if [ -n "${TMUX+set}" ]; then
+  PROMPT_COMMAND="${PROMPT_COMMAND}"'
+      eval "$(tmux show-environment -s)"'
+fi
