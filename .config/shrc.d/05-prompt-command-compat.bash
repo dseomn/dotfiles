@@ -42,13 +42,20 @@ __pcc_run_prompt_command() {
   eval "$__pcc_prompt_command"
 }
 
-if [[ -n "${__bp_imported+set}" ]]; then
-  precmd_functions+=(__pcc_save_command_ret)
-  precmd_functions+=(__pcc_run_prompt_command)
-else
-  PROMPT_COMMAND="
-      __pcc_save_command_ret
-      ${PROMPT_COMMAND}
-      __pcc_run_prompt_command
-  "
+if [[ -z "$__pcc_installed" ]]; then
+  # Guard against installing our hooks multiple times in the same shell, e.g.,
+  # if bashrc is sourced multiple times. Note that this variable is not
+  # exported, so child shells will still run this.
+  __pcc_installed=yes
+
+  if [[ -n "${__bp_imported+set}" ]]; then
+    precmd_functions+=(__pcc_save_command_ret)
+    precmd_functions+=(__pcc_run_prompt_command)
+  else
+    PROMPT_COMMAND="
+        __pcc_save_command_ret
+        ${PROMPT_COMMAND}
+        __pcc_run_prompt_command
+    "
+  fi
 fi
