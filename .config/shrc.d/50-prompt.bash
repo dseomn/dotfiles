@@ -50,10 +50,49 @@ __prompt_end() {
 }
 
 
-# Indicate if we're not running under a multiplexer.
-__prompt_pre_mux() {
-  if ! shrcutil_under_mux; then
-    printf '%s' "${BRed}*${Clear} "
+# When nesting interactive shells, show a counter of how deep we are. When not
+# under a terminal multiplexer, show a warning asterisk.
+#
+# Note that this doesn't use $SHLVL because non-interactive shells (e.g., in X
+# session init scripts) are uninteresting. Also, this resets the shell nesting
+# counter under a multiplexer.
+#
+# TODO: Properly handle nested muxes. Currently, the counter is only reset for
+# the top-level shell under the top-level mux.
+if [[ -z "$__nesting_initialized_local" ]]; then
+  # Do not export this. It guards against incrementing __nesting_level when
+  # sourcing bashrc multiple times in the same shell.
+  __nesting_initialized_local=yes
+
+  if [[ -z "$__nesting_initialized" ]]; then
+    # Top-level shell, initialize everything.
+    export __nesting_initialized=yes
+    export __nesting_level=1
+    export __nesting_in_mux=
+    shrcutil_under_mux && __nesting_in_mux=yes
+  elif [[ -z "$__nesting_in_mux" ]] && shrcutil_under_mux; then
+    # Top-level shell under a mux. (See caveat above about nested muxes.)
+    export __nesting_level=1
+    export __nesting_in_mux=yes
+  else
+    # None of the above, so assume we're nested one level deeper.
+    let __nesting_level++
+  fi
+fi
+
+__prompt_pre_nesting() {
+  local indicator=
+
+  if [[ "$__nesting_level" -gt 1 ]]; then
+    indicator="${indicator}${__nesting_level}"
+  fi
+
+  if [[ -z "$__nesting_in_mux" ]]; then
+    indicator="${indicator}*"
+  fi
+
+  if [[ -n "$indicator" ]]; then
+   printf '%s' "${BRed}${indicator}${Clear} "
   fi
 }
 
@@ -117,7 +156,7 @@ __prompt_ctrl_title() {
   printf '%s' '\[\e]0;'
   local component
   for component in \
-      __prompt_pre_mux \
+      __prompt_pre_nesting \
       __prompt_core \
       __prompt_post_status \
       ; do
@@ -163,7 +202,7 @@ __prompt_set_ps1() {
   __prompt_save_command_ret
   PS1="$(
       for component in \
-          __prompt_pre_mux \
+          __prompt_pre_nesting \
           __prompt_core \
           __prompt_post_yadm \
           __prompt_post_git \
