@@ -31,17 +31,17 @@
 
 
 __prompt_core() {
-  local user_color="$BGreen"
+  local user_color="$FgBrGreen"
   if [[ "$UID" = 0 ]]; then
-    user_color="$BRed"
+    user_color="$FgBrRed"
   fi
 
-  local host_color="$BGreen"
+  local host_color="$FgBrGreen"
   if [[ -n "$SSH_CONNECTION" ]]; then
-    host_color="$BYellow"
+    host_color="$FgBrYellow"
   fi
 
-  printf '%s' "${user_color}\\u@${Clear}${host_color}\\h${Clear}:${BBlue}\\w${Clear}"
+  printf '%s' "${user_color}\\u@${Clear}${host_color}\\h${Clear}:${FgBrBlue}\\w${Clear}"
 }
 
 
@@ -92,7 +92,7 @@ __prompt_pre_nesting() {
   fi
 
   if [[ -n "$indicator" ]]; then
-   printf '%s' "${BRed}${indicator}${Clear} "
+   printf '%s' "${FgBrRed}${indicator}${Clear} "
   fi
 }
 
@@ -129,14 +129,14 @@ __prompt_post_status() {
 
   local ret_part=
   if [[ "$command_ret" != 0 ]]; then
-    ret_part="${BRed}${command_ret}${Clear}"
+    ret_part="${FgBrRed}${command_ret}${Clear}"
   fi
 
   local jobs_part=
   local running_jobs=$(shrcutil_count_args $(jobs -rp))
   local stopped_jobs=$(shrcutil_count_args $(jobs -sp))
   if [[ "$running_jobs" != 0 ]] || [[ "$stopped_jobs" != 0 ]]; then
-    jobs_part="${BGreen}${running_jobs}${Clear}+${BYellow}${stopped_jobs}${Clear}"
+    jobs_part="${FgBrGreen}${running_jobs}${Clear}+${FgBrYellow}${stopped_jobs}${Clear}"
   fi
 
   local divider=
@@ -179,20 +179,20 @@ __prompt_restore_command_ret() {
 }
 
 __prompt_component_color() {
-  local BRed='\[\e[1;31m\]'
-  local BGreen='\[\e[1;32m\]'
-  local BYellow='\[\e[1;33m\]'
-  local BBlue='\[\e[1;34m\]'
+  local FgBrRed='\[\e[1;31m\]'
+  local FgBrGreen='\[\e[1;32m\]'
+  local FgBrYellow='\[\e[1;33m\]'
+  local FgBrBlue='\[\e[1;34m\]'
   local Clear='\[\e[0m\]'
   __prompt_restore_command_ret
   "$@"
 }
 
 __prompt_component_textonly() {
-  local BRed=
-  local BGreen=
-  local BYellow=
-  local BBlue=
+  local FgBrRed=
+  local FgBrGreen=
+  local FgBrYellow=
+  local FgBrBlue=
   local Clear=
   __prompt_restore_command_ret
   "$@"
