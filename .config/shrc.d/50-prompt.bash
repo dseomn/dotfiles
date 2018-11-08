@@ -41,7 +41,19 @@ __prompt_core() {
     host_color="$FgBrYellow"
   fi
 
-  printf '%s' "${user_color}\\u@${Clear}${host_color}\\h${Clear}:${FgBrBlue}\\w${Clear}"
+  local dir_color="$FgBrBlue"
+  if ! [[ -d "$PWD" ]] || ! [[ -x "$PWD" ]] || ! [[ . -ef "$PWD" ]]; then
+    # We're in a directory that we couldn't cd into now. Maybe the directory
+    # was deleted or moved, maybe its permissions changed, maybe something else
+    # weird happened. Either way, make it hard to ignore.
+    dir_color="${FgBrWhite}${BgRed}"
+  elif ! [[ -r . ]]; then
+    dir_color="$FgBrMagenta"
+  elif ! [[ -w . ]]; then
+    dir_color="$FgBrCyan"
+  fi
+
+  printf '%s' "${user_color}\\u@${Clear}${host_color}\\h${Clear}:${dir_color}\\w${Clear}"
 }
 
 
