@@ -28,10 +28,6 @@ if [ -n "$__do_git_ps1" -a -d ~/.yadm/repo.git ]; then
   __do_yadm_ps1=yes
 fi
 
-__status_ps1_count_args() {
-  printf $#
-}
-
 __set_ps1() {
   local command_ret=$?
 
@@ -76,8 +72,8 @@ __set_ps1() {
     status_ret_part='\[\e[01;31m\]'${command_ret}'\[\e[00m\]'
     status_ret_part_simple=${command_ret}
   fi
-  local status_running_jobs=$(__status_ps1_count_args $(jobs -rp))
-  local status_stopped_jobs=$(__status_ps1_count_args $(jobs -sp))
+  local status_running_jobs=$(shrcutil_count_args $(jobs -rp))
+  local status_stopped_jobs=$(shrcutil_count_args $(jobs -sp))
   local status_jobs_part=
   local status_jobs_part_simple=
   if [[ $status_running_jobs != 0 ]] || [[ $status_stopped_jobs != 0 ]]; then
