@@ -71,14 +71,12 @@ if [[ -f /usr/lib/git-core/git-sh-prompt ]]; then
     __git_ps1 " (git: %s)"
   }
 
-  if [[ -d ~/.yadm/repo.git ]]; then
-    __prompt_post_yadm() {
+  __prompt_post_yadm() {
+    if [[ -d ~/.yadm/repo.git ]]; then
       local GIT_PS1_SHOWUNTRACKEDFILES=
       GIT_DIR=~/.yadm/repo.git __git_ps1 " (yadm: %s)"
-    }
-  else
-    __prompt_post_yadm() { :; }
-  fi
+    fi
+  }
 else
   __prompt_post_git() { :; }
   __prompt_post_yadm() { :; }
