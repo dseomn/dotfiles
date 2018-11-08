@@ -17,3 +17,10 @@
 shrcutil_count_args() {
   printf $#
 }
+
+
+# Returns 0 if we're under a multiplexer, 1 otherwise.
+shrcutil_under_mux() {
+  [[ -n "${TMUX+set}" ]] && return 0
+  return 1
+}

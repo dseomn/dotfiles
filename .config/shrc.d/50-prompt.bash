@@ -52,7 +52,7 @@ __prompt_end() {
 
 # Indicate if we're not running under a multiplexer.
 __prompt_pre_mux() {
-  if [[ -z "${TMUX+set}" ]]; then
+  if ! shrcutil_under_mux; then
     printf '%s' "${BRed}*${Clear} "
   fi
 }
