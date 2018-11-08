@@ -179,21 +179,69 @@ __prompt_restore_command_ret() {
 }
 
 __prompt_component_color() {
+  local FgBlack='\[\e[30m\]'
+  local FgRed='\[\e[31m\]'
+  local FgGreen='\[\e[32m\]'
+  local FgYellow='\[\e[33m\]'
+  local FgBlue='\[\e[34m\]'
+  local FgMagenta='\[\e[35m\]'
+  local FgCyan='\[\e[36m\]'
+  local FgWhite='\[\e[37m\]'
+
+  local FgBrBlack='\[\e[1;30m\]'
   local FgBrRed='\[\e[1;31m\]'
   local FgBrGreen='\[\e[1;32m\]'
   local FgBrYellow='\[\e[1;33m\]'
   local FgBrBlue='\[\e[1;34m\]'
+  local FgBrMagenta='\[\e[1;35m\]'
+  local FgBrCyan='\[\e[1;36m\]'
+  local FgBrWhite='\[\e[1;37m\]'
+
+  local BgBlack='\[\e[40m\]'
+  local BgRed='\[\e[41m\]'
+  local BgGreen='\[\e[42m\]'
+  local BgYellow='\[\e[43m\]'
+  local BgBlue='\[\e[44m\]'
+  local BgMagenta='\[\e[45m\]'
+  local BgCyan='\[\e[46m\]'
+  local BgWhite='\[\e[47m\]'
+
   local Clear='\[\e[0m\]'
+
   __prompt_restore_command_ret
   "$@"
 }
 
 __prompt_component_textonly() {
+  local FgBlack=
+  local FgRed=
+  local FgGreen=
+  local FgYellow=
+  local FgBlue=
+  local FgMagenta=
+  local FgCyan=
+  local FgWhite=
+
+  local FgBrBlack=
   local FgBrRed=
   local FgBrGreen=
   local FgBrYellow=
   local FgBrBlue=
+  local FgBrMagenta=
+  local FgBrCyan=
+  local FgBrWhite=
+
+  local BgBlack=
+  local BgRed=
+  local BgGreen=
+  local BgYellow=
+  local BgBlue=
+  local BgMagenta=
+  local BgCyan=
+  local BgWhite=
+
   local Clear=
+
   __prompt_restore_command_ret
   "$@"
 }
