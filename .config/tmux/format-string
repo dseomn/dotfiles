@@ -20,6 +20,8 @@ pecho() { printf '%s\n' "$*"; }
 
 case "$1" in
   title)
-    pecho "#{session_name}#{?session_many_attached,+,}:#{session_windows}[#{window_index}] | #{pane_title} | #{pane_current_command}"
+    session="#{session_name}#{?session_many_attached,+,}:#{session_windows}[#{window_index}]"
+    window="#{pane_title} | #{pane_current_command}"
+    pecho "${session} | ${window}"
     ;;
 esac
