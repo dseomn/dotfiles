@@ -18,7 +18,46 @@
 pecho() { printf '%s\n' "$*"; }
 
 
+# Prints a format that expands to "1 foo" or "N foos" as appropriate.
+count() {
+  case "$1" in
+    clients)
+      var=session_attached
+      singular=client
+      plural=clients
+      ;;
+
+    panes)
+      var=window_panes
+      singular=pane
+      plural=panes
+      ;;
+
+    windows)
+      var=session_windows
+      singular=window
+      plural=windows
+      ;;
+  esac
+
+  pecho "#{${var}} #{?#{==:#{${var}},1},${singular},${plural}}"
+}
+
+
 case "$1" in
+  choose-tree)
+    session="$(count windows)"
+    session="${session}#{?session_grouped, | group #{session_group},}"
+    session="${session}#{?session_attached, | $(count clients),}"
+
+    window="#{pane_title} | #{pane_current_command}"
+    window="${window}#{?#{==:#{window_panes},1},, | $(count panes)}"
+
+    pane="#{pane_title} | #{pane_current_command}"
+
+    pecho "#{?pane_format,${pane},#{?window_format,${window},${session}}}"
+    ;;
+
   title)
     session="#{session_name}#{?session_many_attached,+,}:#{session_windows}[#{window_index}]"
     window="#{pane_title} | #{pane_current_command}"
