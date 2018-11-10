@@ -34,7 +34,7 @@ dir_alias() {
 
   __da_dir="${__da_dir%/}"
 
-  eval "${__da_alias}=\"\${__da_dir}\""
+  eval "export ${__da_alias}=\"\${__da_dir}\""
 
   # Add the new alias, and sort the table to keep more-specific directories
   # before their less-specific parents. This makes dir_alias_shorten find the
