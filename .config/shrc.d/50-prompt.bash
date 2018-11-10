@@ -124,8 +124,23 @@ if [[ -f /usr/lib/git-core/git-sh-prompt ]]; then
 
   __prompt_post_yadm() {
     if [[ -d ~/.yadm/repo.git ]]; then
-      local GIT_PS1_SHOWUNTRACKEDFILES=
-      GIT_DIR=~/.yadm/repo.git __git_ps1 " (yadm: %s)"
+      # Use a subshell so we can export GIT_DIR without affecting this shell.
+      (
+        export GIT_DIR=~/.yadm/repo.git
+        # By default, most of $HOME are untracked files, so the presence of
+        # untracked files is not noteworthy.
+        GIT_PS1_SHOWUNTRACKEDFILES=
+        yadm_class="$(git config --get local.class)"
+        yadm_ps1="$(__git_ps1 " (yadm: %s)")"
+        if [[ -z "$yadm_class" ]] || [[ "$yadm_ps1" != " (yadm: ${yadm_class}=)" ]]; then
+          # YADM status is not per-directory, so there isn't a particularly
+          # good way to know when it's relevant. To compensate, hide the status
+          # when on the "correct" branch in a clean, up-to-date state. This
+          # assumes that branches correspond exactly to YADM's notion of a
+          # class, which is not standard, but I find it useful.
+          printf '%s' "$yadm_ps1"
+        fi
+      )
     fi
   }
 else
