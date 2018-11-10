@@ -63,7 +63,9 @@ __prompt_core() {
     dir_color="$FgBrCyan"
   fi
 
-  printf '%s' "${user_color}\\u@${Clear}${host_color}\\h${Clear}:${dir_color}\\w${Clear}"
+  local dir='$(dir_alias_shorten "$PWD")'
+
+  printf '%s' "${user_color}\\u@${Clear}${host_color}\\h${Clear}:${dir_color}${dir}${Clear}"
 }
 
 
