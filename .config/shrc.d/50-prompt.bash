@@ -13,6 +13,16 @@
 # limitations under the License.
 
 
+# Dependencies
+
+
+__prompt_have_git_ps1=
+if [[ -f /usr/lib/git-core/git-sh-prompt ]]; then
+  __prompt_have_git_ps1=yes
+  . /usr/lib/git-core/git-sh-prompt
+fi
+
+
 # Prompt Components
 #
 # Prompt component functions print text that will be included in the PS1
@@ -109,44 +119,45 @@ __prompt_pre_nesting() {
 }
 
 
-# __prompt_post_git for git repo status and __prompt_post_yadm for yadm
-# (https://thelocehiliosan.github.io/yadm/) repo status.
-if [[ -f /usr/lib/git-core/git-sh-prompt ]]; then
-  . /usr/lib/git-core/git-sh-prompt
-  GIT_PS1_SHOWDIRTYSTATE=yes
-  GIT_PS1_SHOWSTASHSTATE=yes
-  GIT_PS1_SHOWUNTRACKEDFILES=yes
-  GIT_PS1_SHOWUPSTREAM=auto
+# Show git status when in a git repo.
+__prompt_post_git() {
+  [[ -n "$__prompt_have_git_ps1" ]] || return
+  local GIT_PS1_SHOWDIRTYSTATE=yes
+  local GIT_PS1_SHOWSTASHSTATE=yes
+  local GIT_PS1_SHOWUNTRACKEDFILES=yes
+  local GIT_PS1_SHOWUPSTREAM=auto
+  __git_ps1 " (git: %s)"
+}
 
-  __prompt_post_git() {
-    __git_ps1 " (git: %s)"
-  }
 
-  __prompt_post_yadm() {
-    if [[ -d ~/.yadm/repo.git ]]; then
-      # Use a subshell so we can export GIT_DIR without affecting this shell.
-      (
-        export GIT_DIR=~/.yadm/repo.git
-        # By default, most of $HOME are untracked files, so the presence of
-        # untracked files is not noteworthy.
-        GIT_PS1_SHOWUNTRACKEDFILES=
-        yadm_class="$(git config --get local.class)"
-        yadm_ps1="$(__git_ps1 " (yadm: %s)")"
-        if [[ -z "$yadm_class" ]] || [[ "$yadm_ps1" != " (yadm: ${yadm_class}=)" ]]; then
-          # YADM status is not per-directory, so there isn't a particularly
-          # good way to know when it's relevant. To compensate, hide the status
-          # when on the "correct" branch in a clean, up-to-date state. This
-          # assumes that branches correspond exactly to YADM's notion of a
-          # class, which is not standard, but I find it useful.
-          printf '%s' "$yadm_ps1"
-        fi
-      )
+# Show YADM (https://thelocehiliosan.github.io/yadm/) status.
+#
+# YADM status is not per-directory, so there isn't a particularly good way to
+# know when it's relevant. To compensate, hide the status when on the "correct"
+# branch in a clean, up-to-date state. This assumes that branches correspond
+# exactly to YADM's notion of a class, which is not standard, but I find it
+# useful.
+__prompt_post_yadm() {
+  [[ -n "$__prompt_have_git_ps1" ]] || return
+  [[ -d ~/.yadm/repo.git ]] || return
+
+  # Use a subshell so we can export GIT_DIR without affecting this shell.
+  (
+    export GIT_DIR=~/.yadm/repo.git
+    GIT_PS1_SHOWDIRTYSTATE=yes
+    GIT_PS1_SHOWSTASHSTATE=yes
+    # By default, most of $HOME are untracked files, so the presence of
+    # untracked files is not noteworthy.
+    GIT_PS1_SHOWUNTRACKEDFILES=
+    GIT_PS1_SHOWUPSTREAM=auto
+
+    yadm_class="$(git config --get local.class)"
+    yadm_ps1="$(__git_ps1 " (yadm: %s)")"
+    if [[ -z "$yadm_class" ]] || [[ "$yadm_ps1" != " (yadm: ${yadm_class}=)" ]]; then
+      printf '%s' "$yadm_ps1"
     fi
-  }
-else
-  __prompt_post_git() { :; }
-  __prompt_post_yadm() { :; }
-fi
+  )
+}
 
 
 # Show counts of running and stopped jobs, and the return value of the previous
