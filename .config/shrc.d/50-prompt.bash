@@ -143,8 +143,13 @@ __prompt_post_yadm() {
   [[ -n "$__prompt_have_git_ps1" ]] || return
   [[ -d ~/.yadm/repo.git ]] || return
 
-  # Use a subshell so we can export GIT_DIR without affecting this shell.
+  # Use a subshell so we can cd and export variables without affecting this
+  # shell.
   (
+    # Dotfiles affect the general environment, not just paths under $HOME, so
+    # show the same status regardless of $PWD.
+    cd
+
     export GIT_DIR=~/.yadm/repo.git
     GIT_PS1_SHOWDIRTYSTATE=yes
     GIT_PS1_SHOWSTASHSTATE=yes
