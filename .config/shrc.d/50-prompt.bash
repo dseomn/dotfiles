@@ -146,9 +146,7 @@ __prompt_post_yadm() {
     export GIT_DIR=~/.yadm/repo.git
     GIT_PS1_SHOWDIRTYSTATE=yes
     GIT_PS1_SHOWSTASHSTATE=yes
-    # By default, most of $HOME are untracked files, so the presence of
-    # untracked files is not noteworthy.
-    GIT_PS1_SHOWUNTRACKEDFILES=
+    GIT_PS1_SHOWUNTRACKEDFILES=yes
     GIT_PS1_SHOWUPSTREAM=auto
 
     yadm_class="$(git config --get local.class)"
