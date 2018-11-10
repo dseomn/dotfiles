@@ -1,0 +1,16 @@
+*
+
+!/.config/
+!/.config/shrc.d/
+!/.config/shrc.d/**
+!/.config/tmux/
+!/.config/tmux/**
+!/.gitconfig.local
+!/.hgrc.local
+!/.inputrc.local
+!/.tmux.conf.local
+!/.vimrc.local
+!/.yadm/
+!/.yadm/**
+
+/.yadm/repo.git/
