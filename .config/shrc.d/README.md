@@ -9,3 +9,4 @@ File extensions determine which shell(s) each file supports.
  * 20: High-level utilities for use in other shrc files.
  * 40: Environment setup.
  * 50: Other features.
+ * 90: Messages to the user.
