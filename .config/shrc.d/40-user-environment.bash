@@ -13,6 +13,9 @@
 # limitations under the License.
 
 
+export PATH="$HOME/.local/bin:$PATH"
+
+
 # Set EDITOR.
 for editor_candidate in vim vi nano; do
   if command -v "$editor_candidate" > /dev/null; then
