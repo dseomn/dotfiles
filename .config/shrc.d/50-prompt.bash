@@ -52,11 +52,24 @@ __prompt_core() {
   fi
 
   local dir_color="$FgBrBlue"
-  if ! [[ -d "$PWD" ]] || ! [[ -x "$PWD" ]] || ! [[ . -ef "$PWD" ]]; then
+  local ls_error=
+  local ls_dot="$(ls -ld . 2> /dev/null)" || ls_error=yes
+  if
+      ! [[ -d "$PWD" ]] ||
+      ! [[ -x "$PWD" ]] ||
+      ! [[ . -ef "$PWD" ]] ||
+      [[ -n "$ls_error" ]]
+      then
     # We're in a directory that we couldn't cd into now. Maybe the directory
     # was deleted or moved, maybe its permissions changed, maybe something else
     # weird happened. Either way, make it hard to ignore.
     dir_color="${FgBrWhite}${BgRed}"
+  elif [[ "$ls_dot" = d???????w[tT]* ]]; then
+    dir_color="${FgBlack}${BgGreen}"
+  elif [[ "$ls_dot" = d???????w?* ]]; then
+    dir_color="${FgBrBlue}${BgGreen}"
+  elif [[ "$ls_dot" = d????????[tT]* ]]; then
+    dir_color="${FgBrWhite}${BgBlue}"
   elif ! [[ -r . ]]; then
     dir_color="$FgBrMagenta"
   elif ! [[ -w . ]]; then
