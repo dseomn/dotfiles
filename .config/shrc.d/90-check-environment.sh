@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Copyright 2018 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,21 +13,4 @@
 # limitations under the License.
 
 
-pecho() { printf '%s\n' "$*"; }
-fatal() { pecho "ERROR: $*" >&2; exit 1; }
-try() { "$@" || fatal "'$*' failed"; }
-
-
-# Unsets a local config option.
-yadm_unset_local() {
-  if yadm gitconfig --local --get "$1" > /dev/null; then
-    try yadm gitconfig --unset "$1"
-  fi
-}
-
-
-# Make yadm more like plain git.
-try yadm_unset_local status.showUntrackedFiles
-
-
-try ~/.local/bin/check-environment
+~/.local/bin/check-environment
