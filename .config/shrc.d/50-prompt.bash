@@ -48,41 +48,12 @@ __prompt_end() {
 }
 
 
-# Show counts of running and stopped jobs, and the return value of the previous
-# command.
-__prompt_post_status() {
-  local command_ret=$?
-
-  local ret_part=
-  if [[ "$command_ret" != 0 ]]; then
-    ret_part="${FgBrRed}${command_ret}${Clear}"
-  fi
-
-  local jobs_part=
-  local running_jobs=$(shrcutil_count_args $(jobs -rp))
-  local stopped_jobs=$(shrcutil_count_args $(jobs -sp))
-  if [[ "$running_jobs" != 0 ]] || [[ "$stopped_jobs" != 0 ]]; then
-    jobs_part="${FgBrGreen}${running_jobs}${Clear}+${FgBrYellow}${stopped_jobs}${Clear}"
-  fi
-
-  local divider=
-  if [[ -n "$ret_part" ]] && [[ -n "$jobs_part" ]]; then
-    divider='|'
-  fi
-
-  if [[ -n "$ret_part" ]] || [[ -n "$jobs_part" ]]; then
-    printf '%s' " [${jobs_part}${divider}${ret_part}]"
-  fi
-}
-
-
 # Set window titles. Note that this component uses other components to define
 # the contents of the title.
 __prompt_ctrl_title() {
   printf '%s' '\[\e]0;'
   local component
   for component in \
-      __prompt_post_status \
       ; do
     __prompt_component_textonly "$component"
   done
@@ -174,7 +145,6 @@ __prompt_set_ps1() {
   __prompt_save_command_ret
   PS1="$(
       for component in \
-          __prompt_post_status \
           __prompt_end \
           __prompt_ctrl_title \
           ; do
