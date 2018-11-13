@@ -43,48 +43,6 @@ fi
 # component functions can use.
 
 
-__prompt_core() {
-  local user_color="$FgBrGreen"
-  if [[ "$UID" = 0 ]]; then
-    user_color="$FgBrRed"
-  fi
-
-  local host_color="$FgBrGreen"
-  if [[ -n "$SSH_CONNECTION" ]]; then
-    host_color="$FgBrYellow"
-  fi
-
-  local dir_color="$FgBrBlue"
-  local ls_error=
-  local ls_dot="$(ls -ld . 2> /dev/null)" || ls_error=yes
-  if
-      ! [[ -d "$PWD" ]] ||
-      ! [[ -x "$PWD" ]] ||
-      ! [[ . -ef "$PWD" ]] ||
-      [[ -n "$ls_error" ]]
-      then
-    # We're in a directory that we couldn't cd into now. Maybe the directory
-    # was deleted or moved, maybe its permissions changed, maybe something else
-    # weird happened. Either way, make it hard to ignore.
-    dir_color="${FgBrWhite}${BgRed}"
-  elif [[ "$ls_dot" = d???????w[tT]* ]]; then
-    dir_color="${FgBlack}${BgGreen}"
-  elif [[ "$ls_dot" = d???????w?* ]]; then
-    dir_color="${FgBrBlue}${BgGreen}"
-  elif [[ "$ls_dot" = d????????[tT]* ]]; then
-    dir_color="${FgBrWhite}${BgBlue}"
-  elif ! [[ -r . ]]; then
-    dir_color="$FgBrMagenta"
-  elif ! [[ -w . ]]; then
-    dir_color="$FgBrCyan"
-  fi
-
-  local dir='$(dir_alias_shorten "$PWD")'
-
-  printf '%s' "${user_color}\\u@${Clear}${host_color}\\h${Clear}:${dir_color}${dir}${Clear}"
-}
-
-
 __prompt_end() {
   printf '%s' '\$ '
 }
@@ -168,7 +126,6 @@ __prompt_ctrl_title() {
   printf '%s' '\[\e]0;'
   local component
   for component in \
-      __prompt_core \
       __prompt_post_status \
       ; do
     __prompt_component_textonly "$component"
@@ -261,7 +218,6 @@ __prompt_set_ps1() {
   __prompt_save_command_ret
   PS1="$(
       for component in \
-          __prompt_core \
           __prompt_post_yadm \
           __prompt_post_git \
           __prompt_post_status \
