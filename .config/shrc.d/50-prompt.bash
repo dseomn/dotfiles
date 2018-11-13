@@ -43,11 +43,6 @@ fi
 # component functions can use.
 
 
-__prompt_end() {
-  printf '%s' '\$ '
-}
-
-
 # Set window titles. Note that this component uses other components to define
 # the contents of the title.
 __prompt_ctrl_title() {
@@ -145,7 +140,6 @@ __prompt_set_ps1() {
   __prompt_save_command_ret
   PS1="$(
       for component in \
-          __prompt_end \
           __prompt_ctrl_title \
           ; do
         __prompt_component_color "$component"
