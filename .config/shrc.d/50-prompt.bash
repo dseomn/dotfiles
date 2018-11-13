@@ -48,17 +48,6 @@ __prompt_end() {
 }
 
 
-# Show git status when in a git repo.
-__prompt_post_git() {
-  [[ -n "$__prompt_have_git_ps1" ]] || return
-  local GIT_PS1_SHOWDIRTYSTATE=yes
-  local GIT_PS1_SHOWSTASHSTATE=yes
-  local GIT_PS1_SHOWUNTRACKEDFILES=yes
-  local GIT_PS1_SHOWUPSTREAM=auto
-  __git_ps1 " (git: %s)"
-}
-
-
 # Show counts of running and stopped jobs, and the return value of the previous
 # command.
 __prompt_post_status() {
@@ -185,7 +174,6 @@ __prompt_set_ps1() {
   __prompt_save_command_ret
   PS1="$(
       for component in \
-          __prompt_post_git \
           __prompt_post_status \
           __prompt_end \
           __prompt_ctrl_title \
