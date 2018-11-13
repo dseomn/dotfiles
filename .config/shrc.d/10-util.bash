@@ -24,3 +24,17 @@ shrcutil_under_mux() {
   [[ -n "${TMUX+set}" ]] && return 0
   return 1
 }
+
+
+# Sources the given file if it hasn't been successfully sourced already.
+# Returns 0 if the file was successfully sourced (either this time or
+# previously); non-zero otherwise.
+shrcutil_source() {
+  local file="$1"
+  [[ -n "${__shrcutil_source_files["${file}"]}" ]] && return 0
+  [[ -f "$file" ]] || return 1
+  . "$file" || return $?
+  __shrcutil_source_files["${file}"]=yes
+  return 0
+}
+declare -A __shrcutil_source_files=()
