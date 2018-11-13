@@ -59,39 +59,6 @@ __prompt_post_git() {
 }
 
 
-# Show YADM (https://thelocehiliosan.github.io/yadm/) status.
-#
-# YADM status is not per-directory, so there isn't a particularly good way to
-# know when it's relevant. To compensate, hide the status when on the "correct"
-# branch in a clean, up-to-date state. This assumes that branches correspond
-# exactly to YADM's notion of a class, which is not standard, but I find it
-# useful.
-__prompt_post_yadm() {
-  [[ -n "$__prompt_have_git_ps1" ]] || return
-  [[ -d ~/.yadm/repo.git ]] || return
-
-  # Use a subshell so we can cd and export variables without affecting this
-  # shell.
-  (
-    # Dotfiles affect the general environment, not just paths under $HOME, so
-    # show the same status regardless of $PWD.
-    cd
-
-    export GIT_DIR=~/.yadm/repo.git
-    GIT_PS1_SHOWDIRTYSTATE=yes
-    GIT_PS1_SHOWSTASHSTATE=yes
-    GIT_PS1_SHOWUNTRACKEDFILES=yes
-    GIT_PS1_SHOWUPSTREAM=auto
-
-    yadm_class="$(git config --get local.class)"
-    yadm_ps1="$(__git_ps1 " (yadm: %s)")"
-    if [[ -z "$yadm_class" ]] || [[ "$yadm_ps1" != " (yadm: ${yadm_class}=)" ]]; then
-      printf '%s' "$yadm_ps1"
-    fi
-  )
-}
-
-
 # Show counts of running and stopped jobs, and the return value of the previous
 # command.
 __prompt_post_status() {
@@ -218,7 +185,6 @@ __prompt_set_ps1() {
   __prompt_save_command_ret
   PS1="$(
       for component in \
-          __prompt_post_yadm \
           __prompt_post_git \
           __prompt_post_status \
           __prompt_end \
