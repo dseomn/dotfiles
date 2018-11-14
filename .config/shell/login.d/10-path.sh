@@ -13,4 +13,20 @@
 # limitations under the License.
 
 
-export PATH="$HOME/.local/bin:$PATH"
+# Prepends the given directory to $PATH, only if the directory is not already
+# in $PATH.
+__prepend_path() {
+  case ":${PATH}:" in
+    *":${1}:"*)
+      ;;
+    *)
+      export PATH="${1}:${PATH}"
+      ;;
+  esac
+}
+
+
+__prepend_path ~/.local/bin
+
+
+unset -f __prepend_path
