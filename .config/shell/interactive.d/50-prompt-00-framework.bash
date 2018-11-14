@@ -97,8 +97,8 @@ prompt_append_raw() {
 
 
 # Start with no registered functions.
-declare -a __prompt_fns=()
-declare -A __prompt_fn_to_what=()
+declare -ga __prompt_fns=()
+declare -gA __prompt_fn_to_what=()
 
 
 # Set global flag to prevent prompt_append[_raw] from working outside of a

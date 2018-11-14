@@ -37,4 +37,4 @@ shrcutil_source() {
   __shrcutil_source_files["${file}"]=yes
   return 0
 }
-declare -A __shrcutil_source_files=()
+declare -gA __shrcutil_source_files=()

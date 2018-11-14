@@ -13,13 +13,10 @@
 # limitations under the License.
 
 
-if [[ -n "${SSH_CONNECTION+set}" ]] && [[ "$SHLVL" = 1 ]]; then
-  # Normally, ~/.profile is sourced for login shells, but bash sources
-  # ~/.bashrc instead when invoked over the network. See
-  # https://www.gnu.org/software/bash/manual/bash.html#Bash-Startup-Files
-  . ~/.config/shell/login.sh
-fi
+. ~/.config/shell/login.sh
 
-if [[ "$-" = *i* ]]; then
-  . ~/.config/shell/interactive.sh
-fi
+case "$-" in
+  *i*)
+    . ~/.config/shell/interactive.sh
+    ;;
+esac

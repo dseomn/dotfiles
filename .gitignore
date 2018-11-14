@@ -1,8 +1,8 @@
 *
 
 !/.config/
-!/.config/shrc.d/
-!/.config/shrc.d/**
+!/.config/shell/
+!/.config/shell/**
 !/.config/tmux/
 !/.config/tmux/**
 !/.gitconfig.local
