@@ -26,16 +26,19 @@ shrcutil_source /usr/lib/git-core/git-sh-prompt || return
 __prompt_part_yadm() {
   [[ -d ~/.yadm/repo.git ]] || return
 
-  local yadm_class="$(git config -f ~/.yadm/repo.git/config --get local.class)"
+  # Dotfiles affect the general environment, not just paths under $HOME, so the
+  # `cd` commands below are to show the same status regardless of $PWD. Most of
+  # this function's work is executed in subshells, so we can cd and change the
+  # environment without affecting the main shell.
+
+  local yadm_class="$(
+    cd
+    export GIT_DIR=~/.yadm/repo.git
+    git config --get local.class
+  )"
 
   local yadm_ps1="$(
-    # This is executed in a subshell, so we can cd and change the environment
-    # without affecting the main shell.
-
-    # Dotfiles affect the general environment, not just paths under $HOME, so
-    # show the same status regardless of $PWD.
     cd
-
     export GIT_DIR=~/.yadm/repo.git
     GIT_PS1_SHOWDIRTYSTATE=yes
     GIT_PS1_SHOWSTASHSTATE=yes
