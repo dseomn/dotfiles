@@ -10,5 +10,7 @@
 [rebase]
 	autoSquash = true
 	missingCommitsCheck = error
+[transfer]
+	fsckObjects = true
 [include]
 	path = .gitconfig.local
