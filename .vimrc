@@ -67,6 +67,9 @@ set ttimeoutlen=-1
 set laststatus=2
 set showcmd
 
+" Set filetype based on path.
+au BufNewFile,BufRead ~/.config/tmux/conf.d/*.conf setf tmux
+
 " Disable modelines, to minimize security risks of editing untrusted files.
 set nomodeline
 
