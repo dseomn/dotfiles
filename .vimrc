@@ -67,6 +67,9 @@ set ttimeoutlen=-1
 set laststatus=2
 set showcmd
 
+" Disable modelines, to minimize security risks of editing untrusted files.
+set nomodeline
+
 " Process local overrides.
 if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local
