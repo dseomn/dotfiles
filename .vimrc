@@ -40,8 +40,8 @@ xmap <expr> <ESC>[200~ ""
 xmap <expr> <ESC>[201~ ""
 omap <expr> <ESC>[200~ ""
 omap <expr> <ESC>[201~ ""
-imap <ESC>[200~ <C-O>:set paste<CR>
-imap <ESC>[201~ <C-O>:set nopaste<CR>
+imap <ESC>[200~ <C-\><C-O>:set paste<CR>
+imap <ESC>[201~ <C-\><C-O>:set nopaste<CR>
 cmap <expr> <ESC>[200~ ""
 cmap <expr> <ESC>[201~ ""
 set pastetoggle=<ESC>[201~
