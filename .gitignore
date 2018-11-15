@@ -8,7 +8,6 @@
 !/.gitconfig.local
 !/.hgrc.local
 !/.inputrc.local
-!/.tmux.conf.local
 !/.vimrc.local
 !/.yadm/
 !/.yadm/**

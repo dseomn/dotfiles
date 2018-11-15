@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # Copyright 2018 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,6 +15,14 @@
 # limitations under the License.
 
 
-# Disable Ctrl-S/Ctrl-Q flow control. See also
-# ~/.config/tmux/conf.d/50-prefix.conf, which re-purposes Ctrl-S.
-stty -ixon
+for file in ~/.config/tmux/conf.d/*; do
+  case "$file" in
+    *.conf)
+      tmux source "$file" || exit 1
+      ;;
+    *)
+      [ -x "$file" ] || continue
+      "$file" || exit 1
+      ;;
+  esac
+done

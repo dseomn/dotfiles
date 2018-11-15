@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # Copyright 2018 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,6 +15,8 @@
 # limitations under the License.
 
 
-# Disable Ctrl-S/Ctrl-Q flow control. See also
-# ~/.config/tmux/conf.d/50-prefix.conf, which re-purposes Ctrl-S.
-stty -ixon
+tmux set -g set-titles on
+
+session_fmt="#{session_name}#{?session_many_attached,+,}:#{session_windows}[#{window_index}]"
+window_fmt="#{pane_title} | #{pane_current_command}"
+tmux set -g set-titles-string "${session_fmt} | ${window_fmt}"

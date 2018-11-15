@@ -44,23 +44,17 @@ count() {
 }
 
 
-case "$1" in
-  choose-tree)
-    session="$(count windows)"
-    session="${session}#{?session_grouped, | group #{session_group},}"
-    session="${session}#{?session_attached, | $(count clients),}"
+session_fmt="$(count windows)"
+session_fmt="${session_fmt}#{?session_grouped, | group #{session_group},}"
+session_fmt="${session_fmt}#{?session_attached, | $(count clients),}"
 
-    window="#{pane_title} | #{pane_current_command}"
-    window="${window}#{?#{==:#{window_panes},1},, | $(count panes)}"
+window_fmt="#{pane_title} | #{pane_current_command}"
+window_fmt="${window_fmt}#{?#{==:#{window_panes},1},, | $(count panes)}"
 
-    pane="#{pane_title} | #{pane_current_command}"
+pane_fmt="#{pane_title} | #{pane_current_command}"
 
-    pecho "#{?pane_format,${pane},#{?window_format,${window},${session}}}"
-    ;;
+choose_tree_fmt="#{?pane_format,${pane_fmt},#{?window_format,${window_fmt},${session_fmt}}}"
 
-  title)
-    session="#{session_name}#{?session_many_attached,+,}:#{session_windows}[#{window_index}]"
-    window="#{pane_title} | #{pane_current_command}"
-    pecho "${session} | ${window}"
-    ;;
-esac
+# TODO: Add -Z option after my min tmux version is >= 2.7.
+tmux bind s choose-tree -s -F "${choose_tree_fmt}"
+tmux bind w choose-tree -w -F "${choose_tree_fmt}"
