@@ -15,14 +15,33 @@
 # limitations under the License.
 
 
-for file in ~/.config/tmux/conf.d/*; do
-  case "$file" in
-    *.conf)
-      tmux source "$file" || exit 1
-      ;;
-    *)
-      [ -x "$file" ] || continue
-      "$file" || exit 1
-      ;;
-  esac
-done
+pecho() { printf '%s\n' "$*"; }
+log_on_failure() { "$@" || pecho "Command returned $?: $*"; }
+
+
+# Configures tmux.
+configure() {
+  for file in ~/.config/tmux/conf.d/*; do
+    case "$file" in
+      *.conf)
+        log_on_failure tmux source "$file"
+        ;;
+      *)
+        [ -x "$file" ] || continue
+        log_on_failure "$file"
+        ;;
+    esac
+  done
+}
+
+# This is a hack to show the output and return value, which would otherwise be
+# ignored.
+config_output="$(
+    configure 2>&1 || printf '%s\n' "'configure' returned $?"
+)"
+if [ -n "$config_output" ]; then
+  # Use a buffer to avoid the output being interpreted by the shell that `tmux
+  # run` spawns.
+  tmux set-buffer -b config-output "$config_output"
+  tmux run -b 'printf %s\\n "$(tmux show-buffer -b config-output)"'
+fi
