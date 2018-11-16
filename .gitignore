@@ -8,10 +8,12 @@
 !/.gitconfig.local
 !/.hgrc.local
 !/.inputrc.local
-!/.vimrc.local
+!/.vim/
+!/.vim/**
 !/.yadm/
 !/.yadm/**
 
 /.yadm/repo.git/
+/.vim/.netrwhist
 
 .*.swp

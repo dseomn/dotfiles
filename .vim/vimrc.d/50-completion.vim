@@ -13,6 +13,9 @@
 " limitations under the License.
 
 
-for s:vimrc in glob("~/.vim/vimrc.d/*.vim", v:false, v:true)
-  exe "source" fnameescape(s:vimrc)
-endfor
+set completeopt=menu,preview,longest
+
+
+" Add easier-to-remember mappings for using the pop-up menu.
+inoremap <expr> <CR> pumvisible() ? "<C-Y>" : "<CR>"
+inoremap <expr> <ESC> pumvisible() ? "<C-E>" : "<ESC>"

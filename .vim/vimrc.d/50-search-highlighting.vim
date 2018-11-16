@@ -13,6 +13,8 @@
 " limitations under the License.
 
 
-for s:vimrc in glob("~/.vim/vimrc.d/*.vim", v:false, v:true)
-  exe "source" fnameescape(s:vimrc)
-endfor
+set hlsearch
+
+
+" Map <C-L> to stop highlighting the most recent search.
+nnoremap <C-L> :nohlsearch<CR><C-L>

@@ -13,6 +13,5 @@
 " limitations under the License.
 
 
-for s:vimrc in glob("~/.vim/vimrc.d/*.vim", v:false, v:true)
-  exe "source" fnameescape(s:vimrc)
-endfor
+" Don't try to set options based on input from potentially untrusted files.
+set nomodeline

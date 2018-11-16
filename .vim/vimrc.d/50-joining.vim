@@ -13,6 +13,6 @@
 " limitations under the License.
 
 
-for s:vimrc in glob("~/.vim/vimrc.d/*.vim", v:false, v:true)
-  exe "source" fnameescape(s:vimrc)
-endfor
+" When joining lines, use single spaces instead of double spaces between
+" sentences.
+set nojoinspaces

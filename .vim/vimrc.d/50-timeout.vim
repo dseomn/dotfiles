@@ -13,6 +13,9 @@
 " limitations under the License.
 
 
-for s:vimrc in glob("~/.vim/vimrc.d/*.vim", v:false, v:true)
-  exe "source" fnameescape(s:vimrc)
-endfor
+" Timeout quickly when waiting to see whether another mapping or key character
+" is coming. So far everything I'm mapping is either machine entered (e.g.,
+" bracketed paste control codes) or a single keystroke.
+set timeout
+set timeoutlen=100
+set ttimeoutlen=-1
