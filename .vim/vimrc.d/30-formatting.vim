@@ -17,6 +17,10 @@
 set autoindent
 set copyindent
 set preserveindent
+set tabstop=8
+set shiftwidth=2
+set softtabstop=-1
+set expandtab
 
 
 " Enable per-filetype indentation.
