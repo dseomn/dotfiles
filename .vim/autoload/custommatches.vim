@@ -15,10 +15,10 @@
 
 " Adds multiple patterns to the given group.
 function custommatches#AddPatterns(group, ...)
-  if index(keys(s:matches_configured), a:group) < 0
-    let s:matches_configured[a:group] = copy(a:000)
-  else
+  if has_key(s:matches_configured, a:group)
     let s:matches_configured[a:group] += a:000
+  else
+    let s:matches_configured[a:group] = copy(a:000)
   endif
   call uniq(sort(s:matches_configured[a:group]))
 endfunction
@@ -26,7 +26,7 @@ endfunction
 
 " Removes multiple patterns from the given group.
 function custommatches#DelPatterns(group, ...)
-  if index(keys(s:matches_configured), a:group) < 0
+  if !has_key(s:matches_configured, a:group)
     return
   endif
   for pattern in a:000
@@ -49,7 +49,7 @@ endfunction
 " Adds all configured patterns to the current window.
 function s:AddMatches()
   let winid = string(win_getid())
-  if index(keys(s:matches_added), winid) < 0
+  if !has_key(s:matches_added, winid)
     let s:matches_added[winid] = []
   endif
   for [group, patterns] in items(s:matches_configured)
@@ -63,7 +63,7 @@ endfunction
 " Deletes all matches added by this script from the current window.
 function s:DeleteMatches()
   let winid = string(win_getid())
-  if index(keys(s:matches_added), winid) < 0
+  if !has_key(s:matches_added, winid)
     return
   endif
   for match_id in s:matches_added[winid]
