@@ -14,6 +14,4 @@
 !/.yadm/**
 
 /.yadm/repo.git/
-/.vim/.netrwhist
-
-.*.swp
+/.vim/state/
