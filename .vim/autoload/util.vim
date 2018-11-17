@@ -13,9 +13,8 @@
 " limitations under the License.
 
 
-set autoindent
-set copyindent
-set preserveindent
-
-
-filetype indent on
+" Returns a pattern that matches any of the given patterns. This works with
+" magic, nomagic, and very nomagic patterns.
+function util#JoinPatterns(...)
+  return '\(' . join(a:000, '\|') . '\)'
+endfunction
