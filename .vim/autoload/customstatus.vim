@@ -67,7 +67,7 @@ function customstatus#StatusLine(winid)
   call add(l:parts, '%{customstatus#QuickFixInfo()}')
 
   " Spacer.
-  call add(l:parts, l:hl_mid . '%=' . l:hl_right)
+  call add(l:parts, l:hl_mid . '    %=    ' . l:hl_right)
 
   " "(n of m)" marker when editing multiple files.
   call add(l:parts, '%(%a    %)')
