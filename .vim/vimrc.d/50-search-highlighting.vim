@@ -18,3 +18,5 @@ set hlsearch
 
 " Map <C-L> to stop highlighting the most recent search.
 nnoremap <C-L> :nohlsearch<CR><C-L>
+vnoremap <C-L> :<C-U>nohlsearch<CR><C-L>gv
+inoremap <C-L> <C-\><C-O>:nohlsearch<CR><C-\><C-O>:redraw<CR>
