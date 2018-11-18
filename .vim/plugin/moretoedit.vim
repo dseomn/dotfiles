@@ -28,7 +28,7 @@ let g:loaded_moretoedit = v:true
 " get the argument list with ID arglistid(winid)
 function MoreToEdit(...)
   for l:file in argv()
-    if !has_key(s:visited, l:file)
+    if !has_key(s:visited, fnamemodify(l:file, ':p'))
       return v:true
     endif
   endfor
@@ -42,5 +42,5 @@ let s:visited = {}
 
 augroup moretoedit
   au!
-  au BufWinEnter * let s:visited[expand('%')] = v:true
+  au BufWinEnter * let s:visited[expand('%:p')] = v:true
 augroup END
