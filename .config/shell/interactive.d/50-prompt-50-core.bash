@@ -13,6 +13,9 @@
 # limitations under the License.
 
 
+shrcutil_source ~/.local/lib/dir-alias/dir-alias.sh
+
+
 # Relatively standard "user@host:directory", but fancier.
 __prompt_part_core() {
   local user_color="$FgBrGreen"

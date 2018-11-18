@@ -25,12 +25,13 @@
 #
 #     cd /path/to/foo
 #
+# In general, this function should be used only by files in
+# ~/.config/dir-alias/conf.d/ (see dir_alias_init below).
+#
 # WARNING: This does not support directory names that contain whitespace.
 dir_alias() {
-  # Use internal variable names even with `local` to avoid conflicts with the
-  # alias name.
-  local __da_alias="$1"
-  local __da_dir="$2"
+  __da_alias="$1"
+  __da_dir="$2"
 
   __da_dir="${__da_dir%/}"
 
@@ -43,6 +44,9 @@ dir_alias() {
       printf '$%s %s\n%s' "${__da_alias}" "${__da_dir}" "${__dir_alias_table}" |
           sort -rk 2
   )"
+
+  unset __da_alias
+  unset __da_dir
 }
 
 
@@ -55,14 +59,14 @@ dir_alias() {
 #
 #     $foo/bar
 dir_alias_shorten() {
-  local dir="$1"
+  __da_dir="$1"
 
-  local alias candidate
-  while read -r alias candidate; do
-    [[ -n "$alias" ]] || continue  # Ignore blank lines.
-    case "$dir" in
-      "${candidate}"|"${candidate}"/*)
-        printf '%s' "${alias}${dir#${candidate}}"
+  while read -r __da_alias __da_candidate; do
+    [ -n "$__da_alias" ] || continue  # Ignore blank lines.
+    case "$__da_dir" in
+      "${__da_candidate}"|"${__da_candidate}"/*)
+        printf '%s' "${__da_alias}${__da_dir#${__da_candidate}}"
+        unset __da_dir __da_alias __da_candidate
         return
         ;;
     esac
@@ -72,8 +76,25 @@ ${__dir_alias_table}
 EOF
 
   # No match was found, print the original.
-  printf '%s' "$dir"
+  printf '%s' "$__da_dir"
+  unset __da_dir __da_alias __da_candidate
 }
 
 
-__dir_alias_table=
+# Get the user's configured aliases. By default, this is a no-op if called more
+# than once, but passing --force will re-read the configs. It's also called
+# below, so it generally doesn't need to be called manually.
+dir_alias_init() {
+  if [ -n "$__dir_alias_init" ] && [ "$1" != "--force" ]; then
+    return
+  fi
+  __dir_alias_init=yes
+  __dir_alias_table=
+  for __da_conf_file in ~/.config/dir-alias/conf.d/*.sh; do
+    [ -f "$__da_conf_file" ] || continue
+    . "$__da_conf_file"
+  done
+  unset __da_conf_file
+}
+
+dir_alias_init

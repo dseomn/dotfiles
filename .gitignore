@@ -1,6 +1,8 @@
 *
 
 !/.config/
+!/.config/dir-alias/
+!/.config/dir-alias/**
 !/.config/shell/
 !/.config/shell/**
 !/.config/tmux/
@@ -8,6 +10,10 @@
 !/.gitconfig.local
 !/.hgrc.local
 !/.inputrc.local
+!/.local/
+!/.local/lib/
+!/.local/lib/dir-alias/
+!/.local/lib/dir-alias/**
 !/.vim/
 !/.vim/**
 !/.yadm/
