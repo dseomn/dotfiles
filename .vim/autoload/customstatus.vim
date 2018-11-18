@@ -100,15 +100,28 @@ endfunction
 
 
 function customstatus#FileType()
-  if empty(&filetype) | return '' | endif
-
   " Quickfix windows can be distinguished by their pseudo file names.
   if &filetype == "qf" | return '' | endif
 
   " The %h/%H flag already marks help files.
   if &filetype == 'help' | return '' | endif
 
-  return ' [' . &filetype . ']'
+  if &filetype == 'tar' && exists('b:zipfile')
+    " Show 'zip' for .zip files instead of 'tar'.
+    let l:ft = 'zip'
+  else
+    let l:ft = &filetype
+  endif
+
+  if exists('b:uncompressOk') && b:uncompressOk
+    let l:ft .= '*'
+  elseif exists('b:tarfile') && &filetype != 'tar'
+    let l:ft .= '*'
+  elseif expand('%:p') =~ '^zipfile:'
+    let l:ft .= '*'
+  endif
+
+  return empty(l:ft) ? '' : ' [' . l:ft . ']'
 endfunction
 
 
