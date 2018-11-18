@@ -134,22 +134,42 @@ function customstatus#FileType()
   " The %h/%H flag already marks help files.
   if &filetype == 'help' | return '' | endif
 
+  let l:parts = []
+
   if &filetype == 'tar' && exists('b:zipfile')
     " Show 'zip' for .zip files instead of 'tar'.
-    let l:ft = 'zip'
+    call add(l:parts, 'zip')
+  elseif empty(&filetype)
+    call add(l:parts, 'unkown')
   else
-    let l:ft = &filetype
+    call add(l:parts, &filetype)
+  endif
+
+  if !empty(&fileencoding) && &fileencoding != 'utf-8'
+    call add(l:parts, &fileencoding)
+  endif
+
+  if &fileformat != 'unix'
+    call add(l:parts, &fileformat)
+  endif
+
+  if !&endofline
+    call add(l:parts, 'noeol')
   endif
 
   if exists('b:uncompressOk') && b:uncompressOk
-    let l:ft .= '*'
+    call add(l:parts, 'compressed')
   elseif exists('b:tarfile') && &filetype != 'tar'
-    let l:ft .= '*'
+    call add(l:parts, 'tar')
   elseif expand('%:p') =~ '^zipfile:'
-    let l:ft .= '*'
+    call add(l:parts, 'zip')
   endif
 
-  return empty(l:ft) ? '' : ' [' . l:ft . ']'
+  if empty(l:parts)
+    return ''
+  else
+    return ' [' . join(l:parts, ',') . ']'
+  endif
 endfunction
 
 
