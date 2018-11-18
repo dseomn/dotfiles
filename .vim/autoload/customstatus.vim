@@ -13,8 +13,38 @@
 " limitations under the License.
 
 
-function customstatus#StatusLine()
+" Start using the status lines in this file.
+function customstatus#Init()
+  " Set the global statusline so that any window without a local statusline
+  " will call InitWindow(). InitWindow() then changes the local statusline.
+  set statusline=%{customstatus#InitWindow()}
+
+  hi statusInactiveModified cterm=reverse ctermfg=DarkYellow
+  hi statusInactive cterm=reverse
+  hi statusActiveNormal cterm=bold,reverse ctermfg=DarkBlue
+  hi statusActiveVisual cterm=bold,reverse ctermfg=DarkMagenta
+  hi statusActiveInsert cterm=bold,reverse ctermfg=DarkGreen
+  hi statusActive cterm=bold,reverse
+endfunction
+
+
+" Stop using the status lines in this file.
+function customstatus#Clear()
+  set statusline=
+  tabdo windo setlocal statusline<
+endfunction
+
+
+" Initialize the current window.
+function customstatus#InitWindow()
+  let &l:statusline = '%!customstatus#StatusLine(' . string(win_getid()) . ')'
+endfunction
+
+
+function customstatus#StatusLine(winid)
   let l:parts = []
+
+  call add(l:parts, customstatus#GetHighlight(a:winid))
 
   " Filename, left-truncated if needed.
   call add(l:parts, '%<%F')
@@ -39,6 +69,31 @@ function customstatus#StatusLine()
   call add(l:parts, '%-14.(%l,%c%V%) %P')
 
   return join(l:parts, '')
+endfunction
+
+
+function customstatus#GetHighlight(winid)
+  let l:wininfo = getwininfo(a:winid)[0]
+  let l:Get = function('gettabwinvar', [l:wininfo.tabnr, l:wininfo.winnr])
+
+  if a:winid != win_getid()
+    if l:Get('&modified') && winbufnr(a:winid) != winbufnr(win_getid())
+      return '%#statusInactiveModified#'
+    else
+      return '%#statusInactive#'
+    endif
+  endif
+
+  let l:mode = mode()
+  if l:mode == 'n'
+    return '%#statusActiveNormal#'
+  elseif stridx("vV\<C-V>sS\<C-S>", l:mode) >= 0
+    return '%#statusActiveVisual#'
+  elseif stridx("iR", l:mode) >= 0
+    return '%#statusActiveInsert#'
+  else
+    return '%#statusActive#'
+  endif
 endfunction
 
 

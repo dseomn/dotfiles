@@ -15,7 +15,7 @@
 
 " Always show the status line, and customize it.
 set laststatus=2
-set statusline=%!customstatus#StatusLine()
+call customstatus#Init()
 
 
 set showcmd
