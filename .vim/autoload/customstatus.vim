@@ -48,6 +48,7 @@ endfunction
 
 
 function customstatus#StatusLine(winid)
+  call customstatus#SetFillChars()
   let [l:hl_left, l:hl_mid, l:hl_right] = customstatus#GetHighlights(a:winid)
 
   let l:parts = [l:hl_left]
@@ -76,6 +77,28 @@ function customstatus#StatusLine(winid)
 
   return join(l:parts, '')
 endfunction
+
+
+function customstatus#SetFillChars()
+  if !empty(s:current_stl_fill)
+    exe 'set fillchars-=stl:' . s:current_stl_fill
+  endif
+
+  if &paste
+    let s:current_stl_fill = '~'
+  else
+    let s:current_stl_fill = ''
+  endif
+
+  if !empty(s:current_stl_fill)
+    exe 'set fillchars+=stl:' . s:current_stl_fill
+  endif
+endfunction
+
+
+" Last character used by this script to fill the statusline of the current
+" window.
+let s:current_stl_fill = ''
 
 
 function customstatus#GetHighlights(winid)
