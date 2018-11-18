@@ -27,7 +27,9 @@ function customstatus#Init()
   hi statusNotCurrent cterm=reverse
   hi statusCurrentNormal cterm=reverse ctermfg=DarkBlue
   hi statusCurrentVisual cterm=reverse ctermfg=DarkMagenta
+  hi statusCurrentSelect cterm=reverse ctermfg=DarkRed
   hi statusCurrentInsert cterm=reverse ctermfg=DarkGreen
+  hi statusCurrentReplace cterm=reverse ctermfg=DarkYellow
   hi statusCurrent cterm=reverse
 endfunction
 
@@ -100,10 +102,14 @@ function customstatus#GetHighlights(winid)
     let l:hl_mid = '%#statusNotCurrent#'
   elseif l:mode == 'n'
     let l:hl_mid = '%#statusCurrentNormal#'
-  elseif stridx("vV\<C-V>sS\<C-S>", l:mode) >= 0
+  elseif stridx("vV\<C-V>", l:mode) >= 0
     let l:hl_mid = '%#statusCurrentVisual#'
-  elseif stridx("iR", l:mode) >= 0
+  elseif stridx("sS\<C-S>", l:mode) >= 0
+    let l:hl_mid = '%#statusCurrentSelect#'
+  elseif l:mode == 'i'
     let l:hl_mid = '%#statusCurrentInsert#'
+  elseif l:mode == 'R'
+    let l:hl_mid = '%#statusCurrentReplace#'
   else
     let l:hl_mid = '%#statusCurrent#'
   endif
