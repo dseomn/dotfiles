@@ -13,9 +13,6 @@
 " limitations under the License.
 
 
-" Always show the status line, and customize it.
-set laststatus=2
-set statusline=%!customstatus#StatusLine()
-
-
-set showcmd
+" The default plugin for vim quickfix windows changes the statusline options.
+" Disable that.
+let b:did_ftplugin = v:true
