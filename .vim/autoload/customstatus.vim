@@ -73,11 +73,13 @@ endfunction
 
 
 function customstatus#GetHighlight(winid)
-  let l:wininfo = getwininfo(a:winid)[0]
-  let l:Get = function('gettabwinvar', [l:wininfo.tabnr, l:wininfo.winnr])
+  let l:bufnr = winbufnr(a:winid)
+  let l:buf_is_current = (l:bufnr == winbufnr(win_getid()))
+  let l:win_is_current = (a:winid == win_getid())
+  let l:GetB = function('getbufvar', [l:bufnr])
 
-  if a:winid != win_getid()
-    if l:Get('&modified') && winbufnr(a:winid) != winbufnr(win_getid())
+  if !l:win_is_current
+    if l:GetB('&modified', v:false) && !l:buf_is_current
       return '%#statusInactiveModified#'
     else
       return '%#statusInactive#'
