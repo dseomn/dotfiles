@@ -19,12 +19,16 @@ function customstatus#Init()
   " will call InitWindow(). InitWindow() then changes the local statusline.
   set statusline=%{customstatus#InitWindow()}
 
-  hi statusInactiveModified cterm=reverse ctermfg=DarkYellow
-  hi statusInactive cterm=reverse
-  hi statusActiveNormal cterm=bold,reverse ctermfg=DarkBlue
-  hi statusActiveVisual cterm=bold,reverse ctermfg=DarkMagenta
-  hi statusActiveInsert cterm=bold,reverse ctermfg=DarkGreen
-  hi statusActive cterm=bold,reverse
+  hi statusUnmodified cterm=reverse
+  hi statusUnmodifiedRo cterm=reverse
+  hi statusModified cterm=reverse ctermfg=DarkYellow
+  hi statusModifiedRo cterm=reverse ctermfg=DarkRed
+  hi statusMoreToEdit cterm=reverse ctermfg=DarkYellow
+  hi statusNotCurrent cterm=reverse
+  hi statusCurrentNormal cterm=reverse ctermfg=DarkBlue
+  hi statusCurrentVisual cterm=reverse ctermfg=DarkMagenta
+  hi statusCurrentInsert cterm=reverse ctermfg=DarkGreen
+  hi statusCurrent cterm=reverse
 endfunction
 
 
@@ -42,9 +46,9 @@ endfunction
 
 
 function customstatus#StatusLine(winid)
-  let l:parts = []
+  let [l:hl_left, l:hl_mid, l:hl_right] = customstatus#GetHighlights(a:winid)
 
-  call add(l:parts, customstatus#GetHighlight(a:winid))
+  let l:parts = [l:hl_left]
 
   " Filename, left-truncated if needed.
   call add(l:parts, '%<%F')
@@ -60,7 +64,7 @@ function customstatus#StatusLine(winid)
   call add(l:parts, '%{customstatus#QuickFixInfo()}')
 
   " Spacer.
-  call add(l:parts, '%=')
+  call add(l:parts, l:hl_mid . '%=' . l:hl_right)
 
   " "(n of m)" marker when editing multiple files.
   call add(l:parts, '%(%a    %)')
@@ -72,30 +76,48 @@ function customstatus#StatusLine(winid)
 endfunction
 
 
-function customstatus#GetHighlight(winid)
+function customstatus#GetHighlights(winid)
   let l:bufnr = winbufnr(a:winid)
   let l:buf_is_current = (l:bufnr == winbufnr(win_getid()))
   let l:win_is_current = (a:winid == win_getid())
   let l:GetB = function('getbufvar', [l:bufnr])
 
-  if !l:win_is_current
-    if l:GetB('&modified', v:false) && !l:buf_is_current
-      return '%#statusInactiveModified#'
-    else
-      return '%#statusInactive#'
-    endif
+  let l:modified = l:GetB('&modified', v:false)
+  let l:readonly = l:GetB('&readonly', v:false)
+  let l:hl_modified = l:readonly ? '%#statusModifiedRo#' : '%#statusModified#'
+  let l:hl_unmodified =
+      \ l:readonly ? '%#statusUnmodifiedRo#' : '%#statusUnmodified#'
+  if l:win_is_current && l:modified
+    let l:hl_left = l:hl_modified
+  elseif !l:win_is_current && l:modified && !l:buf_is_current
+    let l:hl_left = l:hl_modified
+  else
+    let l:hl_left = l:hl_unmodified
   endif
 
   let l:mode = mode()
-  if l:mode == 'n'
-    return '%#statusActiveNormal#'
+  if !l:win_is_current
+    let l:hl_mid = '%#statusNotCurrent#'
+  elseif l:mode == 'n'
+    let l:hl_mid = '%#statusCurrentNormal#'
   elseif stridx("vV\<C-V>sS\<C-S>", l:mode) >= 0
-    return '%#statusActiveVisual#'
+    let l:hl_mid = '%#statusCurrentVisual#'
   elseif stridx("iR", l:mode) >= 0
-    return '%#statusActiveInsert#'
+    let l:hl_mid = '%#statusCurrentInsert#'
   else
-    return '%#statusActive#'
+    let l:hl_mid = '%#statusCurrent#'
   endif
+
+  let l:more_to_edit = MoreToEdit(a:winid)
+  if l:more_to_edit
+    let l:hl_right = '%#statusMoreToEdit#'
+  elseif l:win_is_current
+    let l:hl_right = '%#statusCurrent#'
+  else
+    let l:hl_right = '%#statusNotCurrent#'
+  endif
+
+  return [l:hl_left, l:hl_mid, l:hl_right]
 endfunction
 
 
