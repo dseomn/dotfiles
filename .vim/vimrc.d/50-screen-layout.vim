@@ -19,3 +19,7 @@ set statusline=%!customstatus#StatusLine()
 
 
 set showcmd
+
+
+" Highlight the first column after textwidth.
+set colorcolumn=+1
