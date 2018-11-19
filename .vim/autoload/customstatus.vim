@@ -54,7 +54,7 @@ function customstatus#StatusLine(winid)
   let l:parts = [l:hl_left]
 
   " Filename, left-truncated if needed.
-  call add(l:parts, '%<%F')
+  call add(l:parts, '%<%{customstatus#FileName()}')
 
   " File status.
   call add(l:parts, '%( [%R%M]%)')
@@ -147,6 +147,23 @@ function customstatus#GetHighlights(winid)
   endif
 
   return [l:hl_left, l:hl_mid, l:hl_right]
+endfunction
+
+
+function customstatus#FileName()
+  let l:winid = win_getid()
+  let l:filename = expand('%:p')
+  if empty(l:filename)
+    if getqflist({'winid': 0}).winid == l:winid
+      return '[Quickfix List]'
+    elseif getloclist(l:winid, {'winid': 0}).winid == l:winid
+      return '[Location List]'
+    else
+      return '[No Name]'
+    endif
+  else
+    return diralias#ShortenFilename(l:filename)
+  endif
 endfunction
 
 
