@@ -23,3 +23,7 @@ set showcmd
 
 " Highlight the first column after textwidth.
 set colorcolumn=+1
+
+
+" Open new vertical splits to the right.
+set splitright
