@@ -25,5 +25,7 @@ set showcmd
 set colorcolumn=+1
 
 
-" Open new vertical splits to the right.
+" Open new vertical splits to the right, and make it easier to use vertical
+" splits.
 set splitright
+command -nargs=? -complete=help H vert help <args>
