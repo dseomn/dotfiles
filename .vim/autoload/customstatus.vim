@@ -158,6 +158,9 @@ function customstatus#FileName()
       return '[Quickfix List]'
     elseif getloclist(l:winid, {'winid': 0}).winid == l:winid
       return '[Location List]'
+    elseif exists('w:manpage_title')
+      " See ~/.local/lib/vim-manpager/pager
+      return '[' . w:manpage_title . ']'
     else
       return '[No Name]'
     endif

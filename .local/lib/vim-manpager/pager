@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # Copyright 2018 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,14 +15,8 @@
 # limitations under the License.
 
 
-# Set EDITOR.
-for editor_candidate in vim vi nano; do
-  if command -v "$editor_candidate" > /dev/null; then
-    export EDITOR="$editor_candidate"
-    break
-  fi
-done
-unset editor_candidate
-
-
-[[ "$EDITOR" = "vim" ]] && export MANPAGER=~/.local/lib/vim-manpager/pager
+col -b | vim -RM \
+    -c 'setlocal filetype=man nobuflisted buftype=nofile' \
+    -c 'silent! %foldopen!' \
+    -c 'let w:manpage_title = substitute($MAN_PN, "\\\\\\(.\\)", "\\1", "g")' \
+    -
