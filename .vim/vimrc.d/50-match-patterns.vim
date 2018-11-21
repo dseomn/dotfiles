@@ -15,7 +15,7 @@
 
 call custommatches#AddPatterns(
     \ 'Todo',
-    \ '\<BUG\>',
+    \ '\<BUGS\?\>',
     \ '\<DO NOT\( [A-Z]\+\)\+\>',
     \ '\<FIX\(ME\)\?\>',
     \ '\<NOTES\?\>',
