@@ -11,6 +11,9 @@
 	algorithm = histogram
 	colorMoved = true
 
+[status]
+	showStash = true
+
 [push]
 	default = upstream
 
