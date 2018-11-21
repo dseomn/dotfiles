@@ -153,14 +153,14 @@ endfunction
 function customstatus#FileName()
   let l:winid = win_getid()
   let l:filename = expand('%:p')
-  if empty(l:filename)
-    if getqflist({'winid': 0}).winid == l:winid
-      return '[Quickfix List]'
-    elseif getloclist(l:winid, {'winid': 0}).winid == l:winid
-      return '[Location List]'
-    else
-      return '[No Name]'
-    endif
+  if getqflist({'winid': 0}).winid == l:winid
+    return '[Quickfix List]'
+  elseif getloclist(l:winid, {'winid': 0}).winid == l:winid
+    return '[Location List]'
+  elseif manpagetitle#TryParse()
+    return '[' . manpagetitle#Format() . ']'
+  elseif empty(l:filename)
+    return '[No Name]'
   else
     return diralias#ShortenFilename(l:filename)
   endif
