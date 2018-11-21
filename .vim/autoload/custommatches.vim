@@ -38,15 +38,14 @@ endfunction
 " Deletes all matches in all windows added by this script, then re-adds all
 " currently configured patterns.
 function custommatches#ResetMatches()
-  tabdo windo call s:DeleteMatches()
-  tabdo windo call s:AddMatches()
+  tabdo windo call s:ResetMatchesLocal()
 endfunction
 
 
 " Excludes the current buffer from all custom matches.
 function custommatches#ExcludeBuffer()
   let b:custommatches_excluded = v:true
-  call s:DeleteMatches()
+  call s:DeleteMatchesLocal()
 endfunction
 
 
@@ -54,7 +53,7 @@ endfunction
 
 
 " Adds all configured patterns to the current window.
-function s:AddMatches()
+function s:AddMatchesLocal()
   if exists('b:custommatches_excluded') | return | endif
   let winid = string(win_getid())
   if !has_key(s:matches_added, winid)
@@ -69,7 +68,7 @@ endfunction
 
 
 " Deletes all matches added by this script from the current window.
-function s:DeleteMatches()
+function s:DeleteMatchesLocal()
   let winid = string(win_getid())
   if !has_key(s:matches_added, winid)
     return
@@ -81,18 +80,24 @@ function s:DeleteMatches()
 endfunction
 
 
+function s:ResetMatchesLocal()
+  call s:DeleteMatchesLocal()
+  call s:AddMatchesLocal()
+endfunction
+
+
 " Enable all configured custom matches.
 augroup custommatches
   au!
 
   " Add matches to all windows in all tabs when vim starts.
-  au VimEnter * tabdo windo call s:AddMatches()
+  au VimEnter * call custommatches#ResetMatches()
 
   " Add matches to any window created after vim starts.
-  au WinNew * call s:AddMatches()
+  au WinNew * call s:ResetMatchesLocal()
 
   " Reset matches when changing what buffer is in a window.
-  au BufWinEnter,BufWinLeave * call s:DeleteMatches() | call s:AddMatches()
+  au BufWinEnter,BufWinLeave * call s:ResetMatchesLocal()
 augroup END
 
 
