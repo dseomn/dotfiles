@@ -13,8 +13,4 @@
 " limitations under the License.
 
 
-let g:ft_man_open_mode = 'vert'
-let g:ft_man_folding_enable = v:true
-
-
 call custommatches#ExcludeBuffer()
