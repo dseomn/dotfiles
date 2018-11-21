@@ -15,6 +15,9 @@
 	autoSquash = true
 	missingCommitsCheck = error
 
+[core]
+	logAllRefUpdates = always
+
 [transfer]
 	fsckObjects = true
 
