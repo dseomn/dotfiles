@@ -1,16 +1,22 @@
 [user]
 	email = david@mandelberg.org
 	name = David Mandelberg
+
 [color]
 	ui = true
+
 [push]
 	default = upstream
+
 [merge]
 	conflictStyle = diff3
+
 [rebase]
 	autoSquash = true
 	missingCommitsCheck = error
+
 [transfer]
 	fsckObjects = true
+
 [include]
 	path = .gitconfig.local
