@@ -23,4 +23,4 @@ done
 unset editor_candidate
 
 
-[[ "$EDITOR" = "vim" ]] && export MANPAGER="vim -M +MANPAGER -"
+[[ "$EDITOR" = "vim" ]] && export MANPAGER="vim +MANPAGER -"
