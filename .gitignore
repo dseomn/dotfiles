@@ -14,8 +14,6 @@
 !/.local/lib/
 !/.local/lib/dir-alias/
 !/.local/lib/dir-alias/**
-!/.local/lib/vim-manpager/
-!/.local/lib/vim-manpager/**
 !/.vim/
 !/.vim/**
 !/.yadm/
