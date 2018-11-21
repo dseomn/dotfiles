@@ -21,3 +21,6 @@ for editor_candidate in vim vi nano; do
   fi
 done
 unset editor_candidate
+
+
+[[ "$EDITOR" = "vim" ]] && export MANPAGER="vim -M +MANPAGER -"
