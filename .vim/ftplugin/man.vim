@@ -13,11 +13,11 @@
 " limitations under the License.
 
 
-if &filetype != 'man' | finish | endif
-
-
 let g:ft_man_open_mode = 'vert'
 let g:ft_man_folding_enable = v:true
+
+
+if &filetype != 'man' | finish | endif
 
 
 call custommatches#ExcludeBuffer()
