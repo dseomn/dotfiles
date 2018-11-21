@@ -13,6 +13,7 @@
 " limitations under the License.
 
 
+" Generic TODO highlights.
 call custommatches#AddPatterns(
     \ 'Todo',
     \ '\<BUGS\?\>',
@@ -23,4 +24,13 @@ call custommatches#AddPatterns(
     \ '\<TODO[sS]\?\>',
     \ '\<WARNINGS\?\>',
     \ '\<XXX\>',
+    \)
+
+
+" https://tools.ietf.org/html/rfc2119
+hi link rfc2119Keyword Todo
+call custommatches#AddPatterns(
+    \ 'rfc2119Keyword',
+    \ '\<\(MUST\|SHALL\|SHOULD\)\( NOT\)\?\>',
+    \ '\<\(REQUIRED\|RECOMMENDED\|MAY\)\>',
     \)
