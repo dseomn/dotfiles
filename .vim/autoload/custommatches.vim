@@ -43,11 +43,19 @@ function custommatches#ResetMatches()
 endfunction
 
 
+" Excludes the current buffer from all custom matches.
+function custommatches#ExcludeBuffer()
+  let b:custommatches_excluded = v:true
+  call s:DeleteMatches()
+endfunction
+
+
 " End public interface.
 
 
 " Adds all configured patterns to the current window.
 function s:AddMatches()
+  if exists('b:custommatches_excluded') | return | endif
   let winid = string(win_getid())
   if !has_key(s:matches_added, winid)
     let s:matches_added[winid] = []
@@ -82,6 +90,9 @@ augroup custommatches
 
   " Add matches to any window created after vim starts.
   au WinNew * call s:AddMatches()
+
+  " Reset matches when changing what buffer is in a window.
+  au BufWinEnter,BufWinLeave * call s:DeleteMatches() | call s:AddMatches()
 augroup END
 
 
