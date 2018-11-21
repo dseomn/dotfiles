@@ -5,6 +5,12 @@
 [color]
 	ui = true
 
+[diff]
+	mnemonicPrefix = true
+	renames = copies
+	algorithm = histogram
+	colorMoved = true
+
 [push]
 	default = upstream
 
