@@ -15,3 +15,8 @@
 
 " Don't try to set options based on input from potentially untrusted files.
 set nomodeline
+
+
+" Some AppArmor profiles cause segfaults when programs write to the tempfiles
+" Vim creates.
+set noshelltemp
