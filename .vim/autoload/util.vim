@@ -18,3 +18,13 @@
 function util#JoinPatterns(...)
   return '\(' . join(a:000, '\|') . '\)'
 endfunction
+
+
+" Returns the filename for the current buffer, or the empty string.
+function util#CurrentFilename()
+  if &filetype == 'netrw' && !empty(b:netrw_curdir)
+    return b:netrw_curdir
+  else
+    return expand('%')
+  endif
+endfunction
