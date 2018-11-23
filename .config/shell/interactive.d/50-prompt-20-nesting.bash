@@ -22,6 +22,12 @@
 #
 # TODO: Properly handle nested muxes. Currently, the counter is only reset for
 # the top-level shell under the top-level mux.
+#
+# TODO: Properly handle nested terminal emulators. E.g., running xterm from
+# within an xterm does not currently reset any nesting variables, so the
+# top-level shell in the inner xterm shows up as nested. Also, when running
+# xterm within tmux, the top-level shell in the inner xterm shows up as under a
+# mux even though it sort-of isn't.
 if [[ -z "$__nesting_initialized_local" ]]; then
   # Do not export this. It guards against incrementing __nesting_level when
   # sourcing bashrc multiple times in the same shell.
