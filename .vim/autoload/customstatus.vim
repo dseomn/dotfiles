@@ -152,7 +152,7 @@ endfunction
 
 function customstatus#FileName()
   let l:winid = win_getid()
-  let l:filename = expand('%:p')
+  let l:filename = util#CurrentFilename()
   if getqflist({'winid': 0}).winid == l:winid
     return '[Quickfix List]'
   elseif getloclist(l:winid, {'winid': 0}).winid == l:winid
@@ -162,7 +162,7 @@ function customstatus#FileName()
   elseif empty(l:filename)
     return '[No Name]'
   else
-    return diralias#ShortenFilename(l:filename)
+    return diralias#ShortenFilename(fnamemodify(l:filename, ':p'))
   endif
 endfunction
 
