@@ -40,7 +40,14 @@ endfunction
 " unused.)
 let s:visited = {}
 
+function s:MarkVisited()
+  let l:file = util#CurrentFilename()
+  if !empty(l:file)
+    let s:visited[fnamemodify(l:file, ':p')] = v:true
+  endif
+endfunction
+
 augroup moretoedit
   au!
-  au BufWinEnter * let s:visited[expand('%:p')] = v:true
+  au BufEnter * call s:MarkVisited()
 augroup END
