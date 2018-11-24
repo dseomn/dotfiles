@@ -15,3 +15,7 @@
 
 " Enable the :Man command regardless of what's being edited.
 runtime! ftplugin/man.vim
+
+
+" Make |K| use :Man instead of running the man binary.
+set keywordprg=:Man
