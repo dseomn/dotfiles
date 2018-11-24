@@ -13,4 +13,7 @@
 " limitations under the License.
 
 
+" CD into the directory of a file being edited, or the directory being
+" explored.
 set autochdir
+let g:netrw_keepdir = 0
