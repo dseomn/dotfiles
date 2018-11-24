@@ -50,4 +50,5 @@ endfunction
 augroup moretoedit
   au!
   au BufEnter * call s:MarkVisited()
+  au BufWinEnter * call s:MarkVisited()
 augroup END
