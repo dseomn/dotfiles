@@ -157,6 +157,8 @@ function customstatus#FileName()
     return '[Quickfix List]'
   elseif getloclist(l:winid, {'winid': 0}).winid == l:winid
     return '[Location List]'
+  elseif !empty(getcmdwintype()) && l:filename == '[Command Line]'
+    return '[Command Line ' . getcmdwintype() . ']'
   elseif manpagetitle#TryParse()
     return '[' . manpagetitle#Format() . ']'
   elseif empty(l:filename)
