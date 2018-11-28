@@ -34,3 +34,22 @@ call custommatches#AddPatterns(
     \ '\<\(MUST\|SHALL\|SHOULD\)\( NOT\)\?\>',
     \ '\<\(REQUIRED\|RECOMMENDED\|MAY\)\>',
     \)
+
+
+" Various whitespace errors.
+hi link invalidWhitespace Todo
+
+" 1. Trailing whitespace, except when the cursor is on the end of the line.
+" 2. Space(s) before a tab.
+call custommatches#AddPatterns(
+    \ 'invalidWhitespace',
+    \ '\s\+\%#\@1<!$',
+    \ ' \+\ze\t',
+    \)
+
+" Any tabs, but only when expandtab is set.
+call custommatches#AddPatternsIf(
+    \ {-> &expandtab},
+    \ 'invalidWhitespace',
+    \ '\t',
+    \)
