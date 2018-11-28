@@ -15,10 +15,23 @@
 
 " Adds multiple patterns to the given group.
 function custommatches#AddPatterns(group, ...)
+  call call('custommatches#AddPatternsIf', [v:true, a:group] + a:000)
+endfunction
+
+
+" Like custommatches#AddPatterns, but the matches are only enabled in buffers
+" where the condition funcref returns true.
+function custommatches#AddPatternsIf(condition, group, ...)
+  let l:pattern_configs = []
+  for l:pattern in a:000
+    call add(l:pattern_configs,
+            \{'pattern': l:pattern, 'condition': a:condition})
+  endfor
+
   if has_key(s:matches_configured, a:group)
-    let s:matches_configured[a:group] += a:000
+    let s:matches_configured[a:group] += l:pattern_configs
   else
-    let s:matches_configured[a:group] = copy(a:000)
+    let s:matches_configured[a:group] = l:pattern_configs
   endif
   call uniq(sort(s:matches_configured[a:group]))
 endfunction
@@ -48,9 +61,12 @@ function s:AddMatchesLocal()
   if !has_key(s:matches_added, winid)
     let s:matches_added[winid] = []
   endif
-  for [group, patterns] in items(s:matches_configured)
-    for pattern in patterns
-      let s:matches_added[winid] += [matchadd(group, pattern)]
+  for [l:group, l:pattern_configs] in items(s:matches_configured)
+    for l:pattern_config in l:pattern_configs
+      if l:pattern_config.condition is v:true || l:pattern_config.condition()
+        call add(s:matches_added[winid],
+                \matchadd(l:group, l:pattern_config.pattern))
+      endif
     endfor
   endfor
 endfunction
@@ -90,7 +106,8 @@ augroup custommatches
 augroup END
 
 
-" Map from match group to list of patterns.
+" Map from match group to list of pattern configs. A pattern config is a dict
+" with the pattern in .pattern, and a condition (or v:true) in .condition.
 let s:matches_configured = {}
 
 
