@@ -24,17 +24,6 @@ function custommatches#AddPatterns(group, ...)
 endfunction
 
 
-" Removes multiple patterns from the given group.
-function custommatches#DelPatterns(group, ...)
-  if !has_key(s:matches_configured, a:group)
-    return
-  endif
-  for pattern in a:000
-    call filter(s:matches_configured[a:group], 'v:val != ' . string(pattern))
-  endfor
-endfunction
-
-
 " Deletes all matches in all windows added by this script, then re-adds all
 " currently configured patterns.
 function custommatches#ResetMatches()
