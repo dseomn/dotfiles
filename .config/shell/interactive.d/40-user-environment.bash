@@ -23,4 +23,6 @@ done
 unset editor_candidate
 
 
+# TODO: Add --not-a-term once my versions of vim support it.
+# http://vimhelp.appspot.com/starting.txt.html#--not-a-term
 [[ "$EDITOR" = "vim" ]] && export MANPAGER="vim +MANPAGER -"
