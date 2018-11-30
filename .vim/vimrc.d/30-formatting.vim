@@ -27,6 +27,10 @@ set expandtab
 filetype indent on
 
 
+" Wrap at 80 columns by default.
+set textwidth=80
+
+
 " Continue comment blocks when adding a newline in one.
 set formatoptions+=ro
 
