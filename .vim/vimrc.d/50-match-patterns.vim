@@ -38,9 +38,19 @@ call custommatches#AddPatterns(
 
 " Merge markers.
 hi link mergeMarker Error
+function s:MergeMarkerPattern(char_pattern)
+  return '^\(' . a:char_pattern . '\)\1\{6}\(\s.*\)\?$'
+endfunction
 call custommatches#AddPatterns(
     \ 'mergeMarker',
-    \ '^\([<|=>]\)\1\{6}\(\s.*\)\?$',
+    \ s:MergeMarkerPattern('[<|=]'),
+    \)
+" An email message with nested replies could easily have lines that look like
+" '>>>>>>>' merge markers, so don't highlight that pattern for emails.
+call custommatches#AddPatternsIf(
+    \ {-> &filetype != 'mail'},
+    \ 'mergeMarker',
+    \ s:MergeMarkerPattern('>'),
     \)
 
 
