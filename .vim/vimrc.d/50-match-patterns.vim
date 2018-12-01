@@ -36,6 +36,14 @@ call custommatches#AddPatterns(
     \)
 
 
+" Merge markers.
+hi link mergeMarker Error
+call custommatches#AddPatterns(
+    \ 'mergeMarker',
+    \ '^\([<|=>]\)\1\{6}\(\s.*\)\?$',
+    \)
+
+
 " Various whitespace errors.
 hi link invalidWhitespace Todo
 
