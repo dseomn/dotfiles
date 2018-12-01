@@ -103,6 +103,10 @@ augroup custommatches
 
   " Reset matches when changing what buffer is in a window.
   au BufWinEnter,BufWinLeave * call s:ResetMatchesLocal()
+
+  " Reset matches when an option changes. This is useful for re-evaluating
+  " match conditions that depend on options, e.g., &filetype or &expandtab.
+  au OptionSet * call s:ResetMatchesLocal()
 augroup END
 
 
