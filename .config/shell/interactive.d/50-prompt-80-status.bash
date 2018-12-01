@@ -13,6 +13,15 @@
 # limitations under the License.
 
 
+# Appends the given return value, with color depending on the value.
+__prompt_part_status_append_ret() {
+  if [[ "$1" = 0 ]]; then
+    prompt_append "$1" "$FgGreen"
+  else
+    prompt_append "$1" "$FgBrRed"
+  fi
+}
+
 # Show counts of running and stopped jobs, and the return value of the previous
 # command.
 __prompt_part_status() {
@@ -25,7 +34,13 @@ __prompt_part_status() {
   [[ "$stopped_jobs" != 0 ]] && show_jobs=yes
 
   local show_ret=
-  [[ "$command_ret" != 0 ]] && show_ret=yes
+  local component_ret
+  for component_ret in "$command_ret" "${PCC_PIPESTATUS[@]}"; do
+    if [[ "$component_ret" != 0 ]]; then
+      show_ret=yes
+      break
+    fi
+  done
 
   if [[ -z "$show_ret" ]] && [[ -z "$show_jobs" ]]; then
     return
@@ -41,7 +56,28 @@ __prompt_part_status() {
     prompt_append "$stopped_jobs" "$FgBrYellow"
   fi
   [[ -n "$show_divider" ]] && prompt_append_raw '|'
-  [[ -n "$show_ret" ]] && prompt_append "$command_ret" "$FgBrRed"
+  if [[ -n "$show_ret" ]]; then
+    # TODO: Figure out how to show $PIPESTATUS/$? only if they came from the
+    # command immediately before this prompt. E.g., $PIPESTATUS is not affected
+    # by running `foo &`, and neither variable is affected by hitting Enter
+    # without any command.
+    local is_first_component=yes
+    local last_component_ret=
+    local component_ret
+    for component_ret in "${PCC_PIPESTATUS[@]}"; do
+      if [[ -n "$is_first_component" ]]; then
+        is_first_component=
+      else
+        prompt_append_raw '-'
+      fi
+      __prompt_part_status_append_ret "$component_ret"
+      last_component_ret="$component_ret"
+    done
+    if [[ "$last_component_ret" != "$command_ret" ]]; then
+      prompt_append_raw ':'
+      __prompt_part_status_append_ret "$command_ret"
+    fi
+  fi
   prompt_append_raw ']'
 }
 
