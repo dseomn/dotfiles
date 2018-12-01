@@ -15,7 +15,8 @@
 
 # Compatibility function that has the same effect as appending to
 # $PROMPT_COMMAND, except that $? will be set correctly for each code block
-# passed to this function.
+# passed to this function. $PIPESTATUS itself will not be set correctly, but a
+# copy with the correct values will be available in $PCC_PIPESTATUS.
 #
 # This works whether or not bash-preexec
 # (https://github.com/rcaloras/bash-preexec) is used elsewhere.
@@ -30,11 +31,14 @@ pcc_append() {
 __pcc_prompt_command=
 
 __pcc_save_command_ret() {
-  __pcc_command_ret=$?
-  return $__pcc_command_ret
+  __pcc_command_ret=$? PCC_PIPESTATUS=("${PIPESTATUS[@]}")
+  # TODO: Get the right value into PCC_PIPESTATUS when bash-preexec is in use:
+  # https://github.com/rcaloras/bash-preexec/pull/85
+  __pcc_restore_command_ret
 }
 
 __pcc_restore_command_ret() {
+  # TODO: Figure out how to restore PIPESTATUS.
   return $__pcc_command_ret
 }
 
