@@ -17,7 +17,7 @@
 function customstatus#Init()
   " Set the global statusline so that any window without a local statusline
   " will call InitWindow(). InitWindow() then changes the local statusline.
-  set statusline=%{customstatus#InitWindow()}
+  let &statusline = '%{customstatus#InitWindow()}Initializing status line...'
 
   hi statusUnmodified cterm=reverse
   hi statusUnmodifiedRo cterm=reverse
@@ -44,6 +44,7 @@ endfunction
 " Initialize the current window.
 function customstatus#InitWindow()
   let &l:statusline = '%!customstatus#StatusLine(' . string(win_getid()) . ')'
+  return ''
 endfunction
 
 
