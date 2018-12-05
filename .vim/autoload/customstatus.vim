@@ -75,6 +75,11 @@ function customstatus#StatusLine(winid)
   " Ruler
   call add(l:parts, '%-14.(%l,%c%V%) %P')
 
+  " InitWindow is occasionally called in a weird state where win_getid()
+  " doesn't return the correct window ID. Calling it with each status line
+  " update ensures that the window ID in &l:statusline is kept up to date.
+  call add(l:parts, '%{customstatus#InitWindow()}')
+
   return join(l:parts, '')
 endfunction
 
