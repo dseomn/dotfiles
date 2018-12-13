@@ -18,6 +18,8 @@
 !/.vim/**
 !/.yadm/
 !/.yadm/**
+!/third_party/
+!/third_party/**
 
 /.yadm/repo.git/
 /.vim/state/
