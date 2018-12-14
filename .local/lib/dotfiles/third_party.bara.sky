@@ -1,0 +1,63 @@
+# Copyright 2018 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
+def _prepend_path(prefix, relative_paths):
+  return [prefix + "/" + path for path in relative_paths]
+
+
+def third_party_workflow(
+    destination_root,
+    destination_include=["**"],
+    destination_exclude=["copy.bara.sky"],
+    extra_transformations=[],
+    **kwargs):
+  """Returns a workflow for importing third party code into this repository.
+
+  Args:
+    destination_root: Where in this repository to import the code, e.g.,
+      "third_party/foo".
+    destination_include: Glob patterns to include in destination_files.
+    destination_exclude: Glob patterns to exclude from destination_files.
+    extra_transformations: Transformations to apply before moving the files into
+      destination_root.
+    **kwargs: Arguments to core.workflow.
+  """
+  kwargs.setdefault("name", "default")
+  kwargs.setdefault("mode", "SQUASH")
+  kwargs.setdefault(
+      "authoring",
+      authoring.overwrite("third party sync <noreply@mandelberg.org>"),
+  )
+  kwargs.setdefault(
+      "destination",
+      git.github_pr_destination(
+          url = "https://github.com/dseomn/dotfiles",
+          destination_ref = "public",
+      ),
+  )
+  kwargs.setdefault(
+      "destination_files",
+      glob(
+          include = _prepend_path(destination_root, destination_include),
+          exclude = _prepend_path(destination_root, destination_exclude),
+      ),
+  )
+  kwargs.setdefault(
+      "transformations",
+      extra_transformations + [
+          core.move("", destination_root),
+      ],
+  )
+  return core.workflow(**kwargs)
