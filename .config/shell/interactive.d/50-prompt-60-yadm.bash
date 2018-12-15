@@ -44,11 +44,15 @@ __prompt_part_yadm() {
     GIT_PS1_SHOWSTASHSTATE=yes
     GIT_PS1_SHOWUNTRACKEDFILES=yes
     GIT_PS1_SHOWUPSTREAM=auto
-    __git_ps1 " (yadm: %s)"
+    __git_ps1 '%s'
   )"
 
-  if [[ -z "$yadm_class" ]] || [[ "$yadm_ps1" != " (yadm: ${yadm_class}=)" ]]; then
+  if [[ -z "$yadm_class" ]] || [[ "$yadm_ps1" != "${yadm_class}=" ]]; then
+    prompt_append_raw ' ('
+    prompt_append_raw 'yadm' "${FgMagenta}"
+    prompt_append_raw ': '
     prompt_append "$yadm_ps1"
+    prompt_append_raw ')'
   fi
 }
 

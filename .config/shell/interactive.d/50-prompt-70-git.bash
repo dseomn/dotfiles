@@ -22,7 +22,14 @@ __prompt_part_git() {
   local GIT_PS1_SHOWSTASHSTATE=yes
   local GIT_PS1_SHOWUNTRACKEDFILES=yes
   local GIT_PS1_SHOWUPSTREAM=auto
-  prompt_append "$(__git_ps1 " (git: %s)")"
+  local git_ps1="$(__git_ps1 '%s')"
+  if [[ -n "$git_ps1" ]]; then
+    prompt_append_raw ' ('
+    prompt_append_raw 'git' "${FgGreen}"
+    prompt_append_raw ': '
+    prompt_append "$git_ps1"
+    prompt_append_raw ')'
+  fi
 }
 
 prompt_register __prompt_part_git ps1
