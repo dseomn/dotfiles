@@ -1,0 +1,58 @@
+#!/bin/bash
+
+# Copyright 2018 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
+# Wrapper around git-config to read config values from ~/.config/dotfiles.
+
+
+config_dirs=(conf.d conf.local.d)
+args=()
+for arg in "$@"; do
+  case "$arg" in
+    --local)
+      config_dirs=(conf.local.d)
+      ;;
+    --global)
+      config_dirs=(conf.d)
+      ;;
+    *)
+      args+=("$arg")
+      ;;
+  esac
+done
+
+
+config_files=()
+for dir in "${config_dirs[@]}"; do
+  for file in ~/.config/dotfiles/"${dir}"/*.cfg; do
+    [[ -f "$file" ]] || continue
+    config_files+=("$file")
+  done
+done
+
+
+include_files() {
+  printf '[include]\n'
+  for file in "$@"; do
+    printf 'path = %s\n' "$file"
+  done
+}
+
+
+exec git config \
+  --includes \
+  --file <(include_files "${config_files[@]}") \
+  "${args[@]}"

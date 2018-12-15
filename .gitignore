@@ -3,6 +3,8 @@
 !/.config/
 !/.config/dir-alias/
 !/.config/dir-alias/**
+!/.config/dotfiles/
+!/.config/dotfiles/**
 !/.config/shell/
 !/.config/shell/**
 !/.config/tmux/
@@ -23,5 +25,6 @@
 !/third_party/
 !/third_party/**
 
+/.config/dotfiles/conf.local.d/
 /.yadm/repo.git/
 /.vim/state/
