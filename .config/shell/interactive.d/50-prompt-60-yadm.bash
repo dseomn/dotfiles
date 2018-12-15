@@ -20,9 +20,7 @@ shrcutil_source /usr/lib/git-core/git-sh-prompt || return
 #
 # YADM status is not per-directory, so there isn't a particularly good way to
 # know when it's relevant. To compensate, hide the status when on the "correct"
-# branch in a clean, up-to-date state. This assumes that branches correspond
-# exactly to YADM's notion of a class, which is not standard, but I find it
-# useful.
+# branch in a clean, up-to-date state.
 __prompt_part_yadm() {
   [[ -d ~/.yadm/repo.git ]] || return
 
@@ -31,11 +29,7 @@ __prompt_part_yadm() {
   # this function's work is executed in subshells, so we can cd and change the
   # environment without affecting the main shell.
 
-  local yadm_class="$(
-    cd
-    export GIT_DIR=~/.yadm/repo.git
-    git config --get local.class
-  )"
+  local target_branch="$(dotfiles-config --get dotfiles.branch)"
 
   local yadm_ps1="$(
     cd
@@ -47,7 +41,7 @@ __prompt_part_yadm() {
     __git_ps1 '%s'
   )"
 
-  if [[ -z "$yadm_class" ]] || [[ "$yadm_ps1" != "${yadm_class}=" ]]; then
+  if [[ -z "$target_branch" ]] || [[ "$yadm_ps1" != "${target_branch}=" ]]; then
     prompt_append_raw ' ('
     prompt_append_raw 'yadm' "${FgMagenta}"
     prompt_append_raw ': '
