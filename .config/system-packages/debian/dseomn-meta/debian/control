@@ -12,16 +12,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+Source: dseomn-meta
+Maintainer: David Mandelberg <david@mandelberg.org>
+Section: metapackages
+Priority: optional
+Build-Depends: debhelper (>= 10)
 
-[dotfiles]
+Package: dseomn-standard
+Architecture: all
+Depends:
+  bash (>= 4.4),
+  bash-completion,
+  git (>= 1:2.11),
+  tmux (>= 2.6),
+  vim (>= 2:8.0),
+  ${misc:Depends}
+Description: dseomn-standard
 
-# Which git branch this system should typically be on. This should only be
-# overridden in conf.local.d, to avoid the value changing when changing
-# branches.
-branch = public
-
-
-[system-packages "debian"]
-
-# Multi-valued. Which packages to install.
-install = dseomn-standard
+Package: dseomn-desktop
+Architecture: all
+Depends:
+  dseomn-standard (= ${source:Version}),
+  vim-gtk3 (>= 2:8.0),
+  ${misc:Depends}
+Description: dseomn-desktop

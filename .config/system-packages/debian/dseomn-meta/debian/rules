@@ -1,3 +1,5 @@
+#!/usr/bin/make -f
+
 # Copyright 2018 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,15 +15,5 @@
 # limitations under the License.
 
 
-[dotfiles]
-
-# Which git branch this system should typically be on. This should only be
-# overridden in conf.local.d, to avoid the value changing when changing
-# branches.
-branch = public
-
-
-[system-packages "debian"]
-
-# Multi-valued. Which packages to install.
-install = dseomn-standard
+%:
+	dh $@

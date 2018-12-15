@@ -7,6 +7,8 @@
 !/.config/dotfiles/**
 !/.config/shell/
 !/.config/shell/**
+!/.config/system-packages/
+!/.config/system-packages/**
 !/.config/tmux/
 !/.config/tmux/**
 !/.gitconfig.local
@@ -18,6 +20,8 @@
 !/.local/lib/dir-alias/**
 !/.local/lib/dotfiles/
 !/.local/lib/dotfiles/**
+!/.local/lib/system-packages/
+!/.local/lib/system-packages/**
 !/.vim/
 !/.vim/**
 !/.yadm/

@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # Copyright 2018 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,15 +15,31 @@
 # limitations under the License.
 
 
-[dotfiles]
-
-# Which git branch this system should typically be on. This should only be
-# overridden in conf.local.d, to avoid the value changing when changing
-# branches.
-branch = public
+pecho() { printf '%s\n' "$*"; }
+error() { pecho "ERROR: $*" >&2; }
+fatal() { error "$*"; exit 1; }
+try() { "$@" || fatal "Command failed: $*"; }
 
 
-[system-packages "debian"]
+libdir=~/.local/lib/system-packages
 
-# Multi-valued. Which packages to install.
-install = dseomn-standard
+
+uname_s="$(try uname -s)" || exit 1
+case "$uname_s" in
+  Linux)
+    lsb_id="$(try lsb_release --short --id)" || exit 1
+    case "$lsb_id" in
+      Debian|Ubuntu)
+        exec "${libdir}/update-debian"
+        ;;
+
+      *)
+        fatal "Unknown Linux system: '${lsb_id}'"
+        ;;
+    esac
+    ;;
+
+  *)
+    fatal "Unknown system: '${uname_s}'"
+    ;;
+esac
