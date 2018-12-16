@@ -18,8 +18,7 @@
 " the section, then returns true. On failure, returns false.
 function manpagetitle#TryParse()
   if &filetype != 'man' | return v:false | endif
-  if expand('%:p:h') != $HOME | return v:false | endif
-  let l:matches = matchlist(expand('%:p:t'), '\m^\([^./]\+\)\.\([^./]*\)\~$')
+  let l:matches = matchlist(expand('%:t'), '\m^\([^./]\+\)\.\([^./]*\)\~$')
   if empty(l:matches) | return v:false | endif
   let b:manpage_title = l:matches[1]
   let b:manpage_section = l:matches[2]
