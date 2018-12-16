@@ -3,13 +3,16 @@
 	name = David Mandelberg
 
 [alias]
-	in = log -p --reverse ..@{u}
-	out = log -p --reverse @{u}..
-	sin = log --graph --oneline --boundary ..@{u}
-	sout = log --graph --oneline --boundary @{u}..
-	sinout = log --graph --oneline --boundary @{u}...
+	in = log --pretty=fuller -p --reverse ..@{u}
+	out = log --pretty=fuller -p --reverse @{u}..
+	sin = log --pretty=shorter --graph --boundary ..@{u}
+	sout = log --pretty=shorter --graph --boundary @{u}..
+	sinout = log --pretty=shorter --graph --boundary @{u}...
 	amend = commit --amend -C HEAD
 	reword = commit --amend -c HEAD --only
+
+[pretty]
+	shorter = format:%C(auto)%h %C(blue)%ai%C(auto) %ae%d%n%s%n
 
 [color]
 	ui = true
