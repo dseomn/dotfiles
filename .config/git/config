@@ -7,7 +7,7 @@
 
 [diff]
 	mnemonicPrefix = true
-	renames = copies
+	renames = true
 	algorithm = histogram
 	colorMoved = true
 
