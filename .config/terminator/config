@@ -8,3 +8,4 @@
     use_theme_colors = True
     show_titlebar = False
     scrollback_lines = 10000
+    word_chars = '#%&./:=?@_~'
