@@ -2,4 +2,4 @@
 username = David Mandelberg <david@mandelberg.org>
 merge = internal:merge3
 
-%include .hgrc.local
+%include hgrc.local

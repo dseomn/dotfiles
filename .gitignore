@@ -7,13 +7,14 @@
 !/.config/dotfiles/**
 !/.config/git/
 !/.config/git/**
+!/.config/hg/
+!/.config/hg/**
 !/.config/shell/
 !/.config/shell/**
 !/.config/system-packages/
 !/.config/system-packages/**
 !/.config/tmux/
 !/.config/tmux/**
-!/.hgrc.local
 !/.inputrc.local
 !/.local/
 !/.local/lib/
