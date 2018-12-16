@@ -72,6 +72,7 @@ Architecture: all
 Depends:
   ${misc:Depends},
   dseomn-standard (= ${source:Version}),
+  terminator,
 Recommends:
   dseomn-dev (= ${source:Version}),
   vim-gtk3 (>= 2:8.0),

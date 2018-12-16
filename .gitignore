@@ -13,6 +13,8 @@
 !/.config/shell/**
 !/.config/system-packages/
 !/.config/system-packages/**
+!/.config/terminator/
+!/.config/terminator/**
 !/.config/tmux/
 !/.config/tmux/**
 !/.inputrc.local
