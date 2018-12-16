@@ -2,6 +2,15 @@
 	email = david@mandelberg.org
 	name = David Mandelberg
 
+[alias]
+	in = log -p --reverse ..@{u}
+	out = log -p --reverse @{u}..
+	sin = log --graph --oneline --boundary ..@{u}
+	sout = log --graph --oneline --boundary @{u}..
+	sinout = log --graph --oneline --boundary @{u}...
+	amend = commit --amend -C HEAD
+	reword = commit --amend -c HEAD --only
+
 [color]
 	ui = true
 
