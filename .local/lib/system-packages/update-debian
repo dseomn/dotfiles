@@ -28,6 +28,10 @@ if [[ "$to_install_ret" != 0 ]] || [[ -z "$to_install" ]]; then
 fi
 
 
+# Install this script's dependencies.
+sudo apt-get install devscripts
+
+
 workdir="$(mktemp -d)" || exit 1
 cleanup_actions+=('rm -rf "${workdir}"')
 
