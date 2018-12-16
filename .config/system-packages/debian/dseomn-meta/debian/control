@@ -48,6 +48,7 @@ Depends:
 Recommends:
   autoconf,
   automake,
+  bazel,
   devscripts,
   default-jdk-headless,
   dpkg-dev,
