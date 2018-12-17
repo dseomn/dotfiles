@@ -1,6 +1,8 @@
 *
 
 !/.config/
+!/.config/awesome/
+!/.config/awesome/**
 !/.config/dir-alias/
 !/.config/dir-alias/**
 !/.config/dotfiles/
