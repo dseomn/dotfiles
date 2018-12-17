@@ -3,6 +3,9 @@
 	name = David Mandelberg
 
 [alias]
+	# TODO: Once aliases can call other aliases, reduce duplication:
+	# https://github.com/git/git/commit/506ee60d222f94a1598769feaba3b3621bd9fa1a
+
 	# log
 	in = log --pretty=fuller -p --reverse ..@{u}
 	out = log --pretty=fuller -p --reverse @{u}..
