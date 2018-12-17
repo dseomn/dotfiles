@@ -1,6 +1,8 @@
 *
 
 !/.config/
+!/.config/awesome/
+!/.config/awesome/**
 !/.config/dconf-autoload/
 !/.config/dconf-autoload/**
 !/.config/dir-alias/
