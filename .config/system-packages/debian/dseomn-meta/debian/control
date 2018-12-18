@@ -77,5 +77,13 @@ Depends:
   terminator,
 Recommends:
   dseomn-dev (= ${source:Version}),
+  ibus,
+  ibus-clutter,
+  ibus-gtk,
+  ibus-gtk3,
+  ibus-m17n,
+  ibus-qt4,
+  m17n-db,
+  m17n-im-config,
   vim-gtk3 (>= 2:8.0),
 Description: dseomn-desktop
