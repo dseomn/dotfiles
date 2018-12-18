@@ -25,7 +25,7 @@
 	reword = commit --amend -c HEAD --only
 
 [pretty]
-	shorter = format:%C(auto)%h %C(blue)%ai%C(auto) %ae%d%n%s%n
+	shorter = tformat:%C(auto)%h %ae %C(blue)%ar%C(auto)%d%n%s
 
 [color]
 	ui = true
