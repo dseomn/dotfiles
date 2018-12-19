@@ -23,4 +23,4 @@ export QT_IM_MODULE=ibus
 export XMODIFIERS=@im=ibus
 
 
-ibus-daemon --daemonize --xim --address 'unix:tmpdir=/tmp/ibus'
+ibus-daemon --daemonize --replace --xim --address 'unix:tmpdir=/tmp/ibus'
