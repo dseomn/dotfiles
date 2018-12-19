@@ -72,7 +72,7 @@ dir_alias_shorten() {
     esac
   done <<EOF
 ${__dir_alias_table}
-~ ${HOME}
+~ ${HOME%/}
 EOF
 
   # No match was found, print the original.
