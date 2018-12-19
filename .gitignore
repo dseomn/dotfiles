@@ -20,6 +20,12 @@
 !/.config/tmux/
 !/.config/tmux/**
 !/.inputrc.local
+!/.ipython/
+!/.ipython/profile_*/
+!/.ipython/profile_*/*.py
+!/.ipython/profile_*/startup/
+!/.ipython/profile_*/startup/*.ipy
+!/.ipython/profile_*/startup/*.py
 !/.local/
 !/.local/lib/
 !/.local/lib/dir-alias/
