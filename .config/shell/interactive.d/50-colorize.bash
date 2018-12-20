@@ -13,12 +13,34 @@
 # limitations under the License.
 
 
-if command -v dircolors > /dev/null; then
-  eval "$(dircolors -b)"
-fi
+# Turn color on for `ls` on some BSD variants.
+export CLICOLOR=true
 
-alias ls='ls --color=auto'
+
+# Source the output of dircolors, if it's available.
+for __colorize_dircolors in dircolors gdircolors gnudircolors; do
+  if command -v "${__colorize_dircolors}" > /dev/null; then
+    eval "$("${__colorize_dircolors}" -b)"
+    break
+  fi
+done
+unset __colorize_dircolors
+
+
+# Set aliases to colorized versions of commands.
+for __colorize_ls in ls gls gnuls; do
+  if command -v "${__colorize_ls}" > /dev/null &&
+      "${__colorize_ls}" --version 2> /dev/null | grep -qi 'gnu coreutils'; then
+    alias ls="${__colorize_ls} --color=auto"
+    break
+  fi
+done
+unset __colorize_ls
+
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
-alias diff='diff --color=auto'
+
+if diff --color=auto /dev/null /dev/null 2> /dev/null; then
+  alias diff='diff --color=auto'
+fi
