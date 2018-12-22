@@ -18,7 +18,14 @@ command -v dconf > /dev/null || return
 
 (
   for file in ~/.config/dconf-autoload/*; do
-    [ -r "$file" ] || continue
-    dconf load / < "$file"
+    case "$file" in
+      *.cfg)
+        dconf load / < "$file"
+        ;;
+      *)
+        [ -x "$file" ] || continue
+        "$file"
+        ;;
+    esac
   done
 )
