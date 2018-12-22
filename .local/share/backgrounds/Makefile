@@ -14,7 +14,7 @@
 
 
 # Which background to use by default.
-DEFAULT = dseomn-sphere-and-tori.png
+DEFAULT = dseomn-sphere-and-tori.watermark-userhost.png
 
 
 all: default.png
@@ -37,6 +37,12 @@ default.png: $(DEFAULT) .default-stamp
 .default-stamp: always-rebuild
 	old="$$(cat "$@" 2> /dev/null || true)"; \
 	    [ "$${old}" = "$(DEFAULT)" ] || printf '%s\n' "$(DEFAULT)" > "$@"
+
+
+# Watermark files with the username and hostname.
+.png.watermark-userhost.png:
+	watermark-userhost "$<" "$@"
+.SUFFIXES: .png .watermark-userhost.png
 
 
 dseomn-sphere-and-tori.png:

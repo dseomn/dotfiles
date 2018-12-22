@@ -1,0 +1,59 @@
+#!/bin/bash
+
+# Copyright 2018 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
+# This script watermarks $1 with the current username and hostname, and outputs
+# to $2.
+
+
+[[ "$#" = 2 ]] || exit 1
+in="$1"
+out="$2"
+
+[[ -n "$USER" ]] || exit 1
+
+[[ -n "$HOSTNAME" ]] || exit 1
+hostname="${HOSTNAME%%.*}"
+
+
+# Prints an #RRGGBB color code deterministically generated from $1.
+get_color_rgb() {
+  local hex="$(printf '%s' "$1" | sha512sum)" || return 1
+  hex="${hex%% *}"
+  printf '#%6.6s' "${hex}"
+}
+
+
+pointsize="$(identify -format '%[fx:min(w, h) / 75]' "${in}")" || exit 1
+offset="$(identify -format '+%[fx:w / 40]+%[fx:h / 40]' "${in}")" || exit 1
+
+
+watermark=(-pointsize "${pointsize}" -background transparent)
+for corner in NorthWest NorthEast SouthEast SouthWest; do
+  user_color="$(get_color_rgb "username:${corner}:fg:${USER}")" || exit 1
+  host_color="$(get_color_rgb "hostname:${corner}:fg:${hostname}")" || exit 1
+  user_at_pango="<span foreground=\"${user_color}\">${USER}@</span>"
+  host_pango="<span foreground=\"${host_color}\">${hostname}</span>"
+  watermark+=( \
+      pango:"${user_at_pango}${host_pango}" \
+      -gravity "${corner}" \
+      -geometry "${offset}" \
+      -composite \
+  )
+done
+
+
+convert "${in}" "${watermark[@]}" -alpha remove "${out}"
