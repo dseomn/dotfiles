@@ -83,6 +83,7 @@ Recommends:
   ibus-gtk3,
   ibus-m17n,
   ibus-qt4,
+  imagemagick,
   m17n-db,
   m17n-im-config,
   vim-gtk3 (>= 2:8.0),

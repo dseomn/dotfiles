@@ -32,4 +32,13 @@ yadm_unset_local() {
 try yadm_unset_local status.showUntrackedFiles
 
 
+if [[ -n "${DISPLAY}" ]]; then
+  # Get/update the desktop backgrounds.
+  (
+    try cd ~/.local/share/backgrounds
+    try make
+  ) || exit 1
+fi
+
+
 try ~/.local/bin/check-environment
