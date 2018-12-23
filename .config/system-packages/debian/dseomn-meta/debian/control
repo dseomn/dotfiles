@@ -75,6 +75,7 @@ Depends:
   ${misc:Depends},
   dseomn-standard (= ${source:Version}),
   adwaita-icon-theme-full,
+  gnome-icon-theme,
   gnome-themes-extra,
   marco,
   mate-applets,
@@ -91,6 +92,7 @@ Depends:
   terminator,
 Recommends:
   dseomn-dev (= ${source:Version}),
+  blueman,
   dconf-editor,
   ibus,
   ibus-clutter,
