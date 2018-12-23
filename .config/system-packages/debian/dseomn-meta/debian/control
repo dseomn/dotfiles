@@ -74,9 +74,9 @@ Architecture: all
 Depends:
   ${misc:Depends},
   dseomn-standard (= ${source:Version}),
-  adwaita-icon-theme-full,
+  adwaita-icon-theme,
   gnome-icon-theme,
-  gnome-themes-extra,
+  gnome-themes-extra | gnome-themes-standard,
   marco,
   mate-applets,
   mate-desktop-environment,
