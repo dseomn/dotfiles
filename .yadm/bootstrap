@@ -20,6 +20,12 @@ fatal() { pecho "ERROR: $*" >&2; exit 1; }
 try() { "$@" || fatal "'$*' failed"; }
 
 
+# This bootstrap script can be run before the dotfiles get a chance to update
+# the interactive shell environment. So set the path explicitly to enable
+# running executables in the dotfiles.
+export PATH=~/.local/bin:"$PATH"
+
+
 # Unsets a local config option.
 yadm_unset_local() {
   if yadm gitconfig --local --get "$1" > /dev/null; then
@@ -33,7 +39,7 @@ try yadm_unset_local status.showUntrackedFiles
 
 
 # Prompt to set machine-local config.
-try ~/.local/bin/dotfiles-config-setup
+try dotfiles-config-setup
 
 
 if [[ -n "${DISPLAY}" ]]; then
@@ -45,4 +51,4 @@ if [[ -n "${DISPLAY}" ]]; then
 fi
 
 
-try ~/.local/bin/check-environment
+try check-environment
