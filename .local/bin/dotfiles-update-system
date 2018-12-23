@@ -21,6 +21,12 @@ fatal() { error "$*"; exit 1; }
 try() { "$@" || fatal "Command failed: $*"; }
 
 
+if [ "$(dotfiles-config --bool --get dotfiles.manageSystem)" != "true" ]; then
+  pecho 'Not updating system. See dotfiles.manageSystem config.'
+  exit 0
+fi
+
+
 libdir=~/.local/lib/system-packages
 
 
