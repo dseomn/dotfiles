@@ -42,6 +42,10 @@ try yadm_unset_local status.showUntrackedFiles
 try dotfiles-config-setup
 
 
+# Update system packages, unless the above config disabled this.
+try dotfiles-update-system
+
+
 if [[ -n "${DISPLAY}" ]]; then
   # Get/update the desktop backgrounds.
   (
