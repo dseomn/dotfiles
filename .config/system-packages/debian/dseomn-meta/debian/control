@@ -91,6 +91,7 @@ Depends:
   terminator,
 Recommends:
   dseomn-dev (= ${source:Version}),
+  dconf-editor,
   ibus,
   ibus-clutter,
   ibus-gtk,
