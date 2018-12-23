@@ -32,6 +32,10 @@ yadm_unset_local() {
 try yadm_unset_local status.showUntrackedFiles
 
 
+# Prompt to set machine-local config.
+try ~/.local/bin/dotfiles-config-setup
+
+
 if [[ -n "${DISPLAY}" ]]; then
   # Get/update the desktop backgrounds.
   (
