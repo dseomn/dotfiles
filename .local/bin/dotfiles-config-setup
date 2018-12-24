@@ -22,5 +22,6 @@ for template_file in ~/.config/dotfiles/conf.local-template.d/*.cfg; do
   [[ -f "$template_file" ]] || continue
   local_file=~/.config/dotfiles/conf.local.d/"${template_file##*/}"
   [[ "$template_file" -nt "$local_file" ]] || continue
-  vim -O "$local_file" "$template_file" || exit
+  vim -O "$local_file" "$template_file" -c 'au VimEnter * setl ro | wincmd w' ||
+      exit
 done
