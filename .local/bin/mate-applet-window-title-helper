@@ -20,7 +20,10 @@
 
 
 # What to print if there's no active window.
-: ${WTH_DEFAULT_TEXT:=Desktop}
+: ${WTH_NO_ACTIVE_WINDOW_TEXT:=Desktop}
+
+# What to print if there is an active window, but it has no name.
+: ${WTH_UNNAMED_ACTIVE_WINDOW_TEXT:=Desktop}
 
 # The Command Applet's maximum byte count, divided by the max number of bytes
 # per character (4). See https://github.com/mate-desktop/mate-applets/issues/374
@@ -48,7 +51,7 @@ truncate() {
 
 
 if title="$(xdotool getactivewindow getwindowname 2> /dev/null)"; then
-  printf '%s' "$title" | truncate
+  printf '%s' "${title:-${WTH_UNNAMED_ACTIVE_WINDOW_TEXT}}" | truncate
 else
-  printf '%s' "${WTH_DEFAULT_TEXT}" | truncate
+  printf '%s' "${WTH_NO_ACTIVE_WINDOW_TEXT}" | truncate
 fi
