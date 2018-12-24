@@ -37,16 +37,47 @@ dir_alias() {
 
   eval "export ${__da_alias}=\"\${__da_dir}\""
 
-  # Add the new alias, and sort the table to keep more-specific directories
-  # before their less-specific parents. This makes dir_alias_shorten find the
-  # most specific prefix first.
-  __dir_alias_table="$(
-      printf '$%s %s\n%s' "${__da_alias}" "${__da_dir}" "${__dir_alias_table}" |
-          sort -rk 2
-  )"
+  if [ -n "$__dir_alias_is_ephemeral" ]; then
+    # Add the new alias to the list of aliases to be reset next time
+    # dir_alias_reset_ephemerals is run.
+    __dir_alias_ephemerals="${__dir_alias_ephemerals} ${__da_alias}"
+  else
+    # Add the new alias for shortening, and sort the table to keep more-specific
+    # directories before their less-specific parents. This makes
+    # dir_alias_shorten find the most specific prefix first.
+    __dir_alias_table="$(
+        printf '$%s %s\n%s' "${__da_alias}" "${__da_dir}" "${__dir_alias_table}" |
+            sort -rk 2
+    )"
+  fi
 
   unset __da_alias
   unset __da_dir
+}
+
+
+# Registers a function that configures ephemeral aliases. Ephemeral aliases are
+# like normal aliases, except that they can appear/disappear/change frequently,
+# and they are not used by dir_alias_shorten (because a shortened path should be
+# relatively stable).
+#
+# The function passed as the first argument should call dir_alias as normal for
+# each alias it wants to add.
+dir_alias_register_ephemeral_factory() {
+  __dir_alias_ephemeral_factories="${__dir_alias_ephemeral_factories} ${1}"
+}
+
+
+# Resets ephemeral aliases, by deleting all of them and (re-)running the
+# functions registered by dir_alias_register_ephemeral_factory. This should
+# probably be called from $PROMPT_COMMAND in a shell.
+dir_alias_reset_ephemerals() {
+  unset ${__dir_alias_ephemerals}
+  __dir_alias_ephemerals=
+  for __da_ephemeral_factory in ${__dir_alias_ephemeral_factories}; do
+    __dir_alias_is_ephemeral=yes "${__da_ephemeral_factory}"
+  done
+  unset __da_ephemeral_factory
 }
 
 
@@ -90,6 +121,9 @@ dir_alias_init() {
   fi
   __dir_alias_init=yes
   __dir_alias_table=
+  __dir_alias_ephemeral_factories=
+  __dir_alias_ephemerals=
+  __dir_alias_is_ephemeral=
   for __da_conf_file in ~/.config/dir-alias/conf.d/*.sh; do
     [ -f "$__da_conf_file" ] || continue
     . "$__da_conf_file"
