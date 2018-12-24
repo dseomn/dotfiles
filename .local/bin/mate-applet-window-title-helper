@@ -38,9 +38,9 @@ truncate() {
   local in
   IFS= read -r in
   if (( "${#in}" <= "${WTH_MAX_CHARS}" )); then
-    printf '%s' "${in}"
+    printf '%s\n' "${in}"
   else
-    printf '%s%s' \
+    printf '%s%s\n' \
         "${in: 0 : ${WTH_MAX_CHARS} - ${#WTH_TRUNCATION_MARKER}}" \
         "${WTH_TRUNCATION_MARKER}"
   fi
