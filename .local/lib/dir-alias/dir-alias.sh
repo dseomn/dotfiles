@@ -108,7 +108,6 @@ dir_alias_shorten() {
     esac
   done <<EOF
 ${__dir_alias_table}
-~ ${HOME%/}
 EOF
 
   # No match was found, print the original.
@@ -129,6 +128,7 @@ dir_alias_init() {
   __dir_alias_ephemeral_factories=
   __dir_alias_ephemerals=
   __dir_alias_is_ephemeral=
+  __dir_alias_table_add '~' ~
   for __da_conf_file in ~/.config/dir-alias/conf.d/*.sh; do
     [ -f "$__da_conf_file" ] || continue
     . "$__da_conf_file"
