@@ -38,21 +38,7 @@ yadm_unset_local() {
 try yadm_unset_local status.showUntrackedFiles
 
 
-# Prompt to set machine-local config.
-try dotfiles-config-setup
-
-
-# Update system packages, unless the above config disabled this.
-try dotfiles-update-system
-
-
-if [[ -n "${DISPLAY}" ]]; then
-  # Get/update the desktop backgrounds.
-  (
-    try cd ~/.local/share/backgrounds
-    try make
-  ) || exit 1
-fi
+try dotfiles-update
 
 
 try check-environment
