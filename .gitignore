@@ -40,6 +40,10 @@
 !/.local/lib/system-packages/**
 !/.m17n.d/
 !/.m17n.d/**
+!/.mozilla/
+!/.mozilla/firefox/
+!/.mozilla/firefox/all/
+!/.mozilla/firefox/all/**
 !/.vim/
 !/.vim/**
 !/.vimrc
