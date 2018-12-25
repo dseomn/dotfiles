@@ -42,17 +42,22 @@ dir_alias() {
     # dir_alias_reset_ephemerals is run.
     __dir_alias_ephemerals="${__dir_alias_ephemerals} ${__da_alias}"
   else
-    # Add the new alias for shortening, and sort the table to keep more-specific
-    # directories before their less-specific parents. This makes
-    # dir_alias_shorten find the most specific prefix first.
-    __dir_alias_table="$(
-        printf '$%s %s\n%s' "${__da_alias}" "${__da_dir}" "${__dir_alias_table}" |
-            sort -rk 2
-    )"
+    __dir_alias_table_add "\$${__da_alias}" "${__da_dir}"
   fi
 
   unset __da_alias
   unset __da_dir
+}
+
+
+# Adds a raw entry (e.g., "$foo" instead of "foo") to the table.
+__dir_alias_table_add() {
+  # Add the new raw alias for shortening, and sort the table to keep
+  # more-specific directories before their less-specific parents. This makes
+  # dir_alias_shorten find the most specific prefix first.
+  __dir_alias_table="$(
+      printf '%s %s\n%s' "${1}" "${2%/}" "${__dir_alias_table}" | sort -rk 2
+  )"
 }
 
 
