@@ -27,3 +27,6 @@
 (xbindkey-keys '(release alt comma) '((XF86AudioPrev)))
 (xbindkey-keys '(release alt period) '((XF86AudioNext)))
 (xbindkey-keys '(release alt slash) '((XF86AudioPlay)))
+(xbindkey-keys '(release alt shift comma) '((XF86AudioLowerVolume)))
+(xbindkey-keys '(release alt shift period) '((XF86AudioRaiseVolume)))
+(xbindkey-keys '(release alt shift slash) '((XF86AudioMute)))
