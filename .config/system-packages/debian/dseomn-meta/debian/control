@@ -53,6 +53,7 @@ Recommends:
   devscripts,
   default-jdk-headless,
   dpkg-dev,
+  guile-2.2,
   ipython,
   ipython3,
   manpages-dev,
