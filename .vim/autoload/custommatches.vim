@@ -13,6 +13,10 @@
 " limitations under the License.
 
 
+let s:save_cpo = &cpo
+set cpo&vim
+
+
 " Adds multiple patterns to the given group.
 function custommatches#AddPatterns(group, ...)
   call call('custommatches#AddPatternsIf', [v:true, a:group] + a:000)
@@ -117,3 +121,6 @@ let s:matches_configured = {}
 
 " Map from window ID to list of matches we've added there.
 let s:matches_added = {}
+
+
+let &cpo = s:save_cpo
