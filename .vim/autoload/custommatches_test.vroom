@@ -1,0 +1,106 @@
+Copyright 2018 Google LLC
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+
+
+Set runtimepath so that custommatches are loaded.
+
+  :set runtimepath+=$VROOMDIR/..
+
+Create some patterns to use in tests below.
+
+  :hi A term=NONE
+  :hi B term=NONE
+  :call custommatches#AddPatterns('A', 'a')
+  :call custommatches#AddPatterns('B', 'b')
+  :call custommatches#AddPatternsIf({-> &expandtab}, 'B', 'c')
+
+
+
+Test than unconditional patterns are included.
+
+  :buffer
+  :echomsg string(getmatches())
+  ~ *'group': 'A', 'pattern': 'a'* (glob)
+  :echomsg string(getmatches())
+  ~ *'group': 'B', 'pattern': 'b'* (glob)
+  :echomsg string(len(getmatches()))
+  ~ [23] (glob)
+
+
+
+Test that conditional patterns are included only when the condition is true, and
+that changing an option resets matches.
+
+  :buffer
+  :setl noexpandtab
+  :echomsg string(len(getmatches()))
+  ~ 2
+
+  :buffer
+  :setl expandtab
+  :echomsg string(getmatches())
+  ~ *'group': 'B', 'pattern': 'c'* (glob)
+  :echomsg string(len(getmatches()))
+  ~ 3
+
+
+
+Test that matches exist in new windows.
+
+  :new
+  :echomsg string(len(getmatches()))
+  ~ [23] (glob)
+
+
+
+Test that manually resetting matches does not delete matches not managed by
+custommatches.
+
+  :buffer
+  :setl noexpandtab
+  :echomsg string(len(getmatches()))
+  ~ 2
+  :let to_clean_up = matchadd('A', 'z')
+  :echomsg string(len(getmatches()))
+  ~ 3
+  :call custommatches#ResetMatches()
+  :echomsg string(len(getmatches()))
+  ~ 3
+
+Clean up.
+
+  :call matchdelete(to_clean_up)
+
+
+
+Test that matches are not set up in an excluded buffer.
+
+  :buffer
+  :call custommatches#ExcludeBuffer()
+  :echomsg string(len(getmatches()))
+  ~ 0
+
+
+
+Test that ExcludeBuffer doesn't affect other buffers.
+
+  :buffer
+  :new
+  :call custommatches#ExcludeBuffer()
+  :echomsg string(len(getmatches()))
+  ~ 0
+  :wincmd w
+  :echomsg string(len(getmatches()))
+  ~ [23] (glob)
