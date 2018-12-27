@@ -105,6 +105,5 @@ Recommends:
   m17n-db,
   m17n-im-config,
   vim-gtk3 (>= 2:8.0),
-  xbindkeys,
   xdotool,
 Description: dseomn-desktop
