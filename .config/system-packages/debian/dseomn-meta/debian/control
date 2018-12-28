@@ -77,6 +77,7 @@ Depends:
   dseomn-standard (= ${source:Version}),
   adwaita-icon-theme,
   gnome-icon-theme,
+  gnome-terminal,
   gnome-themes-extra | gnome-themes-standard,
   marco,
   mate-applets,
@@ -90,7 +91,6 @@ Depends:
   mate-themes,
   mate-window-buttons-applet,
   mate-window-title-applet,
-  terminator,
 Recommends:
   dseomn-dev (= ${source:Version}),
   blueman,
