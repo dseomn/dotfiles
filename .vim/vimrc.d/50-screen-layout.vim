@@ -18,6 +18,10 @@ set laststatus=2
 call customstatus#Init()
 
 
+" Don't override the terminal title.
+set notitle
+
+
 set showcmd
 
 
