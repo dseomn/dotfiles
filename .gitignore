@@ -13,6 +13,8 @@
 !/.config/git/**
 !/.config/hg/
 !/.config/hg/**
+!/.config/mpd/
+!/.config/mpd/**
 !/.config/shell/
 !/.config/shell/**
 !/.config/system-packages/
