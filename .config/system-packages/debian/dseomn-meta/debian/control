@@ -95,6 +95,7 @@ Recommends:
   dseomn-dev (= ${source:Version}),
   blueman,
   dconf-editor,
+  fonts-noto,
   ibus,
   ibus-clutter,
   ibus-gtk,
