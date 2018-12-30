@@ -63,6 +63,8 @@ Recommends:
   python,
   python2.7,
   python3,
+  python3-pytest,
+  python3-pytest-cov,
   r-recommended,
   subversion,
   texlive-latex-recommended,
@@ -91,6 +93,9 @@ Depends:
   mate-themes,
   mate-window-buttons-applet,
   mate-window-title-applet,
+# Dependencies of dconf_load_yaml:
+  python3-jinja2,
+  python3-yaml,
 Recommends:
   dseomn-dev (= ${source:Version}),
   blueman,
