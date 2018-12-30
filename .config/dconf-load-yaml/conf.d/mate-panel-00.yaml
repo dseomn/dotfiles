@@ -25,7 +25,17 @@
         - key: toplevel-id-list
           value: "['top']"
         - key: object-id-list
-          value: "['menu', 'workspace-switcher', 'dock', 'window-title', 'multiload', 'inhibit', 'notifications', 'indicator', 'clock', 'window-buttons']"
+          value: >-
+            ['menu',
+            'workspace-switcher',
+            'dock',
+            'window-title',
+            'multiload',
+            'inhibit',
+            'notifications',
+            'indicator',
+            'clock',
+            'window-buttons']
         - key: history-mate-run
           reset: false
       - dir: toplevels
@@ -223,7 +233,11 @@
             - key: format
               value: "'custom'"
             - key: custom-format
-              value: "'<tt> </tt>%a %b %e, %Y<tt> </tt>%H:%M <small>%z</small><tt> </tt>'"
+              value: >-
+                '<tt>
+                </tt>%a %b %e, %Y<tt>
+                </tt>%H:%M <small>%z</small><tt>
+                </tt>'
             - key: expand-locations
               value: "true"
         - dir: window-buttons

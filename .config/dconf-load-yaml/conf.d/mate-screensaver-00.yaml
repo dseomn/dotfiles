@@ -22,8 +22,8 @@
       children:
       - key: lock-enabled
         value: "true"
-      # See /org/mate/desktop/session/idle-delay for the delay before the screensaver
-      # activates.
+      # See /org/mate/desktop/session/idle-delay for the delay before the
+      # screensaver activates.
       - key: idle-activation-enabled
         value: "true"
       # Lock the screen immediately after the screensaver activates.
