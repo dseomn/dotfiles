@@ -13,4 +13,4 @@
 # limitations under the License.
 
 
-dconf-load-yaml
+dconf-load-yaml --force
