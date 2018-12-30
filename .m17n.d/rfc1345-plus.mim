@@ -26,11 +26,18 @@
   (extras
     ("&?!" "‽")  ; U+203D INTERROBANG
     ("&?!I" "⸘")  ; U+2E18 INVERTED INTERROBANG
+    )
+
+  (menus
+    ("&^E" (("¯\\_(ツ)_/¯")))
     ))
 
+
+(include (t nil zh-util) state)
 
 (state
   (init
     (map)
     (extras)
+    (menus (show) (shift select))
     ))
