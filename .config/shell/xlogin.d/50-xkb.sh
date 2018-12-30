@@ -14,4 +14,4 @@
 
 
 setxkbmap 'us+dseomn' -print |
-    xkbcomp -I"${HOME}/.config/xkb" - "${DISPLAY}"
+    xkbcomp -w 3 -I"${HOME}/.config/xkb" - "${DISPLAY}"
