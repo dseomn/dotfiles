@@ -13,4 +13,19 @@
 # limitations under the License.
 
 
-dconf-load-yaml
+- dir: org
+  children:
+  - dir: mate
+    children:
+    - dir: settings-daemon
+      children:
+      - dir: plugins
+        children:
+        - dir: media-keys
+          children:
+          - key: previous
+            value: "'<Alt>comma'"
+          - key: next
+            value: "'<Alt>period'"
+          - key: play
+            value: "'<Alt>slash'"

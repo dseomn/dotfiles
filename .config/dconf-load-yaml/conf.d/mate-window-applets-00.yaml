@@ -13,4 +13,15 @@
 # limitations under the License.
 
 
-dconf-load-yaml
+- dir: org
+  children:
+  - dir: mate
+    children:
+    - dir: window-applets
+      children:
+      - dir: window-buttons
+        children:
+        # TODO: Change the theme, when
+        # https://github.com/ubuntu-mate/mate-window-applets/issues/1 is fixed.
+        - key: control-maximized-window
+          value: "false"

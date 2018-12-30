@@ -1,0 +1,39 @@
+# Copyright 2018 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
+- dir: org
+  children:
+  - dir: gnome
+    children:
+    - dir: terminal
+      children:
+      - dir: legacy
+        children:
+        - key: schema-version
+          value: "uint32 3"
+        - key: default-show-menubar
+          value: "false"
+        - dir: "profiles:"
+          children:
+          - dir: ":b1dcc9dd-5262-4d8d-a863-c897e6d979b9"
+            children:
+            - key: visible-name
+              value: "'default'"
+            - key: scrollbar-policy
+              value: "'never'"
+            - key: use-system-font
+              value: "false"
+            - key: font
+              value: "'Monospace 10'"

@@ -1,0 +1,235 @@
+# Copyright 2018 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
+- dir: org
+  children:
+  - dir: mate
+    children:
+    - dir: panel
+      children:
+      - dir: general
+        children:
+        - key: toplevel-id-list
+          value: "['top']"
+        - key: object-id-list
+          value: "['menu', 'workspace-switcher', 'dock', 'window-title', 'multiload', 'inhibit', 'notifications', 'indicator', 'clock', 'window-buttons']"
+      - dir: toplevels
+        children:
+        - dir: top
+          children:
+          - key: orientation
+            value: "'top'"
+      - dir: objects
+        children:
+        - dir: menu
+          children:
+          - key: toplevel-id
+            value: "'top'"
+          - key: panel-right-stick
+            value: "false"
+          - key: position
+            value: "0"
+          - key: applet-iid
+            value: "'MateMenuAppletFactory::MateMenuApplet'"
+          - key: object-type
+            value: "'applet'"
+        - dir: workspace-switcher
+          children:
+          - key: toplevel-id
+            value: "'top'"
+          - key: panel-right-stick
+            value: "false"
+          - key: position
+            value: "1"
+          - key: applet-iid
+            value: "'WnckletFactory::WorkspaceSwitcherApplet'"
+          - key: object-type
+            value: "'applet'"
+          - dir: prefs
+            children:
+            - key: num-rows
+              value: "3"
+        - dir: dock
+          children:
+          - key: toplevel-id
+            value: "'top'"
+          - key: panel-right-stick
+            value: "false"
+          - key: position
+            value: "2"
+          - key: applet-iid
+            value: "'DockAppletFactory::DockApplet'"
+          - key: object-type
+            value: "'applet'"
+          - dir: prefs
+            children:
+            - key: indicator-type
+              value: "4"
+            - key: multi-ind
+              value: "true"
+            - key: attention-type
+              value: "0"
+            - key: bg-type
+              value: "1"
+            - key: app-spacing
+              value: "0"
+            - key: use-win-list
+              value: "true"
+            - key: panel-act-list
+              value: "true"
+            - key: apps-from-all-workspaces
+              value: "true"
+            - key: pinned-apps-on-all-workspaces
+              value: "true"
+            - key: win-from-cur-workspace-only
+              value: "false"
+            - key: change-panel-color
+              value: "false"
+            - key: change-panel-color-dock-only
+              value: "false"
+            - key: dock-fixed-size
+              value: "-1"
+            - key: popup-delay
+              value: "1000"
+        # TODO: Get rid of this hack after
+        # https://github.com/ubuntu-mate/mate-window-applets/issues/4 is fixed.
+        - dir: window-title
+          children:
+          - key: toplevel-id
+            value: "'top'"
+          - key: panel-right-stick
+            value: "false"
+          # The dock applet will shrink if this is too close, so manually give
+          # this a position in pixels.
+          # TODO: Make this dependent on icon size, scaling factor, dpi, or
+          # something.
+          - key: position
+            value: "600"
+          - key: applet-iid
+            value: "'CommandAppletFactory::CommandApplet'"
+          - key: object-type
+            value: "'applet'"
+          - dir: prefs
+            children:
+            - key: command
+              value: "'env WTH_MAX_CHARS=100 mate-applet-window-title-helper'"
+            - key: interval
+              value: "1"
+            - key: show-icon
+              value: "false"
+            # Width is in bytes, not characters, so set it to WTH_MAX_CHARS * 4
+            # (max bytes per char).
+            # TODO: Change this once
+            # https://github.com/mate-desktop/mate-applets/issues/374 is fixed.
+            - key: width
+              value: "400"
+        - dir: multiload
+          children:
+          - key: toplevel-id
+            value: "'top'"
+          - key: panel-right-stick
+            value: "true"
+          - key: position
+            value: "5"
+          - key: applet-iid
+            value: "'MultiLoadAppletFactory::MultiLoadApplet'"
+          - key: object-type
+            value: "'applet'"
+          - dir: prefs
+            children:
+            - key: view-memload
+              value: "true"
+            - key: view-netload
+              value: "true"
+            - key: netload2-color0
+              value: "'rgb(127,127,255)'"
+            - key: netload2-color1
+              value: "'rgb(255,127,127)'"
+            - key: view-swapload
+              value: "true"
+            - key: view-diskload
+              value: "true"
+            - key: diskload-color0
+              value: "'rgb(0,0,255)'"
+            - key: diskload-color1
+              value: "'rgb(255,0,0)'"
+        - dir: inhibit
+          children:
+          - key: toplevel-id
+            value: "'top'"
+          - key: position
+            value: "4"
+          - key: panel-right-stick
+            value: "true"
+          - key: applet-iid
+            value: "'InhibitAppletFactory::InhibitApplet'"
+          - key: object-type
+            value: "'applet'"
+        - dir: notifications
+          children:
+          - key: toplevel-id
+            value: "'top'"
+          - key: panel-right-stick
+            value: "true"
+          - key: position
+            value: "3"
+          - key: applet-iid
+            value: "'NotificationAreaAppletFactory::NotificationArea'"
+          - key: object-type
+            value: "'applet'"
+        - dir: indicator
+          children:
+          - key: toplevel-id
+            value: "'top'"
+          - key: position
+            value: "2"
+          - key: panel-right-stick
+            value: "true"
+          - key: applet-iid
+            value: "'IndicatorAppletCompleteFactory::IndicatorAppletComplete'"
+          - key: object-type
+            value: "'applet'"
+        - dir: clock
+          children:
+          - key: toplevel-id
+            value: "'top'"
+          - key: panel-right-stick
+            value: "true"
+          - key: position
+            value: "1"
+          - key: applet-iid
+            value: "'ClockAppletFactory::ClockApplet'"
+          - key: object-type
+            value: "'applet'"
+          - dir: prefs
+            children:
+            - key: format
+              value: "'custom'"
+            - key: custom-format
+              value: "'<tt> </tt>%a %b %e, %Y<tt> </tt>%H:%M <small>%z</small><tt> </tt>'"
+            - key: expand-locations
+              value: "true"
+        - dir: window-buttons
+          children:
+          - key: toplevel-id
+            value: "'top'"
+          - key: panel-right-stick
+            value: "true"
+          - key: position
+            value: "0"
+          - key: applet-iid
+            value: "'WindowButtonsAppletFactory::WindowButtonsApplet'"
+          - key: object-type
+            value: "'applet'"

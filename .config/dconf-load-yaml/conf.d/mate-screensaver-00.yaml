@@ -13,4 +13,22 @@
 # limitations under the License.
 
 
-dconf-load-yaml
+- dir: org
+  children:
+  - dir: mate
+    children:
+    - dir: screensaver
+      children:
+      - key: lock-enabled
+        value: "true"
+      # See /org/mate/desktop/session/idle-delay for the delay before the screensaver
+      # activates.
+      - key: idle-activation-enabled
+        value: "true"
+      # Lock the screen immediately after the screensaver activates.
+      - key: lock-delay
+        value: "0"
+      - key: mode
+        value: "'blank-only'"
+      - key: themes
+        value: "@as []"

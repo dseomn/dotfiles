@@ -1,8 +1,8 @@
 *
 
 !/.config/
-!/.config/dconf-autoload/
-!/.config/dconf-autoload/**
+!/.config/dconf-load-yaml/
+!/.config/dconf-load-yaml/**
 !/.config/dir-alias/
 !/.config/dir-alias/**
 !/.config/dotfiles/

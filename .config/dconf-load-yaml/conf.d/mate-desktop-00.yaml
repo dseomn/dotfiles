@@ -1,0 +1,80 @@
+# Copyright 2018 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
+- dir: org
+  children:
+  - dir: mate
+    children:
+    - dir: desktop
+      children:
+      - dir: applications
+        children:
+        - dir: terminal
+          children:
+          - key: exec
+            value: "'gnome-terminal'"
+          - key: exec-arg
+            value: "'-x'"
+      - dir: background
+        children:
+        - key: picture-filename
+          value: "'{{ env['HOME'] }}/.local/share/backgrounds/default.png'"
+        - key: show-desktop-icons
+          value: "false"
+      - dir: interface
+        children:
+        - key: gtk-theme
+          value: "'Adwaita'"
+        - key: icon-theme
+          value: "'Adwaita'"
+        - key: font-name
+          value: "'Sans 10'"
+        - key: document-font-name
+          value: "'Sans 10'"
+        - key: monospace-font-name
+          value: "'Monospace 10'"
+      - dir: peripherals
+        children:
+        - dir: mouse
+          children:
+          - key: cursor-theme
+            value: "'Adwaita'"
+        - dir: touchpad
+          children:
+          - key: horizontal-edge-scrolling
+            value: "true"
+          - key: horizontal-two-finger-scrolling
+            value: "true"
+          - key: vertical-edge-scrolling
+            value: "true"
+          - key: vertical-two-finger-scrolling
+            value: "true"
+          - key: tap-to-click
+            value: "false"
+          - key: three-finger-click
+            value: "2"
+          - key: two-finger-click
+            value: "3"
+      - dir: session
+        children:
+        # Remove 'keyring' (gnome-keyring) from the default, because it
+        # conflicts with other SSH agents.
+        - key: gnome-compat-startup
+          value: "['smproxy']"
+        # Time in minutes before the session is considered idle. (See
+        # /org/mate/screensaver/idle-activation-enabled for how this affects the
+        # screensaver.)
+        - key: idle-delay
+          value: "5"

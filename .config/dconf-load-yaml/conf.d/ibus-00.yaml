@@ -1,0 +1,69 @@
+# Copyright 2018 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
+- dir: desktop
+  children:
+  - dir: ibus
+    children:
+    - dir: general
+      children:
+      - key: use-system-keyboard-layout
+        value: "true"
+      - key: use-global-engine
+        value: "true"
+      - key: enable-by-default
+        value: "true"
+      - key: engines-order
+        value: "['m17n:t:rfc1345-plus', 'xkb:us::eng']"
+      - key: preload-engines
+        value: "['m17n:t:rfc1345-plus', 'xkb:us::eng']"
+      - key: embed-preedit-text
+        value: "true"
+      - key: switcher-delay-time
+        value: "400"
+      - dir: hotkey
+        children:
+        - key: triggers
+          value: "['<Control>space']"
+    - dir: panel
+      children:
+      - key: show
+        value: "0"
+      - key: show-icon-on-systray
+        value: "true"
+      - dir: emoji
+        children:
+        - key: hotkey
+          value: "['<Control><Shift>e']"
+        - key: has-partial-match
+          value: "true"
+        - key: partial-match-condition
+          value: "2"
+        - key: partial-match-length
+          value: "3"
+    - dir: engine
+      children:
+      - dir: m17n
+        children:
+        - dir: t
+          children:
+          - dir: rfc1345-plus
+            children:
+            - key: preedit-background
+              value: "'none'"
+            - key: preedit-foreground
+              value: "'none'"
+            - key: preedit-underline
+              value: "1"
