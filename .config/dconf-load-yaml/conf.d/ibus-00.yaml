@@ -16,6 +16,7 @@
 - dir: desktop
   children:
   - dir: ibus
+    reset: true
     children:
     - dir: general
       children:
@@ -53,6 +54,10 @@
           value: "2"
         - key: partial-match-length
           value: "3"
+        - key: favorite-annotations
+          reset: false
+        - key: favorites
+          reset: false
     - dir: engine
       children:
       - dir: m17n

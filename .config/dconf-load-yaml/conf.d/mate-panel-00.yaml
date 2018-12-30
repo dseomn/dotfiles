@@ -18,6 +18,7 @@
   - dir: mate
     children:
     - dir: panel
+      reset: true
       children:
       - dir: general
         children:
@@ -25,6 +26,8 @@
           value: "['top']"
         - key: object-id-list
           value: "['menu', 'workspace-switcher', 'dock', 'window-title', 'multiload', 'inhibit', 'notifications', 'indicator', 'clock', 'window-buttons']"
+        - key: history-mate-run
+          reset: false
       - dir: toplevels
         children:
         - dir: top
@@ -103,6 +106,8 @@
               value: "-1"
             - key: popup-delay
               value: "1000"
+            - key: pinned-apps
+              reset: false
         # TODO: Get rid of this hack after
         # https://github.com/ubuntu-mate/mate-window-applets/issues/4 is fixed.
         - dir: window-title

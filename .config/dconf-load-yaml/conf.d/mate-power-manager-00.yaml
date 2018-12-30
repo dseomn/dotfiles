@@ -18,6 +18,7 @@
   - dir: mate
     children:
     - dir: power-manager
+      reset: false
       children:
       - key: action-critical-battery
         value: "'shutdown'"

@@ -18,6 +18,7 @@
   - dir: mate
     children:
     - dir: desktop
+      reset: true
       children:
       - dir: applications
         children:
@@ -33,6 +34,8 @@
           value: "'{{ env['HOME'] }}/.local/share/backgrounds/default.png'"
         - key: show-desktop-icons
           value: "false"
+      - dir: font-rendering
+        reset: false
       - dir: interface
         children:
         - key: gtk-theme
@@ -47,6 +50,10 @@
           value: "'Monospace 10'"
       - dir: peripherals
         children:
+        - dir: keyboard
+          children:
+          - key: numlock-state
+            reset: false
         - dir: mouse
           children:
           - key: cursor-theme
@@ -78,3 +85,5 @@
         # screensaver.)
         - key: idle-delay
           value: "5"
+        - key: session-start
+          reset: false
