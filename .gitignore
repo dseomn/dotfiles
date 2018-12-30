@@ -34,6 +34,9 @@
 !/.local/lib/dir-alias/**
 !/.local/lib/dotfiles/
 !/.local/lib/dotfiles/**
+!/.local/lib/python3/
+!/.local/lib/python3/site-packages/
+!/.local/lib/python3/site-packages/**
 !/.local/lib/shutil/
 !/.local/lib/shutil/**
 !/.local/lib/system-packages/
