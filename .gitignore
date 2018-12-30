@@ -19,6 +19,8 @@
 !/.config/system-packages/**
 !/.config/tmux/
 !/.config/tmux/**
+!/.config/xkb/
+!/.config/xkb/**
 !/.gitconfig
 !/.hgrc
 !/.inputrc.local
