@@ -27,7 +27,7 @@ Depends:
   less,
   man-db,
   tmux (>= 2.6),
-  vim (>= 2:8.0),
+  vim-nox (>= 2:8.0),
 Recommends:
   bash-completion,
   diffutils,
