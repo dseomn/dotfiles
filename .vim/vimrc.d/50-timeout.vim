@@ -17,5 +17,5 @@
 " is coming. So far everything I'm mapping is either machine entered (e.g.,
 " bracketed paste control codes) or a single keystroke.
 set timeout
-set timeoutlen=100
+set timeoutlen=50
 set ttimeoutlen=-1
