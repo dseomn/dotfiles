@@ -33,7 +33,7 @@ matrix:
     - pip install coveralls Jinja2 pytest-cov PyYAML
     script:
     - cd .local/lib/python3/site-packages
-    - python -m pytest --cov=. --cov-branch
+    - python -m pytest --cov=. --cov-branch --cov-report=term-missing
     after_success:
     - cd .local/lib/python3/site-packages
     - coveralls
