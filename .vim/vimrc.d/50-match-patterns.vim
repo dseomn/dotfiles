@@ -77,3 +77,11 @@ call custommatches#AddPatternsIf(
     \ 'invalidWhitespace',
     \ '\t',
     \)
+
+
+" Highlight the three-blank-line separator between vroom tests. Use a match
+" instead of a syntax because syntax doesn't seem to be able to highlight
+" blank lines.
+hi link vroomTestSeparator MatchParen
+call custommatches#AddPatternsIf(
+    \ {-> &filetype ==# 'vroom'}, 'vroomTestSeparator', '\v.\n\zs\n\n\n')
