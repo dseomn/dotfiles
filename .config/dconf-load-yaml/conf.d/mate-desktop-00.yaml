@@ -57,7 +57,7 @@
         - dir: mouse
           children:
           - key: cursor-theme
-            value: "'Adwaita'"
+            value: "'DMZ-White'"
         - dir: touchpad
           children:
           - key: horizontal-edge-scrolling
