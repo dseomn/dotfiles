@@ -59,10 +59,16 @@ hi link invalidWhitespace Todo
 
 " 1. Trailing whitespace, except when the cursor is on the end of the line.
 " 2. Space(s) before a tab.
+" 3. Blank lines at the beginning of the file, except when the cursor is at
+"    the beginning of the file.
+" 4. Blank lines at the end of the file, except when the cursor is at the end
+"    of the file.
 call custommatches#AddPatterns(
     \ 'invalidWhitespace',
     \ '\s\+\%#\@1<!$',
     \ ' \+\ze\t',
+    \ '\v%^%#@1<!\n*$\n?',
+    \ '\v^\n*%#@1<!%$\n?',
     \)
 
 " Any tabs, but only when expandtab is set.
