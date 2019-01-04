@@ -60,3 +60,5 @@
 /.config/dotfiles/conf.local.d/
 /.yadm/repo.git/
 /.vim/state/
+
+__pycache__/
