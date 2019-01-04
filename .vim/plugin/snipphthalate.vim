@@ -18,3 +18,7 @@ if !has('python3') | finish | endif
 
 command! -nargs=1 -complete=customlist,snipphthalate#CompleteTags
     \ Snipphthalate call snipphthalate#InsertSnippet(<f-args>)
+
+
+nmap <M-s> :Snipphthalate<SPACE>
+imap <M-s> <C-\><C-O>:Snipphthalate<SPACE>

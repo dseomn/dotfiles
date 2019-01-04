@@ -16,3 +16,10 @@
 " Reduce the need to hit the shift key before commands.
 nmap ; :
 vmap ; :
+
+
+" Move between files in the argument list more quickly.
+nmap <M-n> :next<CR>
+nmap <M-N> :Next<CR>
+nmap <M-v> :vert snext<CR>
+nmap <M-V> :vert sNext<CR>
