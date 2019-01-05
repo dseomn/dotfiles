@@ -13,6 +13,10 @@
 " limitations under the License.
 
 
+let s:save_cpo = &cpo
+set cpo&vim
+
+
 if !exists('g:snipphthalate_config_dirs')
   " Use the default, as determined by the snipphthalate python code.
   let g:snipphthalate_config_dirs = v:none
@@ -38,14 +42,21 @@ def _snipphthalate_tags():
 
 def _snipphthalate_render(tag):
     return _snipphthalate_registry.render(
-        tag, snipphthalate.context.VimContext(vim)).splitlines()
+        tag, snipphthalate.context.VimContext(vim))
 EOF
 
 
 " Inserts the snippet for the given tag.
-" TODO: Handle inline inserts correctly.
 function snipphthalate#InsertSnippet(tag)
-  call append(line('.'), py3eval('_snipphthalate_render("' . a:tag . '")'))
+  let l:text = py3eval('_snipphthalate_render("' . a:tag . '")')
+  if stridx(l:text, "\n") >= 0
+    call append(line('.') - 1, split(l:text, '\n'))
+  else
+    let l:line = getline('.')
+    let l:insert_at = col('.') - 1
+    call setline(
+        \ '.', l:line[: l:insert_at - 1] . l:text . l:line[l:insert_at :])
+  endif
 endfunction
 
 
@@ -55,3 +66,6 @@ function snipphthalate#CompleteTags(arg_lead, cmd_line, cursor_pos)
   call filter(l:tags, {idx, val -> stridx(val, a:arg_lead) == 0})
   return l:tags
 endfunction
+
+
+let &cpo = s:save_cpo

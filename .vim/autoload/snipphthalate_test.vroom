@@ -30,15 +30,42 @@ Setup snipphthalate.
 Create some snippets.
 
   :call writefile(['foo'], g:config_dir . '/snippets/foo.jinja2')
-  :call writefile(['bar'], g:config_dir . '/snippets/bar.jinja2')
+  :call writefile(['bar1', 'bar2'], g:config_dir . '/snippets/bar.jinja2')
 
 
 
-Test snipphthalate#InsertSnippet.
+Test snipphthalate#InsertSnippet, inline insert into blank line.
 
   :call snipphthalate#InsertSnippet('foo')
-  &
   & foo
+  @end
+
+
+
+Test snipphthalate#InsertSnippet, inline insert into the middle of a line.
+
+  > iABC<ESC>h
+  :call snipphthalate#InsertSnippet('foo')
+  & AfooBC
+  @end
+
+
+
+Test snipphthalate#InsertSnippet, inline insert at the end of the line.
+
+  > iABC<C-\><C-O>:call snipphthalate#InsertSnippet('foo')<CR><ESC>
+  & ABCfoo
+  @end
+
+
+
+Test snipphthalate#InsertSnippet, block insert.
+
+  > iABC<ESC>h
+  :call snipphthalate#InsertSnippet('bar')
+  & bar1
+  & bar2
+  & ABC
   @end
 
 
