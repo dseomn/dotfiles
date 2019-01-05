@@ -96,6 +96,7 @@ Depends:
   mate-window-title-applet,
 # Dependencies of dconf_load_yaml:
   python3-jinja2,
+  python3-jsonschema,
   python3-yaml,
 Recommends:
   dseomn-dev (= ${source:Version}),
