@@ -38,7 +38,7 @@ def third_party_workflow(
   kwargs.setdefault("mode", "SQUASH")
   kwargs.setdefault(
       "authoring",
-      authoring.overwrite("third party sync <noreply@mandelberg.org>"),
+      authoring.overwrite("David Mandelberg <david@mandelberg.org>"),
   )
   kwargs.setdefault(
       "destination",
