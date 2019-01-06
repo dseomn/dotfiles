@@ -15,9 +15,7 @@
 
 import datetime
 
-import jinja2
-from snipphthalate import registry
-from snipphthalate import snippet
+from snipphthalate import plugin
 
 
 _COPYRIGHT_HOLDERS = {
@@ -25,20 +23,14 @@ _COPYRIGHT_HOLDERS = {
     'google': 'Google LLC',
 }
 
-_LICENSES = [
-    'apache2',
-]
 
+class LicensePlugin(plugin.Jinja2SnippetPlugin):
 
-def register_jinja2(registry_: registry.Registry,
-                    environment: jinja2.Environment) -> None:
-  for license in _LICENSES:
-    for copyright_holder_tag, copyright_holder in _COPYRIGHT_HOLDERS.items():
-      template = environment.get_template('license/{}.jinja2'.format(license))
-      context = {
-          'copyright_holder': copyright_holder,
-          'year': datetime.date.today().year,
-      }
-      registry_.register(
-          'license/{}-{}'.format(license, copyright_holder_tag),
-          snippet.Jinja2Snippet(template, context))
+  def __init__(self):
+    super().__init__()
+    self.variants.extend(_COPYRIGHT_HOLDERS.keys())
+
+  def update_context(self, jinja2_context, snipphthalate_context, variant):
+    jinja2_context['year'] = datetime.date.today().year
+    if variant in _COPYRIGHT_HOLDERS:
+      jinja2_context['copyright_holder'] = _COPYRIGHT_HOLDERS[variant]
