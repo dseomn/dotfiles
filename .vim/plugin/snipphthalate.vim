@@ -22,3 +22,8 @@ command! -nargs=1 -complete=customlist,snipphthalate#CompleteTags
 
 nmap <M-s> :Snipphthalate<SPACE>
 imap <M-s> <C-\><C-O>:Snipphthalate<SPACE>
+
+
+" Highlight snippet variable placeholders.
+highlight default link snipphthalatePlaceholder Error
+call custommatches#AddPatterns('snipphthalatePlaceholder', '\m@!.\{-}!@')
