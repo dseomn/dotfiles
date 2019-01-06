@@ -13,12 +13,10 @@
 # limitations under the License.
 
 
-import datetime
-
-from snipphthalate import plugin
-
-
-class LicensePlugin(plugin.Jinja2SnippetPlugin):
-
-  def update_context(self, jinja2_context, snipphthalate_context, variant):
-    jinja2_context['year'] = datetime.date.today().year
+variants:
+  dseomn:
+    env:
+      copyright_holder: David Mandelberg
+  google:
+    env:
+      copyright_holder: Google LLC
