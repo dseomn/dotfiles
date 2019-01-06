@@ -1,4 +1,4 @@
-# Copyright 2018 Google LLC
+# Copyright 2019 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,11 +13,18 @@
 # limitations under the License.
 
 
-# Set EDITOR.
-for editor_candidate in vim vi nano; do
-  if command -v "$editor_candidate" > /dev/null; then
-    export EDITOR="$editor_candidate"
-    break
+# Use vim to view man pages.
+
+
+[ "${EDITOR##*/}" = vim ] || return
+
+
+man() {
+  if [ "$#" = 1 ] && [ "${1#-}" = "$1" ]; then
+    VIM_MAN1="$1" $EDITOR -c 'setf man | Man $VIM_MAN1'
+  elif [ "$#" = 2 ] && [ "${1#-}${2#-}" = "${1}${2}" ]; then
+    VIM_MAN1="$1" VIM_MAN2="$2" $EDITOR -c 'setf man | Man $VIM_MAN1 $VIM_MAN2'
+  else
+    command man "$@"
   fi
-done
-unset editor_candidate
+}
