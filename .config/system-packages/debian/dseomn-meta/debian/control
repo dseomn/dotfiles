@@ -103,6 +103,7 @@ Recommends:
   blueman,
   dconf-editor,
   fonts-noto,
+  gmusicbrowser,
   ibus,
   ibus-clutter,
   ibus-gtk,

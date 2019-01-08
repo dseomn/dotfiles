@@ -1,0 +1,152 @@
+{#-
+ # Copyright 2019 Google LLC
+ #
+ # Licensed under the Apache License, Version 2.0 (the "License");
+ # you may not use this file except in compliance with the License.
+ # You may obtain a copy of the License at
+ #
+ #     https://www.apache.org/licenses/LICENSE-2.0
+ #
+ # Unless required by applicable law or agreed to in writing, software
+ # distributed under the License is distributed on an "AS IS" BASIS,
+ # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ # See the License for the specific language governing permissions and
+ # limitations under the License.
+-#}
+{%- set music_dir = env.HOME + '/Music/default-profile' -%}
+{%- set row_tip = '$title\\n\\n$artist\\n\\n$genre' -%}
+{%- set song_tree_grouping =
+    'album_artist|pic(myfont=Sans%20Bold%2018,picsize=48,showyear=)|'
+    'album|pic(myfont=Sans%20Bold%2016,picsize=256,showyear=1)|'
+    'disc|discleft(width=15)' -%}
+{%- set song_tree_sort = 'album_artist year album disc track' -%}
+{%- set play_sort_album_shuffle = 'album_shuffle disc track file' -%}
+{%- set song_tree -%}
+autoupdate: 1
+cols: playandqueueandtrack title artist genre length
+colwidth: artist 614 genre 480 length 49 playandqueueandtrack 35 title 619 track 21
+follow: ''
+grouping: '{{ song_tree_grouping }}'
+isearchfields: title
+rowtip: '{{ row_tip }}'
+sort: '{{ song_tree_sort }}'
+{%- endset -%}
+# gmbrc version=1.1015 time={{ unix_time }}
+[Options]
+AddFullscreenButton: 0
+AddNotPlayedToRecent: 1
+AlwaysInPlaylist: 0
+Artists_split_re: []
+Artists_title_re: []
+AudioOut: Play_GST
+AutoRemoveCurrentSong: 0
+BaseFolder_history:
+  - ''
+CloseToTray: 0
+CustomKeyBindings: {}
+DateFormat: "%Y-%m-%d %H:%M:%S %z"
+DateFormat_history:
+  - "%Y-%m-%d %H:%M:%S %z"
+DefaultOptions_songtree_QueueList:
+  cols: queuenumber titleaa
+  colwidth: queuenumber 20 titleaa 248
+  follow: ''
+  grouping: ''
+  isearchfields: title
+  rowtip: ''
+  sort: "path album:i disc track file"
+DefaultOptions_songtree_SongTree:
+  {{ song_tree | indent(2) }}
+Default_picture: {}
+IconTheme: ''
+LastFolder_Add: '{{ music_dir }}'
+LastPlayFilter: !Filter "genre:-~:playback/manual-only\x1d"
+Layout: Customized Shimmer Desktop
+LayoutB: Browser with SongTree
+LayoutF: Shimmer Party
+LayoutS: Search
+LayoutT: Shimmer Traytip
+Layouts:
+  "Customized Shimmer Desktop":
+    FilterPane:
+      hidebb: 0
+      hidetabs: 1
+      min: 1
+      page: genre
+      page_genre:
+        cloud_min: 8
+        histogram: 1
+        noall: 1
+        sort: alpha
+      pages: savedtree|artists|album|genre|label|folder|added|lastplay|rating
+    NBList:
+      page: QueueList
+      page_opt: {}
+      pages: QueueList FilterPane SongInfo
+    SimpleSearch:
+      autofilter: 1
+      casesens: 0
+      fields: title|artist|album_artist_raw|album|genre
+      literal: 0
+      regexp: 0
+      suggest: 1
+    SongInfo:
+      collapsed: ''
+    SongTree:
+      {{ song_tree | indent(6) }}
+    Total:
+      mode: filter
+LengthCheckMode: add
+LibraryPath:
+  - '{{ music_dir }}'
+Lock: ''
+MasterFilterOn: 0
+PLUGIN_AUDIOSCROBBLER: 1
+PLUGIN_AUDIOSCROBBLER_PASS: '{{ options.get("PLUGIN_AUDIOSCROBBLER_PASS", "") }}'
+PLUGIN_AUDIOSCROBBLER_USER: dseomn
+PLUGIN_AUTOSAVE: 1
+PLUGIN_AUTOSAVE_minutes: 15
+PLUGIN_MPRIS2: 1
+QueueAction: ''
+RememberPlayFilter: 1
+RememberPlaySong: 1
+RememberPlayTime: 1
+RememberQueue: 1
+Repeat: 1
+RowTip_history:
+  - '{{ row_tip }}'
+SavedFilters:
+  auto-playable: !Filter "genre:-~:playback/manual-only\x1d"
+  "auto-playable standalone": !Filter "(&\x1dgenre:-~:playback/in-sequence-only\x1dgenre:-~:playback/manual-only\x1d)\x1d"
+SavedOn: {{ unix_time }}
+SavedPlayTime: {{ options.get("SavedPlayTime", 0.0) }}
+SavedSTGroupings:
+  Default: '{{ song_tree_grouping }}'
+SavedSongID: !SongArray '{{ options.get("SavedSongID", "") }}'
+SavedSorts:
+  Default: '{{ song_tree_sort }}'
+  "Shuffled albums": '{{ play_sort_album_shuffle }}'
+  "Shuffled tracks": 'shuffle'
+ShowTipOnSongChange: 0
+SongArray_Queue: !SongArray '{{ options.get("SongArray_Queue", "") }}'
+SongArray_Recent: !SongArray '{{ options.get("SongArray_Recent", "") }}'
+Sort: '{{ play_sort_album_shuffle }}'
+StartCheck: 0
+StartScan: 0
+TAG_nowrite_mode: 1
+UseTray: 0
+Volume: 100
+VolumeStep: 10
+Volume_mute: 0
+gst_gapless: 1
+gst_rg_songmenu: 0
+gst_sink: autoaudio
+rg_albummode: 1
+rg_fallback: 0
+rg_limiter: 1
+rg_preamp: 0
+use_GST_for_server: 1
+use_equalizer: 0
+use_replaygain: 1
+version: 1.1015
+{{ remainder }}

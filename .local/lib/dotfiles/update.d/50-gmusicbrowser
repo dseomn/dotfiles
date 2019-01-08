@@ -1,0 +1,126 @@
+#!/usr/bin/env python3
+
+# Copyright 2019 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
+import os
+import shutil
+import textwrap
+import time
+
+import jinja2
+import yaml
+
+
+_CONFIG_DIR = os.path.join(os.getenv('HOME'), '.config', 'gmusicbrowser')
+_GMBRC = os.path.join(_CONFIG_DIR, 'gmbrc')
+_GMBRC_TEMPLATE = os.path.join(_CONFIG_DIR, 'gmbrc.jinja2')
+_RUNNING_PROCESS_MARKER = os.path.join(_CONFIG_DIR, 'gmusicbrowser.fifo')
+
+
+class _YamlPassthrough(yaml.YAMLObject):
+  """Abstract YAML object that passes its node through unchanged."""
+
+  yaml_loader = yaml.SafeLoader
+
+  @classmethod
+  def from_yaml(cls, loader, node):
+    if isinstance(node, yaml.ScalarNode):
+      return loader.construct_scalar(node)
+    elif isinstance(node, yaml.SequenceNode):
+      return loader.construct_sequence(node)
+    elif isinstance(node, yaml.MappingNode):
+      return loader.construct_mapping(node)
+    else:
+      raise ValueError('Unknown node type: {}'.format(node))
+
+  @classmethod
+  def to_yaml(cls, dumper, data):
+    raise NotImplementedError()
+
+
+class _GmbrcFilter(_YamlPassthrough):
+  yaml_tag = '!Filter'
+
+
+class _GmbrcSongArray(_YamlPassthrough):
+  yaml_tag = '!SongArray'
+
+
+class _GmbrcSongArrayNamed(_YamlPassthrough):
+  yaml_tag = '!SongArray::Named'
+
+
+def _wait_for_not_running():
+  """Waits for gmusicbrowser to stop running, or raises an exception."""
+  while os.path.lexists(_RUNNING_PROCESS_MARKER):
+    input('gmusicbrowser is running? Hit Enter or Ctrl-C: ')
+
+
+def _parse_gmbrc():
+  """Returns a tuple of (parsed options, other gmbrc sections)."""
+  try:
+    with open(_GMBRC, 'r') as fh:
+      gmbrc = fh.read().splitlines(True)
+  except FileNotFoundError:
+    return ({}, textwrap.dedent("""
+        [Songs]
+        added\talbum\talbum_artist_raw\tartist\tbitrate\tchannel\tcomment\tcompilation\tdisc\tfile\tfiletype\tgenre\tgrouping\tlabel\tlastplay\tlastskip\tlength\tlength_estimated\tmissing\tmodif\tpath\tplaycount\tplayhistory\trating\treplaygain_album_gain\treplaygain_album_peak\treplaygain_track_gain\treplaygain_track_peak\tsamprate\tsize\tskipcount\ttitle\ttrack\tversion\tyear
+
+        [album]
+        album_picture
+
+        [artist]
+        artist_picture
+    """))
+  if not gmbrc[0].startswith('#'):
+    raise ValueError('Missing gmbrc comment header.')
+  if gmbrc[1] != '[Options]\n':
+    raise ValueError('Missing [Options] header.')
+  end_of_options = 2
+  while gmbrc[end_of_options].strip():
+    end_of_options += 1
+  return (yaml.safe_load(''.join(gmbrc[2:end_of_options])),
+          ''.join(gmbrc[end_of_options:]))
+
+
+def _save_gmbrc(options, remainder):
+  """Saves a new gmbrc.
+
+  Args:
+    options: See _parse_gmbrc.
+    remainder: Ditto.
+  """
+  with open(_GMBRC_TEMPLATE, 'r') as fh:
+    template = jinja2.Template(fh.read())
+  gmbrc = template.render(
+      env=os.environ,
+      options=options,
+      remainder=remainder,
+      unix_time=int(time.time()),
+  )
+  try:
+    shutil.copy2(_GMBRC, _GMBRC + '.old')
+  except FileNotFoundError:
+    pass
+  with open(_GMBRC + '.new', 'w') as fh:
+    fh.write(gmbrc)
+  os.replace(_GMBRC + '.new', _GMBRC)
+
+
+if __name__ == '__main__':
+  _wait_for_not_running()
+  options, remainder = _parse_gmbrc()
+  _save_gmbrc(options, remainder)
