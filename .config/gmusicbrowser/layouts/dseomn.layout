@@ -14,6 +14,11 @@
 
 
 [Customized Shimmer Desktop] based on Shimmer Desktop
+# Change the Cover widget in the lower left.
+VBListCover = \
+  _NBList \
+  1Cover(default=elementary/no-cover.svg, maxsize=2048)
+
 # Change the tabs in the upper left.
 NBList = \
   (tabpos="top", tablist=0, closebuttons=0, newbutton=0) \
