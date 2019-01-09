@@ -15,6 +15,7 @@
 # limitations under the License.
 
 
+import getpass
 import os
 import shutil
 import sys
@@ -146,4 +147,7 @@ if __name__ == '__main__':
   if width and height:
     _wait_for_not_running()
     options, remainder = _parse_gmbrc()
+    if not options.get('PLUGIN_AUDIOSCROBBLER_PASS'):
+      options['PLUGIN_AUDIOSCROBBLER_PASS'] = getpass.getpass(
+          'Last.fm password (leave blank to be prompted againt next time): ')
     _save_gmbrc(options, remainder, width, height)
