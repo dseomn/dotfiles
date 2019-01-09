@@ -124,7 +124,7 @@ def _save_gmbrc(options, remainder, width, height):
     height: Ditto.
   """
   with open(_GMBRC_TEMPLATE, 'r') as fh:
-    template = jinja2.Template(fh.read())
+    template = jinja2.Template(fh.read(), undefined=jinja2.StrictUndefined)
   gmbrc = template.render(
       env=os.environ,
       height=height,
