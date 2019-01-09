@@ -37,6 +37,17 @@
     'disc|discleft(width=' ~ disc_padding ~ ')' -%}
 {%- set song_tree_sort = 'album_artist year album disc track' -%}
 {%- set play_sort_album_shuffle = 'album_shuffle disc track file' -%}
+{%- set song_tree_queue_list -%}
+cols: queuenumber titleaa
+{# Don't bother calculating a good value for titleaa's width, it'll just expand
+   to fill whatever space is available. -#}
+colwidth: queuenumber {{ song_tree_number_width }} titleaa 100
+follow: ''
+grouping: ''
+isearchfields: title
+rowtip: ''
+sort: "path album:i disc track file"
+{%- endset -%}
 {%- set song_tree -%}
 autoupdate: 1
 cols: playandqueueandtrack title artist genre length
@@ -69,13 +80,7 @@ DateFormat: "%Y-%m-%d %H:%M:%S %z"
 DateFormat_history:
   - "%Y-%m-%d %H:%M:%S %z"
 DefaultOptions_songtree_QueueList:
-  cols: queuenumber titleaa
-  colwidth: queuenumber 20 titleaa 248
-  follow: ''
-  grouping: ''
-  isearchfields: title
-  rowtip: ''
-  sort: "path album:i disc track file"
+  {{ song_tree_queue_list | indent(2) }}
 DefaultOptions_songtree_SongTree:
   {{ song_tree | indent(2) }}
 Default_picture: {}
@@ -106,6 +111,8 @@ Layouts:
       page: QueueList
       page_opt: {}
       pages: QueueList FilterPane SongInfo
+    QueueList:
+      {{ song_tree_queue_list | indent(6) }}
     SimpleSearch:
       autofilter: 1
       casesens: 0
