@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # Copyright 2019 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,18 +15,10 @@
 # limitations under the License.
 
 
-# Use vim to view man pages.
-
-
-[ "${EDITOR##*/}" = vim ] || return
-
-
-man() {
-  if [ "$#" = 1 ] && [ "${1#-}" = "$1" ]; then
-    VIM_MAN1="$1" $EDITOR -c 'setf man | Man $VIM_MAN1'
-  elif [ "$#" = 2 ] && [ "${1#-}${2#-}" = "${1}${2}" ]; then
-    VIM_MAN1="$1" VIM_MAN2="$2" $EDITOR -c 'setf man | Man $VIM_MAN1 $VIM_MAN2'
-  else
-    command man "$@"
-  fi
-}
+if [ -n "$MAN_PN" ] && [ "${EDITOR##*/}" = vim ]; then
+  # TODO: Add --not-a-term once my versions of vim support it.
+  # http://vimhelp.appspot.com/starting.txt.html#--not-a-term
+  exec $EDITOR +MANPAGER -
+else
+  exec less
+fi

@@ -21,3 +21,6 @@ for editor_candidate in vim vi nano; do
   fi
 done
 unset editor_candidate
+
+
+export MANPAGER=~/.local/bin/manpager-vim
