@@ -14,17 +14,38 @@
  # limitations under the License.
 -#}
 {%- set music_dir = env.HOME + '/Music/default-profile' -%}
+{%- set left_width = width // 6.5 -%}
+{%- set right_width = width - left_width - 35 -%}
+{%- set album_artist_padding = right_width // 50 -%}
+{%- set album_padding = right_width // 8 -%}
+{%- set disc_padding = 18 -%}
+{%- set song_tree_main_width =
+    right_width - album_artist_padding - album_padding - disc_padding -%}
+{%- set song_tree_number_width = 35 -%}
+{%- set song_tree_length_width = 65 -%}
+{%- set song_tree_fill_width =
+    song_tree_main_width - song_tree_number_width - song_tree_length_width -%}
+{%- set song_tree_genre_width = song_tree_fill_width // 3.5 -%}
+{%- set song_tree_title_width =
+    (song_tree_fill_width - song_tree_genre_width) // 2 -%}
+{%- set song_tree_artist_width =
+    song_tree_fill_width - song_tree_genre_width - song_tree_title_width -%}
 {%- set row_tip = '$title\\n\\n$artist\\n\\n$genre' -%}
 {%- set song_tree_grouping =
-    'album_artist|pic(myfont=Sans%20Bold%2018,picsize=48,showyear=)|'
-    'album|pic(myfont=Sans%20Bold%2016,picsize=256,showyear=1)|'
-    'disc|discleft(width=15)' -%}
+    'album_artist|pic(myfont=Sans%20Bold%2018,picsize=' ~ album_artist_padding ~ ',showyear=)|'
+    'album|pic(myfont=Sans%20Bold%2016,picsize=' ~ album_padding ~ ' ,showyear=1)|'
+    'disc|discleft(width=' ~ disc_padding ~ ')' -%}
 {%- set song_tree_sort = 'album_artist year album disc track' -%}
 {%- set play_sort_album_shuffle = 'album_shuffle disc track file' -%}
 {%- set song_tree -%}
 autoupdate: 1
 cols: playandqueueandtrack title artist genre length
-colwidth: artist 614 genre 480 length 49 playandqueueandtrack 35 title 619 track 21
+colwidth: {#-
+    #} artist {{ song_tree_artist_width }} {#-
+    #} genre {{ song_tree_genre_width }} {#-
+    #} length {{ song_tree_length_width }} {#-
+    #} playandqueueandtrack {{ song_tree_number_width }} {#-
+    #} title {{ song_tree_title_width }}
 follow: ''
 grouping: '{{ song_tree_grouping }}'
 isearchfields: title
@@ -79,6 +100,8 @@ Layouts:
         noall: 1
         sort: alpha
       pages: savedtree|artists|album|genre|label|folder|added|lastplay|rating
+    HPMain:
+      size: {{ left_width }}-{{ right_width }}
     NBList:
       page: QueueList
       page_opt: {}

@@ -98,6 +98,9 @@ Depends:
   python3-jinja2,
   python3-jsonschema,
   python3-yaml,
+# Dependencies of ~/.local/lib/dotfiles/update.d/50-gmusicbrowser
+  gir1.2-gtk-3.0,
+  python3-gi,
 Recommends:
   dseomn-dev (= ${source:Version}),
   blueman,

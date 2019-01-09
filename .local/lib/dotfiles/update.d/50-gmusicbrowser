@@ -17,9 +17,13 @@
 
 import os
 import shutil
+import sys
 import textwrap
 import time
 
+import gi
+gi.require_version('Gtk', '3.0')
+from gi.repository import Gtk
 import jinja2
 import yaml
 
@@ -63,6 +67,19 @@ class _GmbrcSongArrayNamed(_YamlPassthrough):
   yaml_tag = '!SongArray::Named'
 
 
+def _get_largest_monitor_size():
+  """Returns (width, height) in pixels, or (0, 0) on failure."""
+  if not Gtk.init_check(sys.argv)[0]:
+    return 0, 0
+  display = Gtk.Window().get_screen().get_display()
+  geometries = (
+      display.get_monitor(i).get_geometry()
+      for i in range(display.get_n_monitors()))
+  return max(
+      ((x.width, x.height) for x in geometries), key=lambda x: x[0] * x[1],
+      default=(0, 0))
+
+
 def _wait_for_not_running():
   """Waits for gmusicbrowser to stop running, or raises an exception."""
   while os.path.lexists(_RUNNING_PROCESS_MARKER):
@@ -96,20 +113,24 @@ def _parse_gmbrc():
           ''.join(gmbrc[end_of_options:]))
 
 
-def _save_gmbrc(options, remainder):
+def _save_gmbrc(options, remainder, width, height):
   """Saves a new gmbrc.
 
   Args:
     options: See _parse_gmbrc.
     remainder: Ditto.
+    width: See _get_largest_monitor_size.
+    height: Ditto.
   """
   with open(_GMBRC_TEMPLATE, 'r') as fh:
     template = jinja2.Template(fh.read())
   gmbrc = template.render(
       env=os.environ,
+      height=height,
       options=options,
       remainder=remainder,
       unix_time=int(time.time()),
+      width=width,
   )
   try:
     shutil.copy2(_GMBRC, _GMBRC + '.old')
@@ -121,6 +142,8 @@ def _save_gmbrc(options, remainder):
 
 
 if __name__ == '__main__':
-  _wait_for_not_running()
-  options, remainder = _parse_gmbrc()
-  _save_gmbrc(options, remainder)
+  width, height = _get_largest_monitor_size()
+  if width and height:
+    _wait_for_not_running()
+    options, remainder = _parse_gmbrc()
+    _save_gmbrc(options, remainder, width, height)
