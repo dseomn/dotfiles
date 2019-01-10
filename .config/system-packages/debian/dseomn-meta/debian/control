@@ -69,6 +69,7 @@ Recommends:
   subversion,
   texlive-latex-recommended,
   valgrind,
+  virtualenv,
   xsltproc,
 Description: dseomn-dev
 
