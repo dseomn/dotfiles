@@ -24,6 +24,12 @@
 	amend = commit --amend -C HEAD
 	reword = commit --amend -c HEAD --only
 
+	# diff
+	d = diff
+
+	# status
+	st = status
+
 [pretty]
 	shorter = tformat:%C(auto)%h %ae %C(blue)%ar%C(auto)%d%n%s
 
