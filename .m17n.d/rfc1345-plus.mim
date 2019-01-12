@@ -32,8 +32,8 @@
     ("&Q|" "ℚ")  ; U+211A DOUBLE-STRUCK CAPITAL Q
     ("&R|" "ℝ")  ; U+211D DOUBLE-STRUCK CAPITAL R
     ("&Z|" "ℤ")  ; U+2124 DOUBLE-STRUCK CAPITAL Z
-    ("&A++" "ℵ")  ; U+2135 ALEF SYMBOL
-    ("&B++" "ℶ")  ; U+2136 BET SYMBOL
+    ("&A+S" "ℵ")  ; U+2135 ALEF SYMBOL
+    ("&B+S" "ℶ")  ; U+2136 BET SYMBOL
     ("&/d" "∕")  ; U+2215 DIVISION SLASH
     ("&\\s" "∖")  ; U+2216 SET MINUS
     ("&!PP" "∦")  ; U+2226 NOT PARALLEL TO
