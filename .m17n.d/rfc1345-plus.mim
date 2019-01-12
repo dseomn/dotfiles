@@ -25,6 +25,26 @@
 (map
   (extras
     ("&?!" "‽")  ; U+203D INTERROBANG
+    ("&C|" "ℂ")  ; U+2102 DOUBLE-STRUCK CAPITAL C
+    ("&H|" "ℍ")  ; U+210D DOUBLE-STRUCK CAPITAL H
+    ("&N|" "ℕ")  ; U+2115 DOUBLE-STRUCK CAPITAL N
+    ("&P|" "ℙ")  ; U+2119 DOUBLE-STRUCK CAPITAL P
+    ("&Q|" "ℚ")  ; U+211A DOUBLE-STRUCK CAPITAL Q
+    ("&R|" "ℝ")  ; U+211D DOUBLE-STRUCK CAPITAL R
+    ("&Z|" "ℤ")  ; U+2124 DOUBLE-STRUCK CAPITAL Z
+    ("&A++" "ℵ")  ; U+2135 ALEF SYMBOL
+    ("&B++" "ℶ")  ; U+2136 BET SYMBOL
+    ("&/d" "∕")  ; U+2215 DIVISION SLASH
+    ("&\\s" "∖")  ; U+2216 SET MINUS
+    ("&!PP" "∦")  ; U+2226 NOT PARALLEL TO
+    ("&+O" "⊕")  ; U+2295 CIRCLED PLUS
+    ("&-O" "⊖")  ; U+2296 CIRCLED MINUS
+    ("&xO" "⊗")  ; U+2297 CIRCLED TIMES
+    ("&/O" "⊘")  ; U+2298 CIRCLED DIVISION SLASH
+    ("&.O" "⊙")  ; U+2299 CIRCLED DOT OPERATOR
+    ("&oO" "⊚")  ; U+229A CIRCLED RING OPERATOR
+    ("&*O" "⊛")  ; U+229B CIRCLED ASTERISK OPERATOR
+    ("&=O" "⊜")  ; U+229C CIRCLED EQUALS
     ("&?!I" "⸘")  ; U+2E18 INVERTED INTERROBANG
     ))
 
