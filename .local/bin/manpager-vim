@@ -18,7 +18,7 @@
 if [ -n "$MAN_PN" ] && [ "${EDITOR##*/}" = vim ]; then
   # TODO: Add --not-a-term once my versions of vim support it.
   # http://vimhelp.appspot.com/starting.txt.html#--not-a-term
-  exec $EDITOR +MANPAGER -
+  exec $EDITOR +MANPAGER +%foldopen -
 else
   exec less
 fi
