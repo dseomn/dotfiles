@@ -89,3 +89,7 @@
           value: "5"
         - key: session-start
           reset: false
+      - dir: sound
+        children:
+        - key: event-sounds
+          value: "false"
