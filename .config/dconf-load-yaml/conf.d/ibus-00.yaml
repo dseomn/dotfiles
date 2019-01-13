@@ -20,6 +20,8 @@
     children:
     - dir: general
       children:
+      - key: version
+        reset: false
       - key: use-system-keyboard-layout
         value: "true"
       - key: use-global-engine
