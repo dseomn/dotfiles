@@ -35,6 +35,7 @@ Recommends:
   bind9-host | host,
   curl,
   file,
+  mlocate | locate,
   ncurses-term,
   netcat-openbsd | netcat-traditional | netcat,
   patch,
