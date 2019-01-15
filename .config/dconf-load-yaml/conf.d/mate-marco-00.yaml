@@ -24,7 +24,7 @@
         children:
         - key: theme
           value: "'TraditionalOk'"
-        - key: titlebar-uses-system-font
-          value: "true"
+        - key: titlebar-font
+          value: "'Sans Medium 10'"
         - key: num-workspaces
           value: "12"
