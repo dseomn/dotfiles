@@ -39,7 +39,7 @@ call custommatches#AddPatterns(
 " Merge markers.
 hi link mergeMarker Error
 function s:MergeMarkerPattern(char_pattern)
-  return '^\(' . a:char_pattern . '\)\1\{6}\(\s.*\)\?$'
+  return '^\(' . a:char_pattern . '\)\1\{3,7}\(\s.*\)\?$'
 endfunction
 call custommatches#AddPatterns(
     \ 'mergeMarker',
