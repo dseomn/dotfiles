@@ -1,0 +1,82 @@
+#!/bin/sh
+
+# Copyright 2019 David Mandelberg and Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
+# Given an image, reduce its size (resolution and/or compression quality) and
+# save the result next to the original, with a related filename. If the given
+# filename is a symlink, the new image is created next to the pointee, and a
+# new symlink is created next to the existing symlink.
+
+log() { printf %s\\n "$*"; }
+error() { log "ERROR: $*" >&2; }
+fatal() { error "$*"; exit 1; }
+try() { "$@" || fatal "Command failed: $*"; }
+
+size=
+quality=
+while getopts s:q: opt; do
+  case "$opt" in
+    s)
+      size="$OPTARG"
+      ;;
+
+    q)
+      quality="$OPTARG"
+      ;;
+
+    *)
+      fatal "Error parsing arguments."
+      ;;
+  esac
+done
+shift $(($OPTIND - 1)) || fatal "Error parsing arguments."
+test -n "$size" -o -n "$quality" || fatal "Nothing to do."
+test "$#" -gt 0 || fatal "No images given."
+
+require_dot_fn() {
+  basename "$1" | grep -q '\.' || fatal "Filename does not have a '.': $1"
+}
+
+for file in "$@"; do
+  if test -L "$file"; then
+    orig_image="$(try readlink -f "$file")" || exit 1
+    orig_link="$file"
+    orig_link_to="$(try readlink "$file")" || exit 1
+  else
+    orig_image="$file"
+    orig_link=
+  fi
+
+  tag="${size}"
+  test -n "$quality" && tag="${tag}q${quality}"
+
+  require_dot_fn "$orig_image"
+  new_image="${orig_image%.*}-${tag}.${orig_image##*.}"
+
+  try convert \
+      "$orig_image" \
+      $(test -n "$size" && printf %s "-resize ${size}>") \
+      $(test -n "$quality" && printf %s "-quality ${quality}") \
+      "$new_image"
+
+  if test -n "$orig_link"; then
+    require_dot_fn "$orig_link"
+    require_dot_fn "$orig_link_to"
+    new_link="${orig_link%.*}-${tag}.${orig_link##*.}"
+    new_link_to="${orig_link_to%.*}-${tag}.${orig_link_to##*.}"
+    try ln -s "$new_link_to" "$new_link"
+  fi
+done
