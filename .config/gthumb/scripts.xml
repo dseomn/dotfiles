@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+     Copyright 2019 Google LLC
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+         https://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+
+<scripts version="1.0">
+  <script
+    accelerator="KP_0"
+    id="CgphBpg7"
+    shell-script="true"
+    display-name="export"
+    command="mkdir -p %P/export &amp;&amp; ln -s ../%B %P/export"
+    wait-command="true"
+    for-each-file="true"
+    />
+
+  <script
+    id="qASSVDNe"
+    shell-script="true"
+    display-name="ufraw-batch"
+    command="ufraw-batch --conf=&quot;$HOME/.config/ufrawrc&quot; --output=%P/%N-raw.jpg %F"
+    wait-command="true"
+    for-each-file="true"
+    />
+
+  <script
+    id="NTstgSgs"
+    shell-script="true"
+    display-name="ufraw-batch-tif"
+    command="ufraw-batch --conf=&quot;$HOME/.config/ufrawrc&quot; --output=%P/%N-raw.tif %F"
+    wait-command="true"
+    for-each-file="true"
+    />
+
+  <script
+    id="Qfrh9aIH"
+    shell-script="false"
+    display-name="1024x1024q80"
+    command="reduce-image-size -s 1024x1024 -q 80 %F"
+    wait-command="true"
+    for-each-file="true"
+    />
+
+  <script
+    id="AFckoLmU"
+    shell-script="false"
+    display-name="2048x2048q90"
+    command="reduce-image-size -s 2048x2048 -q 90 %F"
+    wait-command="true"
+    for-each-file="true"
+    />
+
+  <script
+    id="dHzDvDJq"
+    shell-script="false"
+    display-name="4096x4096q90"
+    command="reduce-image-size -s 4096x4096 -q 90 %F"
+    wait-command="true"
+    for-each-file="true"
+    />
+
+  <script
+    id="djcAKvnW"
+    shell-script="false"
+    display-name="q95"
+    command="reduce-image-size -q 95 %F"
+    wait-command="true"
+    for-each-file="true"
+    />
+</scripts>

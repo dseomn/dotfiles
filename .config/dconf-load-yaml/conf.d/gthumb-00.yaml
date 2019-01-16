@@ -1,0 +1,58 @@
+# Copyright 2019 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
+- dir: org
+  children:
+  - dir: gnome
+    children:
+    - dir: gthumb
+      children:
+      - dir: importer
+        reset: true
+        children:
+        - key: destination
+          value: "'file://{{ env.HOME }}/Pictures/Photographs/%5Bunsorted%5D'"
+        - key: subfolder-custom-format
+          value: "'%Y %m%B %d'"
+        - key: subfolder-format
+          value: "'custom'"
+        - key: subfolder-single
+          value: "true"
+        - key: subfolder-type
+          value: "'file-date'"
+        - key: warn-delete-unsupported
+          value: "false"
+      - dir: photo-importer
+        reset: true
+        children:
+        - key: delete-from-device
+          value: "true"
+      - dir: pixbuf-savers
+        reset: true
+        children:
+        - dir: jpeg
+          children:
+          - key: default-ext
+            value: "'jpg'"
+          - key: quality
+            value: "100"
+        - dir: png
+          children:
+          - key: compression-level
+            value: "9"
+        - dir: webp
+          children:
+          - key: lossless
+            value: "true"
