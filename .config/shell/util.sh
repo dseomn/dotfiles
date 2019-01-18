@@ -26,6 +26,11 @@ __shell_config_source_parts_impl() {
   for __shell_config_source_parts_file in "$__shell_config_source_parts_dir"/*; do
     for __shell_config_source_parts_ext in "$@"; do
       case "$__shell_config_source_parts_file" in
+        *_test | *_test.*)
+          # Ignore test files.
+          break
+          ;;
+
         *"$__shell_config_source_parts_ext")
           . "$__shell_config_source_parts_file"
           break
