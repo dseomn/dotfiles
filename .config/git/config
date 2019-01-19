@@ -7,9 +7,9 @@
 	# https://github.com/git/git/commit/506ee60d222f94a1598769feaba3b3621bd9fa1a
 
 	# log
-	r = log --pretty=fuller -p --reverse
-	rin = log --pretty=fuller -p --reverse ..@{upstream}
-	rout = log --pretty=fuller -p --reverse @{push}..
+	r = log --pretty=fuller --stat -p --reverse
+	rin = log --pretty=fuller --stat -p --reverse ..@{upstream}
+	rout = log --pretty=fuller --stat -p --reverse @{push}..
 	g = log --pretty=shorter --graph --boundary
 	gin = log --pretty=shorter --graph --boundary ..@{upstream}
 	gout = log --pretty=shorter --graph --boundary @{push}..
