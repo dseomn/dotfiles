@@ -38,6 +38,7 @@ __history_fill_common_args() {
       "prompt_index=${__history_prompt_index}"
       "shell=${BASH:-bash}"
       "pwd=${PWD}"
+      "jobs=$(jobs -l)"
       "command=${__history_command}"
   )
 }
