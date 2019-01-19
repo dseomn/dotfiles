@@ -39,6 +39,8 @@ Recommends:
   ncurses-term,
   netcat-openbsd | netcat-traditional | netcat,
   patch,
+  python (>= 2.7),
+  python3 (>= 3.5),
   pwgen,
   rsync,
 Description: dseomn-standard
@@ -65,9 +67,7 @@ Recommends:
   manpages-posix-dev,
   nodejs,
   php-cli,
-  python,
   python2.7,
-  python3,
   python3-pytest,
   python3-pytest-cov,
   r-recommended,
