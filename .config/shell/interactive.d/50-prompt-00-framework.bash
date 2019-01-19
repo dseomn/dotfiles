@@ -177,4 +177,4 @@ __prompt_set() {
   PS1="${__prompt_value[ps1]}"'\[\e]0;'"${__prompt_value[title]}"'\007\]'
 }
 
-pcc_append __prompt_set
+precmd_functions+=(__prompt_set)

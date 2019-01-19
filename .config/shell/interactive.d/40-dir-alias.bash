@@ -16,4 +16,4 @@
 shrcutil_source ~/.local/lib/dir-alias/dir-alias.sh
 
 
-pcc_append dir_alias_reset_ephemerals
+precmd_functions+=(dir_alias_reset_ephemerals)

@@ -35,7 +35,7 @@ __prompt_part_status() {
 
   local show_ret=
   local component_ret
-  for component_ret in "$command_ret" "${PCC_PIPESTATUS[@]}"; do
+  for component_ret in "$command_ret" "${BP_PIPESTATUS[@]}"; do
     if [[ "$component_ret" != 0 ]]; then
       show_ret=yes
       break
@@ -64,7 +64,7 @@ __prompt_part_status() {
     local is_first_component=yes
     local last_component_ret=
     local component_ret
-    for component_ret in "${PCC_PIPESTATUS[@]}"; do
+    for component_ret in "${BP_PIPESTATUS[@]}"; do
       if [[ -n "$is_first_component" ]]; then
         is_first_component=
       else

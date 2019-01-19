@@ -30,4 +30,4 @@ __mark_incomplete_lines() {
   printf '\e[7m%s\e[0m\n' '%noeol'
 }
 
-pcc_append __mark_incomplete_lines
+precmd_functions+=(__mark_incomplete_lines)
