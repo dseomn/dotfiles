@@ -74,7 +74,6 @@ fi
 
 
 if expect_command_exists git; then
-  expect_file_exists /usr/lib/git-core/git-sh-prompt
   expect_min_version git 2.11 "$(git --version | awk '{print $NF}')"
 fi
 

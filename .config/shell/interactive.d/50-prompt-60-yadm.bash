@@ -13,7 +13,7 @@
 # limitations under the License.
 
 
-shrcutil_source /usr/lib/git-core/git-sh-prompt || return
+shrcutil_source ~/third_party/git-contrib/completion/git-prompt.sh || return
 
 
 # Show YADM (https://thelocehiliosan.github.io/yadm/) status.
