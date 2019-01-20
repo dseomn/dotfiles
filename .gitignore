@@ -66,4 +66,6 @@
 /.vim/state/
 /third_party/vim-*/doc/tags
 
+*.pyc
+*.pyo
 __pycache__/
