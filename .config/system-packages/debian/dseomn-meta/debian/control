@@ -63,6 +63,7 @@ Recommends:
   guile-2.2,
   ipython,
   ipython3,
+  jsbeautifier,
   manpages-dev,
   manpages-posix,
   manpages-posix-dev,
