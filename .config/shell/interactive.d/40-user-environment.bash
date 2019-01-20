@@ -24,3 +24,5 @@ unset editor_candidate
 
 
 export MANPAGER='env PAGER_TYPE=man editor-pager'
+export MANWIDTH=80
+export MANOPT="--no-hyphenation"
