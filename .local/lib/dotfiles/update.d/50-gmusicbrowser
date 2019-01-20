@@ -14,14 +14,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 import getpass
 import os
 import shutil
 import sys
 import textwrap
 import time
-
 
 if __name__ == '__main__':
   # Bail if gmusicbrowser is not installed, and bail before trying to import
@@ -30,13 +28,11 @@ if __name__ == '__main__':
     print('Not updating gmusicbrowser, since it\'s not installed.')
     sys.exit()
 
-
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 import jinja2
 import yaml
-
 
 _CONFIG_DIR = os.path.join(os.getenv('HOME'), '.config', 'gmusicbrowser')
 _GMBRC = os.path.join(_CONFIG_DIR, 'gmbrc')
@@ -86,7 +82,8 @@ def _get_largest_monitor_size():
       display.get_monitor(i).get_geometry()
       for i in range(display.get_n_monitors()))
   return max(
-      ((x.width, x.height) for x in geometries), key=lambda x: x[0] * x[1],
+      ((x.width, x.height) for x in geometries),
+      key=lambda x: x[0] * x[1],
       default=(0, 0))
 
 
@@ -102,7 +99,8 @@ def _parse_gmbrc():
     with open(_GMBRC, 'r') as fh:
       gmbrc = fh.read().splitlines(True)
   except FileNotFoundError:
-    return ({}, textwrap.dedent("""
+    return ({},
+            textwrap.dedent("""
         [Songs]
         added\talbum\talbum_artist_raw\tartist\tbitrate\tchannel\tcomment\tcompilation\tdisc\tfile\tfiletype\tgenre\tgrouping\tlabel\tlastplay\tlastskip\tlength\tlength_estimated\tmissing\tmodif\tpath\tplaycount\tplayhistory\trating\treplaygain_album_gain\treplaygain_album_peak\treplaygain_track_gain\treplaygain_track_peak\tsamprate\tsize\tskipcount\ttitle\ttrack\tversion\tyear
 

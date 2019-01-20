@@ -14,14 +14,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 import datetime
 import getpass
 import json
 import os
 import socket
 import sys
-
 
 _HISTORY_FILE = os.path.join(
     os.getenv('HOME'), '.local', 'share', 'shell-history', 'log.json')
@@ -42,9 +40,7 @@ def append(args):
       'type': 'shell',
       'user': getpass.getuser(),
   }
-  additional_required_keys = (
-      'pid',
-  )
+  additional_required_keys = ('pid',)
   for arg in args:
     key, sep, value = arg.partition('=')
     if not key or not sep:
