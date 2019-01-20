@@ -18,7 +18,14 @@
 " the section, then returns true. On failure, returns false.
 function! manpagetitle#TryParse() abort
   if &filetype != 'man' | return v:false | endif
-  let l:matches = matchlist(expand('%:t'), '\m^\([^./]\+\)\.\([^./]*\)\~$')
+  if !empty(expand('%'))
+    let l:matches = matchlist(expand('%:t'), '\m^\([^./]\+\)\.\([^./]*\)\~$')
+  elseif !empty($MAN_PN)
+    let l:matches = matchlist($MAN_PN, '\v^(.+)\((.{-1,})\)$')
+    call map(l:matches, {idx, val -> substitute(val, '\v\\(.)', '\1', 'g')})
+  else
+    return v:false
+  endif
   if empty(l:matches) | return v:false | endif
   let b:manpage_title = l:matches[1]
   let b:manpage_section = l:matches[2]

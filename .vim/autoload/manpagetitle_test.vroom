@@ -1,0 +1,79 @@
+Copyright 2019 Google LLC
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+
+
+Setup.
+
+  :set runtimepath+=$VROOMDIR/..
+
+
+
+Test parsing from a filename with no section.
+
+  :edit ~/git-diff.~
+  :setlocal filetype=man
+  :echomsg manpagetitle#TryParse()
+  ~ v:true
+  :echomsg manpagetitle#Format()
+  ~ git-diff
+
+
+
+Test parsing from a filename with a section.
+
+  :edit ~/List::Compare.3pm~
+  :setlocal filetype=man
+  :echomsg manpagetitle#TryParse()
+  ~ v:true
+  :echomsg manpagetitle#Format()
+  ~ List::Compare(3pm)
+
+
+
+Test parsing from $MAN_PN.
+
+  :let $MAN_PN = 'List\:\:Compare(3pm)'
+  :setlocal filetype=man
+  :echomsg manpagetitle#TryParse()
+  ~ v:true
+  :echomsg manpagetitle#Format()
+  ~ List::Compare(3pm)
+  :unlet $MAN_PN
+
+
+
+Test that manpagetitle#TryParse fails when ft!=man.
+
+  :setlocal filetype=sh
+  :echomsg manpagetitle#TryParse()
+  ~ v:false
+
+
+
+Test that manpagetitle#TryParse fails when there's nothing to parse.
+
+  :setlocal filetype=man
+  :echomsg manpagetitle#TryParse()
+  ~ v:false
+
+
+
+Test that manpagetitle#TryParse fails when there's no match.
+
+  :let $MAN_PN = 'foo'
+  :setlocal filetype=man
+  :echomsg manpagetitle#TryParse()
+  ~ v:false
+  :unlet $MAN_PN
