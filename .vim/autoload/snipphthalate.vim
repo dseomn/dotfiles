@@ -47,7 +47,7 @@ EOF
 
 
 " Inserts the snippet for the given tag.
-function snipphthalate#InsertSnippet(tag)
+function! snipphthalate#InsertSnippet(tag) abort
   let l:text = py3eval('_snipphthalate_render("' . a:tag . '")')
   if stridx(l:text, "\n") >= 0
     call append(line('.') - 1, split(l:text, '\n'))
@@ -61,7 +61,7 @@ endfunction
 
 
 " Returns a list suitable for customlist command completion.
-function snipphthalate#CompleteTags(arg_lead, cmd_line, cursor_pos)
+function! snipphthalate#CompleteTags(arg_lead, cmd_line, cursor_pos) abort
   let l:tags = py3eval('_snipphthalate_tags()')
   call filter(l:tags, {idx, val -> stridx(val, a:arg_lead) == 0})
   return l:tags

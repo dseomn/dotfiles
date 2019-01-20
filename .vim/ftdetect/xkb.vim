@@ -13,7 +13,7 @@
 " limitations under the License.
 
 
-function s:DetectXkb()
+function! s:DetectXkb() abort
   let l:file = expand('%:t')
   if l:file ==# 'README' | return | endif
   if match(l:file, '\v^[a-zA-Z0-9_-]+$') >= 0

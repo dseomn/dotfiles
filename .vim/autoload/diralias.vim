@@ -15,7 +15,7 @@
 
 " Returns a shortened version of the given filename. See
 " ~/.local/lib/dir-alias/dir-alias.sh for more info.
-function diralias#ShortenFilename(filename)
+function! diralias#ShortenFilename(filename) abort
   if has_key(s:cache, a:filename)
     return s:cache[a:filename]
   endif

@@ -16,7 +16,7 @@
 " Tries to parse a manpage title for the current buffer. On success, sets
 " b:manpage_title to the title and, if available, sets b:manpage_section to
 " the section, then returns true. On failure, returns false.
-function manpagetitle#TryParse()
+function! manpagetitle#TryParse() abort
   if &filetype != 'man' | return v:false | endif
   let l:matches = matchlist(expand('%:t'), '\m^\([^./]\+\)\.\([^./]*\)\~$')
   if empty(l:matches) | return v:false | endif
@@ -28,7 +28,7 @@ endfunction
 
 " Returns a string containing b:manpage_title and, if available,
 " b:manpage_section.
-function manpagetitle#Format()
+function! manpagetitle#Format() abort
   let l:ret = b:manpage_title
   if !empty(b:manpage_section)
     let l:ret .= '(' . b:manpage_section . ')'

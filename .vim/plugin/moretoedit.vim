@@ -26,7 +26,7 @@ let g:loaded_moretoedit = v:true
 "
 " TODO: The window ID is curently ignored. Change this when there's a way to
 " get the argument list with ID arglistid(winid)
-function MoreToEdit(...)
+function! MoreToEdit(...) abort
   for l:file in argv()
     if !has_key(s:visited, fnamemodify(l:file, ':p'))
       return v:true
@@ -40,7 +40,7 @@ endfunction
 " unused.)
 let s:visited = {}
 
-function s:MarkVisited()
+function! s:MarkVisited() abort
   let l:file = util#CurrentFilename()
   if !empty(l:file)
     let s:visited[fnamemodify(l:file, ':p')] = v:true

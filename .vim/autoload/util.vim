@@ -15,13 +15,13 @@
 
 " Returns a pattern that matches any of the given patterns. This works with
 " magic, nomagic, and very nomagic patterns.
-function util#JoinPatterns(...)
+function! util#JoinPatterns(...) abort
   return '\(' . join(a:000, '\|') . '\)'
 endfunction
 
 
 " Returns the filename for the current buffer, or the empty string.
-function util#CurrentFilename()
+function! util#CurrentFilename() abort
   if &filetype == 'netrw' && !empty(b:netrw_curdir)
     return b:netrw_curdir
   else

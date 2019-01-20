@@ -15,7 +15,7 @@
 
 " Re-enables the given highlight groups. (Groups are assumed to be enabled by
 " default, and only disabled by functions in this file.)
-function highlighttoggles#Enable(groups)
+function! highlighttoggles#Enable(groups) abort
   for l:group in a:groups
     if !has_key(s:hl_restore, l:group) | continue | endif
     exe 'hi ' . s:hl_restore[l:group]
@@ -26,7 +26,7 @@ endfunction
 
 " Disables the given highlight groups. This function saves the previous
 " highlight values so that they can be restored in highlighttoggles#Enable().
-function highlighttoggles#Disable(groups)
+function! highlighttoggles#Disable(groups) abort
   for l:group in a:groups
     if has_key(s:hl_restore, l:group) | continue | endif
     let s:hl_restore[l:group] = substitute(
@@ -40,7 +40,7 @@ endfunction
 
 
 " Toggles the given highlight groups.
-function highlighttoggles#Toggle(groups)
+function! highlighttoggles#Toggle(groups) abort
   for l:group in a:groups
     if has_key(s:hl_restore, l:group)
       call highlighttoggles#Enable([l:group])

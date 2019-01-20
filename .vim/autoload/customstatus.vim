@@ -14,7 +14,7 @@
 
 
 " Start using the status lines in this file.
-function customstatus#Init()
+function! customstatus#Init() abort
   " Set the global statusline so that any window without a local statusline
   " will call InitWindow(). InitWindow() then changes the local statusline.
   let &statusline = '%{customstatus#InitWindow()}Initializing status line...'
@@ -35,20 +35,20 @@ endfunction
 
 
 " Stop using the status lines in this file.
-function customstatus#Clear()
+function! customstatus#Clear() abort
   set statusline=
   tabdo windo setlocal statusline<
 endfunction
 
 
 " Initialize the current window.
-function customstatus#InitWindow()
+function! customstatus#InitWindow() abort
   let &l:statusline = '%!customstatus#StatusLine(' . string(win_getid()) . ')'
   return ''
 endfunction
 
 
-function customstatus#StatusLine(winid)
+function! customstatus#StatusLine(winid) abort
   call customstatus#SetFillChars()
   let [l:hl_left, l:hl_mid, l:hl_right] = customstatus#GetHighlights(a:winid)
 
@@ -85,7 +85,7 @@ function customstatus#StatusLine(winid)
 endfunction
 
 
-function customstatus#SetFillChars()
+function! customstatus#SetFillChars() abort
   if !empty(s:current_stl_fill)
     exe 'set fillchars-=stl:' . s:current_stl_fill
   endif
@@ -107,7 +107,7 @@ endfunction
 let s:current_stl_fill = ''
 
 
-function customstatus#GetHighlights(winid)
+function! customstatus#GetHighlights(winid) abort
   let l:bufnr = winbufnr(a:winid)
   let l:buf_is_current = (l:bufnr == winbufnr(win_getid()))
   let l:win_is_current = (a:winid == win_getid())
@@ -156,7 +156,7 @@ function customstatus#GetHighlights(winid)
 endfunction
 
 
-function customstatus#FileName()
+function! customstatus#FileName() abort
   let l:winid = win_getid()
   let l:filename = util#CurrentFilename()
   if getqflist({'winid': 0}).winid == l:winid
@@ -175,7 +175,7 @@ function customstatus#FileName()
 endfunction
 
 
-function customstatus#FileType()
+function! customstatus#FileType() abort
   " Quickfix windows can be distinguished by their pseudo file names.
   if &filetype == "qf" | return '' | endif
 
@@ -221,7 +221,7 @@ function customstatus#FileType()
 endfunction
 
 
-function customstatus#QuickFixInfo()
+function! customstatus#QuickFixInfo() abort
   if !exists('w:quickfix_title') | return '' | endif
   return ' ' . w:quickfix_title
 endfunction

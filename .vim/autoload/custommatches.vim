@@ -18,14 +18,14 @@ set cpo&vim
 
 
 " Adds multiple patterns to the given group.
-function custommatches#AddPatterns(group, ...)
+function! custommatches#AddPatterns(group, ...) abort
   call call('custommatches#AddPatternsIf', [v:true, a:group] + a:000)
 endfunction
 
 
 " Like custommatches#AddPatterns, but the matches are only enabled in buffers
 " where the condition funcref returns true.
-function custommatches#AddPatternsIf(condition, group, ...)
+function! custommatches#AddPatternsIf(condition, group, ...) abort
   let l:pattern_configs = []
   for l:pattern in a:000
     call add(l:pattern_configs,
@@ -43,13 +43,13 @@ endfunction
 
 " Deletes all matches in all windows added by this script, then re-adds all
 " currently configured patterns.
-function custommatches#ResetMatches()
+function! custommatches#ResetMatches() abort
   tabdo windo call s:ResetMatchesLocal()
 endfunction
 
 
 " Excludes the current buffer from all custom matches.
-function custommatches#ExcludeBuffer()
+function! custommatches#ExcludeBuffer() abort
   let b:custommatches_excluded = v:true
   call s:DeleteMatchesLocal()
 endfunction
@@ -59,7 +59,7 @@ endfunction
 
 
 " Adds all configured patterns to the current window.
-function s:AddMatchesLocal()
+function! s:AddMatchesLocal() abort
   if exists('b:custommatches_excluded') | return | endif
   let winid = string(win_getid())
   if !has_key(s:matches_added, winid)
@@ -77,7 +77,7 @@ endfunction
 
 
 " Deletes all matches added by this script from the current window.
-function s:DeleteMatchesLocal()
+function! s:DeleteMatchesLocal() abort
   let winid = string(win_getid())
   if !has_key(s:matches_added, winid)
     return
@@ -89,7 +89,7 @@ function s:DeleteMatchesLocal()
 endfunction
 
 
-function s:ResetMatchesLocal()
+function! s:ResetMatchesLocal() abort
   call s:DeleteMatchesLocal()
   call s:AddMatchesLocal()
 endfunction
