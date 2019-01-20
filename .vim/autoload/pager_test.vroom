@@ -36,7 +36,7 @@ works after escape sequence removal.
 
 Test that man pages are detected.
 
-  :let $MAN_PN = 1
+  :let $PAGER_TYPE = 'man'
   :call pager#Pager()
   :echomsg &filetype
   ~ man

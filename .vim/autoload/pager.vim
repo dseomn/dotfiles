@@ -33,7 +33,7 @@ function! pager#Pager() abort
 
   " Re-detect the filetype after removing escape sequences.
   filetype detect
-  if exists('$MAN_PN')
+  if $PAGER_TYPE is# 'man'
     setfiletype man
   endif
 

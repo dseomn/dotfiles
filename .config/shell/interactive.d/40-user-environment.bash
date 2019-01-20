@@ -23,4 +23,4 @@ done
 unset editor_candidate
 
 
-export MANPAGER=editor-pager
+export MANPAGER='env PAGER_TYPE=man editor-pager'
