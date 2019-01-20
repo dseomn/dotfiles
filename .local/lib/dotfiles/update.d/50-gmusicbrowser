@@ -101,15 +101,49 @@ def _parse_gmbrc():
   except FileNotFoundError:
     return ({},
             textwrap.dedent("""
-        [Songs]
-        added\talbum\talbum_artist_raw\tartist\tbitrate\tchannel\tcomment\tcompilation\tdisc\tfile\tfiletype\tgenre\tgrouping\tlabel\tlastplay\tlastskip\tlength\tlength_estimated\tmissing\tmodif\tpath\tplaycount\tplayhistory\trating\treplaygain_album_gain\treplaygain_album_peak\treplaygain_track_gain\treplaygain_track_peak\tsamprate\tsize\tskipcount\ttitle\ttrack\tversion\tyear
+                [Songs]
+                added\t\
+                album\t\
+                album_artist_raw\t\
+                artist\t\
+                bitrate\t\
+                channel\t\
+                comment\t\
+                compilation\t\
+                disc\t\
+                file\t\
+                filetype\t\
+                genre\t\
+                grouping\t\
+                label\t\
+                lastplay\t\
+                lastskip\t\
+                length\t\
+                length_estimated\t\
+                missing\t\
+                modif\t\
+                path\t\
+                playcount\t\
+                playhistory\t\
+                rating\t\
+                replaygain_album_gain\t\
+                replaygain_album_peak\t\
+                replaygain_track_gain\t\
+                replaygain_track_peak\t\
+                samprate\t\
+                size\t\
+                skipcount\t\
+                title\t\
+                track\t\
+                version\t\
+                year
 
-        [album]
-        album_picture
+                [album]
+                album_picture
 
-        [artist]
-        artist_picture
-    """))
+                [artist]
+                artist_picture
+            """))
   if not gmbrc[0].startswith('#'):
     raise ValueError('Missing gmbrc comment header.')
   if gmbrc[1] != '[Options]\n':
