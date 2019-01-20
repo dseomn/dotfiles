@@ -23,4 +23,4 @@ done
 unset editor_candidate
 
 
-export MANPAGER=~/.local/bin/manpager-vim
+export MANPAGER=editor-pager
