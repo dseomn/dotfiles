@@ -82,9 +82,6 @@ python_print_version='
 import sys
 print(".".join((str(x) for x in sys.version_info[:3])))
 '
-if expect_command_exists python; then
-  expect_min_version python 2.7 "$(python -c "$python_print_version")"
-fi
 if expect_command_exists python3; then
   expect_min_version python3 3.5 "$(python3 -c "$python_print_version")"
 fi
