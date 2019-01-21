@@ -117,7 +117,16 @@
             - key: popup-delay
               value: "1000"
             - key: pinned-apps
-              reset: false
+              value: >-
+                ['org.gnome.Terminal.desktop',
+                'firefox.desktop',
+                'thunderbird.desktop',
+                'pidgin.desktop',
+                'gmusicbrowser.desktop',
+                'org.musicbrainz.Picard.desktop',
+                'exfalso.desktop',
+                'org.gnome.gThumb.desktop',
+                'caja.desktop']
         # TODO: Get rid of this hack after
         # https://github.com/ubuntu-mate/mate-window-applets/issues/4 is fixed.
         - dir: window-title
