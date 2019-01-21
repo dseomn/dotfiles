@@ -24,9 +24,7 @@ editor_base="${editor_base##*/}"
 
 case "${editor_base}" in
   vim)
-    # TODO: Add --not-a-term once my versions of vim support it.
-    # http://vimhelp.appspot.com/starting.txt.html#--not-a-term
-    exec $editor +'call pager#Pager()' -
+    exec $editor --not-a-term +'call pager#Pager()' -
     ;;
 
   *)
