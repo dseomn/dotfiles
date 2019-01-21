@@ -131,6 +131,7 @@
                 'caja.desktop']
         # TODO: Get rid of this hack after
         # https://github.com/ubuntu-mate/mate-window-applets/issues/4 is fixed.
+        # Alternatively, maybe switch to mate-applet-appmenu?
         - dir: window-title
           children:
           - key: toplevel-id
@@ -215,6 +216,8 @@
             value: "'NotificationAreaAppletFactory::NotificationArea'"
           - key: object-type
             value: "'applet'"
+        # TODO: Install some indicators? Check out the ayatana-indicator-*
+        # packages.
         - dir: indicator
           children:
           - key: toplevel-id
