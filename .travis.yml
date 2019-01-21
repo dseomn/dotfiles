@@ -34,9 +34,10 @@ matrix:
   - language: python
     python: "3.5"
     install:
-    - pip install coveralls Jinja2 jsonschema pytest-cov PyYAML
+    - pip install coveralls Jinja2 jsonschema pytest-cov pytype PyYAML
     script:
     - cd .local/lib/python3/site-packages
+    - pytype .
     - python -m pytest --cov=. --cov-branch --cov-report=term-missing
     after_success:
     - cd .local/lib/python3/site-packages
