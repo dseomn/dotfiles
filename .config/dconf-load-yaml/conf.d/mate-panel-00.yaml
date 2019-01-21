@@ -88,6 +88,8 @@
             value: "'applet'"
           - dir: prefs
             children:
+            - key: first-run
+              value: "false"
             - key: indicator-type
               value: "4"
             - key: multi-ind
