@@ -18,6 +18,11 @@
 # Wrapper around git-config to read config values from ~/.config/dotfiles.
 
 
+# git sometimes shows error messages in directories it can't stat, work around
+# that by always running it in a hopefully-ok directory.
+cd
+
+
 config_dirs=(conf.d conf.local.d)
 args=()
 for arg in "$@"; do
