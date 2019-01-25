@@ -20,7 +20,7 @@ find_marker() {
   (
     attempt=0
     while [ "$attempt" -lt 100 ]; do
-      pwd_l="$(pwd -L)" || return 1
+      pwd_l="$(pwd -L)" || return 3
       if [ -e "$1" ]; then
         printf '%s\n' "$pwd_l"
         return 0
@@ -29,6 +29,6 @@ find_marker() {
       cd ..
       attempt="$((attempt + 1))"
     done
-    return 1
+    return 2
   )
 }

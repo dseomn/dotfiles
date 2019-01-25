@@ -21,7 +21,7 @@ t4s_setup "$@"
 
 t4s_testcase 'no marker' '
   marker="$(find_marker nonexistent-259a2a8d-f1a5-4237-babf-b92dd0295ada)"
-  t4s_try [ $? -ne 0 ]
+  t4s_try [ $? -eq 1 ]
   t4s_try [ "$marker" = "" ]
 '
 
@@ -67,7 +67,7 @@ t4s_testcase 'gives up after hitting the depth limit' '
     depth="$((depth + 1))"
   done
   marker="$(find_marker some-marker)"
-  t4s_try [ $? -ne 0 ]
+  t4s_try [ $? -eq 2 ]
   t4s_try [ "$marker" = "" ]
 '
 
