@@ -72,4 +72,15 @@ t4s_testcase 'gives up after hitting the depth limit' '
 '
 
 
+t4s_testcase 'stops on unreadable directory' '
+  dir="$(t4s_try mktemp -d)" || exit $?
+  t4s_try mkdir -p "${dir}/foo"
+  t4s_try cd "${dir}/foo"
+  t4s_try chmod 0 "${dir}"
+  marker="$(find_marker some-marker)"
+  t4s_try [ $? -eq 4 ]
+  t4s_try [ "$marker" = "" ]
+'
+
+
 t4s_done

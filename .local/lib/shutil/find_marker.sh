@@ -26,7 +26,7 @@ find_marker() {
         return 0
       fi
       [ "$pwd_l" = / ] && return 1
-      cd ..
+      cd .. 2> /dev/null || return 4
       attempt="$((attempt + 1))"
     done
     return 2
