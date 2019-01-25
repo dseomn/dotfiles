@@ -41,3 +41,7 @@ matrix:
     after_success:
     - cd .local/lib/python3/site-packages
     - coveralls
+
+  - language: shell
+    script:
+    - ./.local/bin/dotfiles-test-sh
