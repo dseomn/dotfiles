@@ -18,4 +18,11 @@ set colored-stats on
 set completion-query-items 200
 set enable-bracketed-paste on
 
+$if mode=emacs
+  # PageUp
+  "\e[5~": history-search-backward
+  # PageDown
+  "\e[6~": history-search-forward
+$endif
+
 $include .inputrc.local
