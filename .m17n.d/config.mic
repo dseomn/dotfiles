@@ -15,4 +15,4 @@
 
 ((input-method t nil global)
  (variable
-   (fallback-input-method nil "unicode")))
+   (fallback-input-method nil "")))
