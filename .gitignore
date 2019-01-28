@@ -1,6 +1,8 @@
 *
 
 !/.config/
+!/.config/config-merge-template/
+!/.config/config-merge-template/**
 !/.config/dconf-load-yaml/
 !/.config/dconf-load-yaml/**
 !/.config/dir-alias/
