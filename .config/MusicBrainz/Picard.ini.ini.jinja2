@@ -1,0 +1,111 @@
+; Copyright 2019 Google LLC
+;
+; Licensed under the Apache License, Version 2.0 (the "License");
+; you may not use this file except in compliance with the License.
+; You may obtain a copy of the License at
+;
+;     https://www.apache.org/licenses/LICENSE-2.0
+;
+; Unless required by applicable law or agreed to in writing, software
+; distributed under the License is distributed on an "AS IS" BASIS,
+; WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+; See the License for the specific language governing permissions and
+; limitations under the License.
+
+
+[application]
+version=2.1.0.final0
+
+[persist]
+{{ copy('persist', 'album_view_sizes') }}
+{{ copy('persist', 'current_directory') }}
+{{ copy('persist', 'file_view_sizes') }}
+{% for option in config['persist'] if option.startswith('geometry_') %}
+  {{ copy('persist', option) }}
+{% endfor %}
+{{ copy('persist', 'oauth_access_token') }}
+{{ copy('persist', 'oauth_access_token_expires') }}
+{{ copy('persist', 'oauth_refresh_token') }}
+{{ copy('persist', 'oauth_refresh_token_scopes') }}
+{{ copy('persist', 'oauth_username') }}
+show_changes_first=true
+view_cover_art=false
+{{ copy('persist', 'window_maximized') }}
+{{ copy('persist', 'window_state') }}
+
+[setting]
+{{ copy('setting', 'acoustid_apikey') }}
+ca_providers=
+clear_existing_tags=true
+convert_punctuation=false
+enabled_plugins={{
+  ', '.join([
+      'addrelease',
+      'dseomn_genre',
+      'dseomn_private',
+      'instruments',
+      'reorder_sides',
+      'replaygain',
+      'tracks2clipboard',
+      'viewvariables',
+  ])
+}}
+folksonomy_tags=true
+ignore_genres=
+ignore_track_duration_difference_under=1
+max_genres=100
+min_genre_usage=0
+nat_name=[non-album tracks]
+only_my_genres=true
+preserved_tags="{{
+  ', '.join([
+      'bpm',
+      'comment:',
+      'comment:Comment',
+      'contact',
+      'coverurl',
+      'description',
+      'discid',
+      'encoded',
+      'encoded by',
+      'encoded-by',
+      'encodedby',
+      'encoder',
+      'encodersettings',
+      'encoding',
+      'jamendo-track-id',
+      'lyrics',
+      'musicbrainz_discid',
+      'organization',
+      'originalgenre',
+      'QuodLibet::comments',
+      'QuodLibet::oldgenre',
+      'QuodLibet::originalgenre',
+      'replaygain_album_gain',
+      'replaygain_album_peak',
+      'replaygain_track_gain',
+      'replaygain_track_peak',
+      'replaygain_reference_loudness',
+      'software',
+      'tempo',
+      'unsyncedlyrics',
+      'url',
+      'wcop',
+      'woaf',
+      'www',
+      'time_reference',
+      'originator_reference',
+      'coding_history',
+      'VXNG',
+  ])
+}}"
+remove_ape_from_mp3=true
+remove_id3_from_flac=true
+save_images_to_files=false
+save_images_to_tags=false
+standardize_artists=true
+standardize_instruments=true
+track_ars=true
+use_genres=true
+va_name=Various Artists
+write_id3v23=false
