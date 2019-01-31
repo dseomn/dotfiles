@@ -32,6 +32,7 @@ Recommends:
   bash-completion,
   command-not-found,
   diffutils,
+  dnsutils,
   bind9-host | host,
   curl,
   file,
