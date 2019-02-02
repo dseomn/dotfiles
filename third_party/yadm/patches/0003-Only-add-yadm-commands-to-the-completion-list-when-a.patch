@@ -1,0 +1,49 @@
+From b31183d66e785b94a5793fc8e5515b936fec5e00 Mon Sep 17 00:00:00 2001
+From: David Mandelberg <david@mandelberg.org>
+Date: Fri, 4 Jan 2019 21:44:49 -0500
+Subject: [PATCH 3/3] Only add yadm commands to the completion list when
+ applicable.
+
+Before:
+  yadm <TAB>  # Completes git and yadm commands.
+  yadm -Y . <TAB>  # Completes yadm commands.
+  yadm p<TAB> -u origin foo  # Completes yadm+git commands like p*.
+  yadm push -u origin <TAB>  # Completes branch names and yadm commands.
+
+After:
+  yadm <TAB>  # Completes git and yadm commands.
+  yadm -Y . <TAB>  # Completes yadm commands.
+  yadm p<TAB> -u origin foo  # Completes yadm+git commands like p*.
+  yadm push -u origin <TAB>  # Completes branch names.
+---
+ completion/yadm.bash_completion | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
+
+diff --git a/completion/yadm.bash_completion b/completion/yadm.bash_completion
+index 60a71ff..228bc34 100644
+--- a/completion/yadm.bash_completion
++++ b/completion/yadm.bash_completion
+@@ -74,7 +74,19 @@ if declare -F _git > /dev/null; then
+       __gitcompappend "$matching"
+     fi
+ 
+-    if [ "$COMP_CWORD" == 1 ] || [[ "$antepenultimate" =~ ^- ]] ; then
++    # Find the index of where the sub-command argument should go.
++    local command_idx
++    for (( command_idx=1 ; command_idx < ${#COMP_WORDS[@]} ; command_idx++ )); do
++      local command_idx_arg="${COMP_WORDS[$command_idx]}"
++      if [[ " ${yadm_switches[*]} " = *" $command_idx_arg "* ]]; then
++        let command_idx++
++      elif [[ "$command_idx_arg" = -* ]]; then
++        :
++      else
++        break
++      fi
++    done
++    if [[ "$COMP_CWORD" = "$command_idx" ]]; then
+       local matching
+       matching=$(compgen -W "$(yadm introspect commands 2>/dev/null)" -- "$current")
+       __gitcompappend "$matching"
+-- 
+2.20.1
+

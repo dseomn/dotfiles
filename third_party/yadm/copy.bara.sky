@@ -34,8 +34,10 @@ third_party_workflow(
     destination_exclude = [
         "LICENSE",
         "copy.bara.sky",
+        "patches/**",
     ],
     extra_transformations = [
+        patch.apply(series="patches/series"),
         core.move("LICENSE", "LICENSE.orig"),
     ],
 )
