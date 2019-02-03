@@ -55,6 +55,9 @@
 !/.mozilla/firefox/
 !/.mozilla/firefox/all/
 !/.mozilla/firefox/all/**
+!/.thunderbird/
+!/.thunderbird/all/
+!/.thunderbird/all/**
 !/.vim/
 !/.vim/**
 !/.vimrc
