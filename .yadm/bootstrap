@@ -42,3 +42,27 @@ try dotfiles-update
 
 
 try check-environment
+
+
+cat <<EOF
+
+
+Automatic bootstrapping done. Next steps:
+
+Firefox:
+  * Add profiles.
+  * Re-run dotfiles-update.
+  * Configure profiles.
+
+Thunderbird:
+  * Add profiles.
+  * Re-run dotfiles-update.
+  * Install CardBook.
+  * Add email accounts.
+  * Add calendar accounts.
+  * Add contacts accounts.
+
+Pidgin:
+  * Configure Pidgin.
+  * Add accounts.
+EOF
