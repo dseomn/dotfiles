@@ -23,5 +23,6 @@ chmod go-rwx \
     ~/.ipython \
     ~/.local \
     ~/.mozilla \
+    ~/.thunderbird \
     ~/.vim \
     ~/.yadm
