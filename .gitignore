@@ -55,6 +55,8 @@
 !/.mozilla/firefox/
 !/.mozilla/firefox/all/
 !/.mozilla/firefox/all/**
+!/.ssh/
+!/.ssh/**
 !/.thunderbird/
 !/.thunderbird/all/
 !/.thunderbird/all/**
@@ -67,6 +69,8 @@
 !/third_party/**
 
 /.config/dotfiles/conf.local.d/
+/.ssh/authorized_keys
+/.ssh/id_*
 /.yadm/repo.git/
 /.vim/state/
 /third_party/vim-*/doc/tags
