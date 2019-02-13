@@ -29,6 +29,7 @@ Depends:
   tmux (>= 2.6),
   vim-nox (>= 2:8.0),
 Recommends:
+  aptitude,
   bash-completion,
   command-not-found,
   diffutils,
@@ -78,6 +79,7 @@ Recommends:
   uuid-runtime,
   valgrind,
   virtualenv,
+  vroom,
   xsltproc,
   yapf3,
 Description: dseomn-dev
@@ -161,6 +163,7 @@ Recommends:
   fluid-soundfont-gs,
   fluidsynth,
   google-musicmanager-beta,
+  gnome-games,
   gthumb,
   hugin,
   inkscape,
@@ -174,6 +177,7 @@ Recommends:
   sgt-puzzles,
   sound-juicer,
   sox,
+  supertuxkart,
   ufraw,
   vorbis-tools,
   yubikey-personalization-gui,
