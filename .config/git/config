@@ -18,7 +18,7 @@
 		cd \"${GIT_PREFIX}\" && \
 		all=\"@{push} @{upstream} HEAD\" && \
 		bases=\"$(git merge-base --all --octopus ${all})\" && \
-		git graph ${all} --not ${bases}"
+		git g ${all} --not ${bases}"
 
 	# commit
 	amend = commit --amend -C HEAD
