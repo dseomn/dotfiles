@@ -38,7 +38,7 @@ function! customstatus#Init() abort
 endfunction
 
 
-" Stop using the status lines in this file.
+" Stop using the status lines defined in this file.
 function! customstatus#Clear() abort
   set statusline=
   tabdo windo setlocal statusline<
