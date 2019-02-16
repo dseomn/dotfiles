@@ -13,6 +13,10 @@
 " limitations under the License.
 
 
+let s:save_cpo = &cpo
+set cpo&vim
+
+
 " Start using the status lines in this file.
 function! customstatus#Init() abort
   " Set the global statusline so that any window without a local statusline
@@ -225,3 +229,6 @@ function! customstatus#QuickFixInfo() abort
   if !exists('w:quickfix_title') | return '' | endif
   return ' ' . w:quickfix_title
 endfunction
+
+
+let &cpo = s:save_cpo
