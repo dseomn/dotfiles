@@ -1,0 +1,129 @@
+Copyright 2019 Google LLC
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+
+
+Set runtimepath so that customstatus is loaded.
+
+  :set runtimepath+=$VROOMDIR/..
+
+Helper functions.
+
+  :function! GetFillStl() abort
+  :  let l:fillchars = split(&fillchars, ',')
+  :  call filter(l:fillchars, {idx, val -> match(val, '^stl:') >= 0})
+  :  return string(l:fillchars)
+  :endfunction
+
+
+
+Test that Init sets the global statusline, which in turn sets the local
+statusline appropriately.
+
+  :call customstatus#Init()
+  :echomsg &g:statusline
+  ~ *%{customstatus#InitWindow()}* (glob)
+  :echomsg &l:statusline
+  ~ %!customstatus#StatusLine(*) (glob)
+
+
+
+Test that Clear unsets the global and local statusline.
+
+  :call customstatus#Init()
+  :call customstatus#Clear()
+  :echomsg 'x' . &g:statusline
+  ~ x
+  :echomsg 'x' . &l:statusline
+  ~ x
+
+
+
+TODO: Test customstatus#StatusLine()
+
+
+
+Test that SetFillChars clears the statusline fill by default.
+
+  :call customstatus#SetFillChars()
+  :echomsg GetFillStl()
+  ~ []
+
+
+
+Test that SetFillChars fills the statusline with '~' when &paste is set.
+
+  :set paste
+  :call customstatus#SetFillChars()
+  :echomsg GetFillStl()
+  ~ ['stl:~']
+  :set nopaste
+
+
+
+Test left highlights.
+TODO: Test non-current buffers and windows.
+
+  :setlocal nomodified
+  :setlocal noreadonly
+  :echomsg customstatus#GetHighlights(win_getid())[0]
+  ~ %#statusUnmodified#
+
+  :setlocal nomodified
+  :setlocal readonly
+  :echomsg customstatus#GetHighlights(win_getid())[0]
+  ~ %#statusUnmodifiedRo#
+
+  :setlocal modified
+  :setlocal noreadonly
+  :echomsg customstatus#GetHighlights(win_getid())[0]
+  ~ %#statusModified#
+
+  :setlocal modified
+  :setlocal readonly
+  :echomsg customstatus#GetHighlights(win_getid())[0]
+  ~ %#statusModifiedRo#
+
+  :setlocal nomodified
+  :setlocal noreadonly
+
+
+
+Test middle highlights.
+TODO: Test non-current buffers and windows.
+TODO: Test modes other than normal.
+
+  :echomsg customstatus#GetHighlights(win_getid())[1]
+  ~ %#statusCurrentNormal#
+
+
+
+Test right highlights.
+TODO: Test non-current buffers and windows.
+TODO: Test MoreToEdit.
+
+  :echomsg customstatus#GetHighlights(win_getid())[2]
+  ~ %#statusCurrent#
+
+
+
+TODO: Test FileName.
+
+
+
+TODO: Test FileType.
+
+
+
+TODO: Test QuickFixInfo.
