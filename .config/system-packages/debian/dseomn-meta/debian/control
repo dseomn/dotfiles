@@ -133,9 +133,12 @@ Recommends:
   imagemagick,
   libreoffice,
   libreoffice-gnome,
+# Firefox needs this for U2F to work.
+  libu2f-host0,
   m17n-db,
   m17n-im-config,
   network-manager-gnome,
+  network-manager-openconnect-gnome,
   pidgin,
   pidgin-otr,
   pidgin-plugin-pack,
