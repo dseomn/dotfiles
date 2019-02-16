@@ -25,6 +25,7 @@ function! customstatus#Init() abort
 
   hi statusUnmodified cterm=reverse
   hi statusUnmodifiedRo cterm=reverse
+  hi statusSpecial cterm=reverse ctermfg=DarkCyan
   hi statusModified cterm=reverse ctermfg=DarkYellow
   hi statusModifiedRo cterm=reverse ctermfg=DarkRed
   hi statusMoreToEdit cterm=reverse ctermfg=DarkYellow
@@ -117,12 +118,15 @@ function! customstatus#GetHighlights(winid) abort
   let l:win_is_current = (a:winid == win_getid())
   let l:GetB = function('getbufvar', [l:bufnr])
 
+  let l:buftype = l:GetB('&buftype', '')
   let l:modified = l:GetB('&modified', v:false)
   let l:readonly = l:GetB('&readonly', v:false)
   let l:hl_modified = l:readonly ? '%#statusModifiedRo#' : '%#statusModified#'
   let l:hl_unmodified =
       \ l:readonly ? '%#statusUnmodifiedRo#' : '%#statusUnmodified#'
-  if l:win_is_current && l:modified
+  if l:buftype !=# ''
+    let l:hl_left = '%#statusSpecial#'
+  elseif l:win_is_current && l:modified
     let l:hl_left = l:hl_modified
   elseif !l:win_is_current && l:modified && !l:buf_is_current
     let l:hl_left = l:hl_modified

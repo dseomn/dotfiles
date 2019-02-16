@@ -75,6 +75,11 @@ Test that SetFillChars fills the statusline with '~' when &paste is set.
 Test left highlights.
 TODO: Test non-current buffers and windows.
 
+  :setlocal buftype=nofile
+  :echomsg customstatus#GetHighlights(win_getid())[0]
+  ~ %#statusSpecial#
+  :setlocal buftype=
+
   :setlocal nomodified
   :setlocal noreadonly
   :echomsg customstatus#GetHighlights(win_getid())[0]
