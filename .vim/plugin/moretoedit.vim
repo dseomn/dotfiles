@@ -20,35 +20,8 @@ if exists('g:loaded_moretoedit') | finish | endif
 let g:loaded_moretoedit = v:true
 
 
-" Returns true iff there are more files in the arg list to edit. If specified,
-" the first argument is the window ID to check the arg list in, instead of the
-" current window.
-"
-" TODO: The window ID is curently ignored. Change this when there's a way to
-" get the argument list with ID arglistid(winid)
-function! MoreToEdit(...) abort
-  for l:file in argv()
-    if !has_key(s:visited, fnamemodify(l:file, ':p'))
-      return v:true
-    endif
-  endfor
-  return v:false
-endfunction
-
-
-" The keys of this dict are the files that have been visited. (Values are
-" unused.)
-let s:visited = {}
-
-function! s:MarkVisited() abort
-  let l:file = util#CurrentFilename()
-  if !empty(l:file)
-    let s:visited[fnamemodify(l:file, ':p')] = v:true
-  endif
-endfunction
-
 augroup moretoedit
   au!
-  au BufEnter * call s:MarkVisited()
-  au BufWinEnter * call s:MarkVisited()
+  au BufEnter * call moretoedit#MarkVisited()
+  au BufWinEnter * call moretoedit#MarkVisited()
 augroup END

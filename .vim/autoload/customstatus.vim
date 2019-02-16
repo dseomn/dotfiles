@@ -143,7 +143,7 @@ function! customstatus#GetHighlights(winid) abort
     let l:hl_mid = '%#statusCurrent#'
   endif
 
-  let l:more_to_edit = MoreToEdit(a:winid)
+  let l:more_to_edit = moretoedit#MoreToEdit(a:winid)
   if l:more_to_edit
     let l:hl_right = '%#statusMoreToEdit#'
   elseif l:win_is_current
