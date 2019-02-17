@@ -15,9 +15,11 @@
 
 # Defaults.
 DEFAULT_BACKGROUND = dseomn-sphere-and-tori.watermark-userhost.png
+DEFAULT_FACE = dseomn-holding-dog.png
 
 
 all: default-background.png
+all: default-face.png
 .PHONY: all
 
 
@@ -33,6 +35,10 @@ all: default-background.png
 # know the file type/extension.
 default-background.png: $(DEFAULT_BACKGROUND) .default-background-stamp
 	convert "$(DEFAULT_BACKGROUND)" "$@"
+default-face.png: $(DEFAULT_FACE) .default-face-stamp
+	convert "$(DEFAULT_FACE)" "$@"
+	rm -f ~/.face
+	convert "$@" -resize '96x96>' ~/.face
 
 
 # Stamps that change when the value of $(DEFAULT_FOO) changes.
@@ -41,6 +47,8 @@ BUILD_STAMP = \
 	[ "$$old" = "$$default" ] || printf '%s\n' "$$default" > "$$stamp"
 .default-background-stamp: always-rebuild
 	stamp="$@"; default="$(DEFAULT_BACKGROUND)"; $(BUILD_STAMP)
+.default-face-stamp: always-rebuild
+	stamp="$@"; default="$(DEFAULT_FACE)"; $(BUILD_STAMP)
 
 
 # Watermark files with the username and hostname.
@@ -48,6 +56,9 @@ BUILD_STAMP = \
 	watermark-userhost "$<" "$@"
 .SUFFIXES: .png .watermark-userhost.png
 
+
+dseomn-holding-dog.png:
+	curl -L -o "$@" 'https://david.mandelberg.org/wp-content/uploads/2017/09/cropped-P1230630-raw-crop-square-full.jpg'
 
 dseomn-sphere-and-tori.png:
 	curl -L -o "$@" 'https://david.mandelberg.org/wp-content/uploads/2018/12/sphere-and-tori-7680x4320x24.png'
