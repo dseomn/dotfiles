@@ -13,11 +13,11 @@
 # limitations under the License.
 
 
-# Which background to use by default.
-DEFAULT = dseomn-sphere-and-tori.watermark-userhost.png
+# Defaults.
+DEFAULT_BACKGROUND = dseomn-sphere-and-tori.watermark-userhost.png
 
 
-all: default.png
+all: default-background.png
 .PHONY: all
 
 
@@ -25,18 +25,22 @@ all: default.png
 .PHONY: always-rebuild
 
 
-# Everywhere outside of this Makefile should just reference this filename.
-default.png: $(DEFAULT) .default-stamp
-	# Use convert here so that no matter what file type/extension $(DEFAULT)
-	# is, other things can refer to a single default.png instead of needing
-	# to know the file type/extension.
-	convert "$(DEFAULT)" "$@"
+# Everywhere outside of this Makefile should reference one of these default-*
+# filenames.
+#
+# These rules use convert so that no matter what file type/extension the default
+# is, other things can refer to a single default-foo.png instead of needing to
+# know the file type/extension.
+default-background.png: $(DEFAULT_BACKGROUND) .default-background-stamp
+	convert "$(DEFAULT_BACKGROUND)" "$@"
 
 
-# Stamp that changes when the value of $(DEFAULT) changes.
-.default-stamp: always-rebuild
-	old="$$(cat "$@" 2> /dev/null || true)"; \
-	    [ "$${old}" = "$(DEFAULT)" ] || printf '%s\n' "$(DEFAULT)" > "$@"
+# Stamps that change when the value of $(DEFAULT_FOO) changes.
+BUILD_STAMP = \
+    old="$$(cat "$$stamp" 2> /dev/null || true)"; \
+	[ "$$old" = "$$default" ] || printf '%s\n' "$$default" > "$$stamp"
+.default-background-stamp: always-rebuild
+	stamp="$@"; default="$(DEFAULT_BACKGROUND)"; $(BUILD_STAMP)
 
 
 # Watermark files with the username and hostname.

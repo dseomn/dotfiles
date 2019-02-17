@@ -16,10 +16,10 @@
 
 
 if [ -z "${DISPLAY}" ]; then
-  echo 'Not updating backgrounds, because $DISPLAY is empty.'
+  echo 'Not updating images, because $DISPLAY is empty.'
   exit 0
 fi
 
 
-cd ~/.local/share/backgrounds || exit 1
+cd ~/.local/share/dotfiles/images || exit 1
 make || exit 1

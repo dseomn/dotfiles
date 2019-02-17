@@ -31,7 +31,7 @@
       - dir: background
         children:
         - key: picture-filename
-          value: "'{{ env['HOME'] }}/.local/share/backgrounds/default.png'"
+          value: "'{{ env['HOME'] }}/.local/share/dotfiles/images/default-background.png'"
         - key: show-desktop-icons
           value: "false"
       - dir: font-rendering
