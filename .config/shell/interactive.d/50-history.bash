@@ -28,6 +28,30 @@ shopt -s histappend
 unset -f __set_at_least
 
 
+# Public function to temporarily enable/disable history.
+histctl() {
+  # Remove the histctl call itself from history.
+  if shopt -oq history; then
+    history -d -1
+  fi
+
+  case "$*" in
+    on)
+      shopt -so history
+      ;;
+
+    off)
+      shopt -uo history
+      ;;
+
+    *)
+      printf '%s\n' 'Usage: histctl on|off' >&2
+      return 1
+      ;;
+  esac
+}
+
+
 # Configure custom history logs.
 __history_prompt_index=-1
 __history_command=
@@ -62,6 +86,9 @@ __history_preecmd() {
 precmd_functions+=(__history_preecmd)
 
 __history_preexec() {
+  shopt -oq history || return 0
+  local histctl_regex='^[[:space:]]*histctl([[:space:]]|$)'
+  [[ "$1" =~ $histctl_regex ]] && return 0
   __history_command="$1"
   local args
   __history_fill_common_args
