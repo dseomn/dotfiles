@@ -24,6 +24,9 @@
         children:
         - dir: media-keys
           children:
+            # TODO(https://github.com/mate-desktop/mate-settings-daemon/issues/256):
+            # Change these to arrays of both the custom shortcuts and the
+            # default shortcuts.
           - key: previous
             value: "'<Alt>comma'"
           - key: next
