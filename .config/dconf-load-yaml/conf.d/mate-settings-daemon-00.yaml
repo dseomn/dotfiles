@@ -30,3 +30,9 @@
             value: "'<Alt>period'"
           - key: play
             value: "'<Alt>slash'"
+          - key: volume-down
+            value: "'<Control>comma'"
+          - key: volume-up
+            value: "'<Control>period'"
+          - key: volume-mute
+            value: "'<Control>slash'"
