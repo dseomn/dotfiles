@@ -52,6 +52,7 @@ user_pref('mail.display_glyph', false);  // Don't convert :) to emoji.
 user_pref('mail.identity.default.archive_enabled', false);
 user_pref('mail.identity.default.compose_html', false);
 user_pref('mail.identity.default.sig_on_fwd', true);
+user_pref('mail.phishing.detection.enabled', false);
 user_pref('mail.server.default.check_all_folders_for_new', true);
 user_pref('mail.server.default.login_at_startup', true);
 user_pref('mail.showCondensedAddresses', false);
