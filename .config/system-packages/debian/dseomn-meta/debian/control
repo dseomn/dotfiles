@@ -106,6 +106,7 @@ Depends:
   mate-themes,
   mate-window-buttons-applet,
   mate-window-title-applet,
+  xinput,
 # Dependencies of dconf_load_yaml:
   python3-jinja2,
   python3-jsonschema,
