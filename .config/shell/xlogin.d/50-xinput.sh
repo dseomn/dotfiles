@@ -14,17 +14,24 @@
 
 
 for __xinput_id in $(xinput --list --id-only); do
-  # Enable all available scroll methods (libinput). This is mainly to enable
-  # scrolling by holding a mouse's middle button down while moving the pointer.
-  __xinput_scroll_available="$(
-      xinput --list-props "$__xinput_id" |
-          grep '^[[:space:]]*libinput Scroll Methods Available ([0-9]*):' |
-          cut -f 2 -d :
-  )"
-  if [ -n "$__xinput_scroll_available" ]; then
-    # Do not quote $__xinput_scroll_available, because it needs to be passed as
-    # multiple arguments, split on whitespace.
-    xinput --set-prop "$__xinput_id" 'libinput Scroll Method Enabled' \
-        $__xinput_scroll_available
-  fi
+  __xinput_props="$(xinput --list-props "$__xinput_id")"
+  while read -r __xinput_line; do
+    case "$__xinput_line" in
+      # Pick a scroll method (libinput). Unfortunately, only one method can be
+      # enabled at a time. The flags, in order, are: two-finger, edge, button.
+      # Documentation: libinput(4) and
+      # https://wayland.freedesktop.org/libinput/doc/latest/scrolling.html.
+      ?'libinput Scroll Methods Available ('*'):'?'1,'*)
+        xinput --set-prop "$__xinput_id" 'libinput Scroll Method Enabled' 1 0 0
+        ;;
+      ?'libinput Scroll Methods Available ('*'):'?'0, 1,'*)
+        xinput --set-prop "$__xinput_id" 'libinput Scroll Method Enabled' 0 1 0
+        ;;
+      ?'libinput Scroll Methods Available ('*'):'?'0, 0, 1')
+        xinput --set-prop "$__xinput_id" 'libinput Scroll Method Enabled' 0 0 1
+        ;;
+    esac
+  done <<EOF
+$__xinput_props
+EOF
 done
