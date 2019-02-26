@@ -15,7 +15,7 @@
 
 for __xinput_id in $(xinput --list --id-only); do
   __xinput_props="$(xinput --list-props "$__xinput_id")"
-  while read -r __xinput_line; do
+  while IFS= read -r __xinput_line; do
     case "$__xinput_line" in
       # Pick a scroll method (libinput). Unfortunately, only one method can be
       # enabled at a time. The flags, in order, are: two-finger, edge, button.
