@@ -23,6 +23,10 @@ $if mode=emacs
   "\e[5~": history-search-backward
   # PageDown
   "\e[6~": history-search-forward
+
+  # Like history-search-*, but search by word instead of by line.
+  "\C-n": dabbrev-expand
+  "\C-p": "\e-\C-n"
 $endif
 
 $include .inputrc.local
