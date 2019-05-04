@@ -46,6 +46,8 @@
     ("&*O" "⊛")  ; U+229B CIRCLED ASTERISK OPERATOR
     ("&=O" "⊜")  ; U+229C CIRCLED EQUALS
     ("&?!I" "⸘")  ; U+2E18 INVERTED INTERROBANG
+    ("&MXX" "𝄪")  ; U+1D12A MUSICAL SYMBOL DOUBLE SHARP
+    ("&Mbb" "𝄫")  ; U+1D12B MUSICAL SYMBOL DOUBLE FLAT
     ))
 
 
