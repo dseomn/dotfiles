@@ -14,6 +14,13 @@
 
 
 [Customized Shimmer Desktop] based on Shimmer Desktop
+# Add a LockSong button to the play controls.
+HBButtons = \
+  Prev \
+  Play \
+  Next(click2=NextAlbum) \
+  LockSong(button=1, stock="on:gmb-lock off:gmb-lockopen")
+
 # Change the Cover widget in the lower left.
 VBListCover = \
   _NBList \
