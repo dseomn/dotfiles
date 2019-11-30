@@ -125,6 +125,7 @@
                 'thunderbird.desktop',
                 'pidgin.desktop',
                 'gmusicbrowser.desktop',
+                'org.gnome.Lollypop.desktop',
                 'org.musicbrainz.Picard.desktop',
                 'exfalso.desktop',
                 'org.gnome.gThumb.desktop',

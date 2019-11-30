@@ -136,6 +136,7 @@ Recommends:
   libreoffice-gnome,
 # Firefox needs this for U2F to work.
   libu2f-host0,
+  lollypop,
   m17n-db,
   m17n-im-config,
   network-manager-gnome,

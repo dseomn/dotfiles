@@ -1,0 +1,49 @@
+# Copyright 2019 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
+- dir: org
+  children:
+  - dir: gnome
+    children:
+    - dir: Lollypop
+      reset: true
+      children:
+      - key: artist-artwork
+        value: "false"
+      - key: auto-update
+        value: "false"
+      - key: cover-size
+        value: "256"
+      - key: music-uris
+        value: "['file://{{ env.HOME }}/Music/default-profile']"
+      - key: network-access
+        value: "true"
+      - key: notifications
+        value: "'mpris'"
+      - key: repeat
+        value: "'auto'"
+      - key: replaygain
+        value: "0.0"
+      - key: save-state
+        value: "true"
+      - key: shown-album-lists
+        # https://gitlab.gnome.org/World/lollypop/blob/ae2f2d6d5fd40c428d560f7959d71121aae61b9f/lollypop/shown.py#L23
+        # and
+        # https://gitlab.gnome.org/World/lollypop/blob/ae2f2d6d5fd40c428d560f7959d71121aae61b9f/lollypop/define.py#L211
+        value: "[-4, -8, -11, -13, -15, -101, -102, -103]"
+      - key: show-tag-tracknumber
+        value: "true"
+      - key: smart-artist-sort
+        value: "false"
