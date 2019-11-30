@@ -16,11 +16,11 @@
 matrix:
   include:
   - language: generic
-    dist: xenial
+    dist: bionic
     before_script:
     - wget https://github.com/google/vroom/releases/download/v0.13.0/vroom_0.13.0-1_all.deb
-    # TODO: Remove this (and maybe `apt-get update`) once Travis has vim 8.0 in
-    # a supported distro.
+    # TODO: Remove this (and maybe `apt-get update`) once Travis has vim >=
+    # 8.0.1832 in a supported distro.
     - sudo add-apt-repository -y ppa:jonathonf/vim
     - sudo apt-get update
     - sudo apt-get -y install ./vroom_0.13.0-1_all.deb vim-gtk3 xvfb
