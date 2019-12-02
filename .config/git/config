@@ -67,5 +67,8 @@
 [url "ssh://git@gitlab.freedesktop.org/"]
 	pushInsteadOf = https://gitlab.freedesktop.org/
 
+[url "ssh://git@gitlab.gnome.org/"]
+	pushInsteadOf = https://gitlab.gnome.org/
+
 [include]
 	path = config.local
