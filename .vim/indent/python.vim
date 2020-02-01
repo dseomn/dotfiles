@@ -1,4 +1,4 @@
-" Copyright 2018 Google LLC
+" Copyright 2019 Google LLC
 "
 " Licensed under the Apache License, Version 2.0 (the "License");
 " you may not use this file except in compliance with the License.
@@ -12,6 +12,5 @@
 " See the License for the specific language governing permissions and
 " limitations under the License.
 
-
-" Use default indentation instead of PEP 8.
-let g:python_recommended_style = v:false
+let g:pyindent_continue = 'shiftwidth()'
+let g:pyindent_open_paren = 'shiftwidth()'
