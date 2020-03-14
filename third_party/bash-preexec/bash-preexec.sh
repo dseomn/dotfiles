@@ -53,6 +53,7 @@ __bp_inside_preexec=0
 # Fails if any of the given variables are readonly
 # Reference https://stackoverflow.com/a/4441178
 __bp_require_not_readonly() {
+  local var
   for var; do
     if ! ( unset "$var" 2> /dev/null ); then
       echo "bash-preexec requires write access to ${var}" >&2
@@ -308,7 +309,7 @@ __bp_install_after_session_init() {
 
     # If there's an existing PROMPT_COMMAND capture it and convert it into a function
     # So it is preserved and invoked during precmd.
-    if [[ -n "$PROMPT_COMMAND" ]]; then
+    if [[ -n "${PROMPT_COMMAND:-}" ]]; then
       eval '__bp_original_prompt_command() {
         '"$PROMPT_COMMAND"'
       }'
@@ -320,10 +321,10 @@ __bp_install_after_session_init() {
     # invoked once.
     # It's necessary to clear any existing DEBUG trap in order to set it from the install function.
     # Using \n as it's the most universal delimiter of bash commands
-    PROMPT_COMMAND=$'\n__bp_trap_string="$(trap -p DEBUG)"\ntrap DEBUG\n__bp_install\n'
+    PROMPT_COMMAND=$'\n__bp_trap_string="$(trap -p DEBUG)"\ntrap - DEBUG\n__bp_install\n'
 }
 
 # Run our install so long as we're not delaying it.
-if [[ -z "$__bp_delay_install" ]]; then
+if [[ -z "${__bp_delay_install:-}" ]]; then
     __bp_install_after_session_init
 fi;
