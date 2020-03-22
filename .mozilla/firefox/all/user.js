@@ -13,5 +13,7 @@
 // limitations under the License.
 
 
+user_pref("browser.tabs.drawInTitlebar", true);
+
 // Prevent tapping Alt from showing the hidden menu bar.
 user_pref("ui.key.menuAccessKeyFocuses", false);
