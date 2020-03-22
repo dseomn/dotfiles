@@ -1,4 +1,6 @@
-# Copyright 2018 Google LLC
+#!/bin/sh
+
+# Copyright 2020 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,6 +13,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+
+if [ -z "${DBUS_SESSION_BUS_ADDRESS}" ]; then
+  echo 'Not updating dconf, because $DBUS_SESSION_BUS_ADDRESS is empty.'
+  exit 0
+fi
 
 
 dconf-load-yaml --force
