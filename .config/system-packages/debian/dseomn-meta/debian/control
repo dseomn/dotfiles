@@ -92,6 +92,7 @@ Depends:
   dmz-cursor-theme,
   adwaita-icon-theme,
   gnome-icon-theme,
+  gnome-session,
   gnome-terminal,
   gnome-themes-extra | gnome-themes-standard,
   marco,
