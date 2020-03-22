@@ -1,5 +1,6 @@
 # Disable gnome-keyring-daemon's SSH agent, since it interferes with other SSH
 # agents.
 [Desktop Entry]
+Type=Application
 Hidden=true
 X-GNOME-Autostart-enabled=false
