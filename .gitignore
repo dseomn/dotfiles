@@ -49,6 +49,10 @@
 !/.local/lib/shutil/**
 !/.local/lib/system-packages/
 !/.local/lib/system-packages/**
+!/.local/share/
+!/.local/share/gnome-shell/
+!/.local/share/gnome-shell/extensions/
+!/.local/share/gnome-shell/extensions/**
 !/.m17n.d/
 !/.m17n.d/**
 !/.mozilla/
