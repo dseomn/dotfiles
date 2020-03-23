@@ -24,7 +24,11 @@
         reset: false
       - key: enabled-extensions
         value: >-
-          ['wsmatrix@martin.zurowietz.de']
+          ['LogOutButton@kyle.aims.ac.za',
+          'caffeine@patapon.info',
+          'dash-to-panel@jderose9.github.com',
+          'system-monitor@paradoxxx.zero.gmail.com',
+          'wsmatrix@martin.zurowietz.de']
       - key: favorite-apps
         value: >-
           ['org.gnome.Terminal.desktop',
@@ -44,6 +48,110 @@
           value: "true"
       - dir: extensions
         children:
+        - dir: caffeine
+          children:
+          - key: enable-fullscreen
+            value: "false"
+          - key: restore-state
+            value: "true"
+          - key: show-notifications
+            value: "false"
+          - key: user-enabled
+            reset: false
+        - dir: dash-to-panel
+          children:
+          - key: appicon-margin
+            value: "0"
+          - key: appicon-padding
+            value: "0"
+          - key: click-action
+            value: "'CYCLE'"
+          - key: dot-style-focused
+            value: "'SEGMENTED'"
+          - key: dot-style-unfocused
+            value: "'SEGMENTED'"
+          - key: multi-monitors
+            value: "false"
+          - key: panel-position
+            value: "'TOP'"
+          - key: panel-size
+            value: "24"
+          - key: scroll-panel-action
+            value: "'NOTHING'"
+          - key: show-showdesktop-button
+            value: "false"
+        - dir: system-monitor
+          children:
+          - key: cpu-display
+            value: "true"
+          - key: cpu-graph-width
+            value: "40"
+          - key: cpu-individual-cores
+            value: "false"
+          - key: cpu-refresh-time
+            value: "500"
+          - key: cpu-show-menu
+            value: "true"
+          - key: cpu-show-text
+            value: "false"
+          - key: cpu-style
+            value: "'graph'"
+          - key: disk-display
+            value: "true"
+          - key: disk-graph-width
+            value: "40"
+          - key: disk-read-color
+            value: "'#0000ffff'"
+          - key: disk-refresh-time
+            value: "500"
+          - key: disk-show-text
+            value: "false"
+          - key: disk-style
+            value: "'graph'"
+          - key: disk-usage-style
+            value: "'bar'"
+          - key: disk-write-color
+            value: "'#ff0000ff'"
+          - key: freq-display
+            value: "false"
+          - key: freq-show-menu
+            value: "true"
+          - key: icon-display
+            value: "false"
+          - key: memory-graph-width
+            value: "40"
+          - key: memory-refresh-time
+            value: "500"
+          - key: memory-show-text
+            value: "false"
+          - key: move-clock
+            value: "false"
+          - key: net-collisions-color
+            value: "'#ff7fffff'"
+          - key: net-down-color
+            value: "'#7f7fffff'"
+          - key: net-downerrors-color
+            value: "'#ff7fffff'"
+          - key: net-graph-width
+            value: "40"
+          - key: net-refresh-time
+            value: "500"
+          - key: net-show-text
+            value: "false"
+          - key: net-up-color
+            value: "'#ff7f7fff'"
+          - key: net-uperrors-color
+            value: "'#ff7fffff'"
+          - key: show-tooltip
+            value: "true"
+          - key: swap-display
+            value: "true"
+          - key: swap-graph-width
+            value: "40"
+          - key: swap-refresh-time
+            value: "500"
+          - key: swap-show-text
+            value: "false"
         - dir: wsmatrix
           children:
           - key: num-columns
