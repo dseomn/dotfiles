@@ -16,6 +16,7 @@
 
 // General.
 user_pref('general.warnOnAboutConfig', false);
+user_pref('mail.tabs.drawInTitlebar', true);
 
 // Calendar.
 user_pref('calendar.alarms.playsound', false);
