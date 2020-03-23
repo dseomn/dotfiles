@@ -74,6 +74,16 @@
           value: "false"
       - dir: wm
         children:
+        - dir: keybindings
+          children:
+          - key: switch-applications
+            value: "@as []"
+          - key: switch-applications-backward
+            value: "@as []"
+          - key: switch-windows
+            value: "['<Super>Tab', '<Alt>Tab']"
+          - key: switch-windows-backward
+            value: "['<Shift><Super>Tab', '<Shift><Alt>Tab']"
         - dir: preferences
           children:
           - key: num-workspaces
