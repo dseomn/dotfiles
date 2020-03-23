@@ -64,6 +64,10 @@
           children:
           - key: natural-scroll
             value: "false"
+        - dir: trackball
+          children:
+          - key: scroll-wheel-emulation-button
+            value: "8"
       - dir: screensaver
         children:
         - key: picture-uri
