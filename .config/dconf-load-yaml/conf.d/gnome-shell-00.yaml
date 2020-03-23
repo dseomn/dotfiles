@@ -1,0 +1,52 @@
+# Copyright 2020 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
+- dir: org
+  children:
+  - dir: gnome
+    children:
+    - dir: shell
+      reset: true
+      children:
+      - key: command-history
+        reset: false
+      - key: enabled-extensions
+        value: >-
+          ['wsmatrix@martin.zurowietz.de']
+      - key: favorite-apps
+        value: >-
+          ['org.gnome.Terminal.desktop',
+          'firefox.desktop',
+          'thunderbird.desktop',
+          'pidgin.desktop',
+          'gmusicbrowser.desktop',
+          'org.musicbrainz.Picard.desktop',
+          'exfalso.desktop',
+          'org.gnome.gThumb.desktop',
+          'org.gnome.Nautilus.desktop']
+      - key: had-bluetooth-devices-setup
+        reset: false
+      - dir: app-switcher
+        children:
+        - key: current-workspace-only
+          value: "true"
+      - dir: extensions
+        children:
+        - dir: wsmatrix
+          children:
+          - key: num-columns
+            value: "4"
+          - key: num-rows
+            value: "3"

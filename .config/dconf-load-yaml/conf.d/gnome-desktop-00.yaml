@@ -1,0 +1,80 @@
+# Copyright 2020 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
+- dir: org
+  children:
+  - dir: gnome
+    children:
+    - dir: desktop
+      reset: true
+      children:
+      - dir: background
+        children:
+        - key: picture-uri
+          value: "'file://{{ env['HOME'] }}/.local/share/dotfiles/images/default-background.png'"
+      - dir: input-sources
+        children:
+        - key: show-all-sources
+          value: "true"
+        - key: sources
+          value: "[('ibus', 'm17n:t:rfc1345-plus'), ('xkb', 'us')]"
+        - key: mru-sources
+          value: "[('ibus', 'm17n:t:rfc1345-plus'), ('xkb', 'us')]"
+        - key: xkb-options
+          # TODO(https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=945971): Use
+          # caps:escape_shifted_capslock once that's available.
+          value: "['caps:swapescape']"
+      - dir: interface
+        children:
+        - key: clock-show-weekday
+          value: "true"
+        - key: font-name
+          value: "'Sans 10'"
+        - key: document-font-name
+          value: "'Sans 10'"
+        - key: monospace-font-name
+          value: "'Monospace 10'"
+        - key: enable-hot-corners
+          value: "false"
+        - key: show-battery-percentage
+          value: "true"
+      - dir: notifications
+        children:
+        - key: show-in-lock-screen
+          value: "false"
+      - dir: peripherals
+        children:
+        - dir: keyboard
+          children:
+          - key: numlock-state
+            reset: false
+        - dir: touchpad
+          children:
+          - key: natural-scroll
+            value: "false"
+      - dir: screensaver
+        children:
+        - key: picture-uri
+          value: "'file://{{ env['HOME'] }}/.local/share/dotfiles/images/default-background.png'"
+      - dir: sound
+        children:
+        - key: event-sounds
+          value: "false"
+      - dir: wm
+        children:
+        - dir: preferences
+          children:
+          - key: num-workspaces
+            value: "12"
