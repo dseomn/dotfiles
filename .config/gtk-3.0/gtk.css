@@ -15,6 +15,14 @@
  */
 
 
+/* Make Gnome Terminal's headerbar smaller. */
+terminal-window headerbar {
+  min-height: 0;
+}
+terminal-window headerbar button {
+  padding: 0;
+}
+
 /* Make Gnome Terminal's tab bar smaller. */
 terminal-window header button,
 terminal-window tab,
