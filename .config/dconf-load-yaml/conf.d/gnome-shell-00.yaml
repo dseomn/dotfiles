@@ -155,6 +155,8 @@
             value: "false"
         - dir: wsmatrix
           children:
+          - key: multi-monitor
+            value: "true"
           - key: num-columns
             value: "4"
           - key: num-rows

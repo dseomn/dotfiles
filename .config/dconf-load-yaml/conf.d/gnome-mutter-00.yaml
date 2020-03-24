@@ -22,3 +22,5 @@
       children:
       - key: dynamic-workspaces
         value: "false"
+      - key: workspaces-only-on-primary
+        value: "false"
