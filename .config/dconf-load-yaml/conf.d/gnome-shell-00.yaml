@@ -28,6 +28,7 @@
           'caffeine@patapon.info',
           'dash-to-panel@jderose9.github.com',
           'system-monitor@paradoxxx.zero.gmail.com',
+          'ubuntu-appindicators@ubuntu.com',
           'wsmatrix@martin.zurowietz.de']
       - key: favorite-apps
         value: >-
