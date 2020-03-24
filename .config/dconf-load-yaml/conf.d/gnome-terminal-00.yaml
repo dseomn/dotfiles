@@ -24,6 +24,8 @@
         children:
         - key: schema-version
           value: "uint32 3"
+        - key: headerbar
+          value: "@mb false"
         - key: default-show-menubar
           value: "false"
         - dir: "profiles:"
