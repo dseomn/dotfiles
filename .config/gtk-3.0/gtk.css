@@ -15,13 +15,12 @@
  */
 
 
-/* Make Gnome Terminal's headerbar smaller. */
-terminal-window headerbar {
-  min-height: 0;
-}
-terminal-window headerbar button {
+/* When a window is tiled (or maximized), the default headerbar is probably less
+ * useful, so reduce it's height. */
+.tiled headerbar.default-decoration {
   padding: 0;
 }
+
 
 /* Make Gnome Terminal's tab bar smaller. */
 terminal-window header button,
