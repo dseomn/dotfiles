@@ -15,9 +15,8 @@
  */
 
 
-/* When a window is tiled (or maximized), the default headerbar is probably less
- * useful, so reduce it's height. */
-.tiled headerbar.default-decoration {
+/* Reduce the height of default headerbars. */
+headerbar.default-decoration {
   padding: 0;
 }
 
