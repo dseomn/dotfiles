@@ -81,6 +81,8 @@
             value: "'NOTHING'"
           - key: show-showdesktop-button
             value: "false"
+          - key: show-window-previews
+            value: "false"
         - dir: system-monitor
           children:
           - key: cpu-display
