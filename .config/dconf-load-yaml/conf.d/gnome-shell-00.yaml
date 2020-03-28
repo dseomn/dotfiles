@@ -62,7 +62,7 @@
         - dir: dash-to-panel
           children:
           - key: appicon-margin
-            value: "0"
+            value: "4"
           - key: appicon-padding
             value: "0"
           - key: click-action
