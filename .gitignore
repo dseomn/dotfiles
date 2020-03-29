@@ -23,8 +23,6 @@
 !/.config/system-packages/**
 !/.config/tmux/
 !/.config/tmux/**
-!/.config/xkb/
-!/.config/xkb/**
 !/.config/yapf/
 !/.config/yapf/**
 !/.gitconfig
