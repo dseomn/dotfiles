@@ -89,26 +89,11 @@ Architecture: all
 Depends:
   ${misc:Depends},
   dseomn-standard (= ${source:Version}),
-  dmz-cursor-theme,
-  adwaita-icon-theme,
   gnome-core,
   gnome-icon-theme,
   gnome-screenshot,
   gnome-shell-extension-dash-to-panel,
   gnome-terminal,
-  gnome-themes-extra | gnome-themes-standard,
-  marco,
-  mate-applets,
-  mate-desktop-environment,
-  mate-dock-applet,
-  mate-indicator-applet,
-  mate-menu,
-  mate-netbook,
-  mate-panel,
-  mate-power-manager,
-  mate-themes,
-  mate-window-buttons-applet,
-  mate-window-title-applet,
   xinput,
 # Dependencies of dconf_load_yaml:
   python3-jinja2,
@@ -155,7 +140,6 @@ Recommends:
   thunderbird,
   totem,
   vim-gtk3 (>= 2:8.0),
-  xdotool,
 Description: dseomn-desktop
 
 Package: dseomn-desktop-full
