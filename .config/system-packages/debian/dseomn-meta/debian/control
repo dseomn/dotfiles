@@ -94,7 +94,6 @@ Depends:
   gnome-screenshot,
   gnome-shell-extension-dash-to-panel,
   gnome-terminal,
-  xinput,
 # Dependencies of dconf_load_yaml:
   python3-jinja2,
   python3-jsonschema,
