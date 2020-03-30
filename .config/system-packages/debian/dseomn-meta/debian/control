@@ -137,7 +137,6 @@ Recommends:
   pidgin-plugin-pack,
   simple-scan,
   thunderbird,
-  totem,
   vim-gtk3 (>= 2:8.0),
 Description: dseomn-desktop
 
