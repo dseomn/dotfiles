@@ -71,6 +71,8 @@
             value: "'SEGMENTED'"
           - key: dot-style-unfocused
             value: "'SEGMENTED'"
+          - key: location-clock
+            value: "'BUTTONSLEFT'"
           - key: multi-monitors
             value: "false"
           - key: panel-position
@@ -83,6 +85,8 @@
             value: "false"
           - key: show-window-previews
             value: "false"
+          - key: taskbar-position
+            value: "'LEFTPANEL_FIXEDCENTER'"
         - dir: system-monitor
           children:
           - key: cpu-display
