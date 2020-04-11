@@ -64,7 +64,7 @@
           - key: appicon-margin
             value: "4"
           - key: appicon-padding
-            value: "0"
+            value: "2"
           - key: click-action
             value: "'CYCLE'"
           - key: dot-style-focused
@@ -78,7 +78,7 @@
           - key: panel-position
             value: "'TOP'"
           - key: panel-size
-            value: "24"
+            value: "28"
           - key: scroll-panel-action
             value: "'NOTHING'"
           - key: show-showdesktop-button
