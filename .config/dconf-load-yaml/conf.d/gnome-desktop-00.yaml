@@ -54,6 +54,12 @@
         children:
         - key: show-in-lock-screen
           value: "false"
+        - dir: application
+          children:
+          - dir: org-gnome-software
+            children:
+            - key: show-banners
+              value: "false"
       - dir: peripherals
         children:
         - dir: keyboard
