@@ -89,10 +89,12 @@
             value: "'LEFTPANEL_FIXEDCENTER'"
         - dir: system-monitor
           children:
+          - key: background
+            value: "'#2e3436ff'"
           - key: cpu-display
             value: "true"
           - key: cpu-graph-width
-            value: "40"
+            value: "60"
           - key: cpu-individual-cores
             value: "false"
           - key: cpu-refresh-time
@@ -106,7 +108,7 @@
           - key: disk-display
             value: "true"
           - key: disk-graph-width
-            value: "40"
+            value: "60"
           - key: disk-read-color
             value: "'#0000ffff'"
           - key: disk-refresh-time
@@ -126,7 +128,7 @@
           - key: icon-display
             value: "false"
           - key: memory-graph-width
-            value: "40"
+            value: "60"
           - key: memory-refresh-time
             value: "500"
           - key: memory-show-text
@@ -140,7 +142,7 @@
           - key: net-downerrors-color
             value: "'#ff7fffff'"
           - key: net-graph-width
-            value: "40"
+            value: "60"
           - key: net-refresh-time
             value: "500"
           - key: net-show-text
@@ -154,7 +156,7 @@
           - key: swap-display
             value: "true"
           - key: swap-graph-width
-            value: "40"
+            value: "60"
           - key: swap-refresh-time
             value: "500"
           - key: swap-show-text
