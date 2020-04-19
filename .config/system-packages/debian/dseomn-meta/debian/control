@@ -101,6 +101,9 @@ Depends:
 # Dependencies of ~/.local/lib/dotfiles/update.d/50-gmusicbrowser
   gir1.2-gtk-3.0,
   python3-gi,
+# Dependencies of ~/.local/lib/input-device-handler
+  python3-pyudev,
+  xinput,
 Recommends:
   dseomn-dev (= ${source:Version}),
   blueman,

@@ -40,6 +40,8 @@
 !/.local/lib/dir-alias/**
 !/.local/lib/dotfiles/
 !/.local/lib/dotfiles/**
+!/.local/lib/input-device-handler/
+!/.local/lib/input-device-handler/**
 !/.local/lib/python3/
 !/.local/lib/python3/site-packages/
 !/.local/lib/python3/site-packages/**
