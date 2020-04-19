@@ -1,0 +1,5 @@
+[Desktop Entry]
+Name=input-device-handler
+Exec=sh -c "[ -n \"\$WAYLAND_DISPLAY\" ] || exec ~/.local/lib/input-device-handler/monitor.py"
+Terminal=false
+Type=Application
