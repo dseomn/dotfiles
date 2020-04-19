@@ -169,3 +169,7 @@
             value: "4"
           - key: num-rows
             value: "3"
+      - dir: weather
+        children:
+        - key: locations
+          reset: false

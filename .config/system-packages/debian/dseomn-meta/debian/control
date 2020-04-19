@@ -119,6 +119,7 @@ Recommends:
   gnome-shell-extension-log-out-button,
   gnome-shell-extension-system-monitor,
   gnome-tweaks,
+  gnome-weather,
   google-chrome-stable,
   gucharmap,
   ibus,
