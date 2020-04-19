@@ -113,6 +113,7 @@ Recommends:
   fonts-noto,
   gimp,
   gmusicbrowser,
+  gnome-clocks,
   gnome-shell-extension-appindicator,
   gnome-shell-extension-caffeine,
   gnome-shell-extension-log-out-button,
