@@ -58,7 +58,7 @@
           children:
           - dir: org-gnome-software
             children:
-            - key: show-banners
+            - key: enable
               value: "false"
       - dir: peripherals
         children:
