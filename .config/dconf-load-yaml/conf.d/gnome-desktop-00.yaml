@@ -33,9 +33,7 @@
         - key: mru-sources
           value: "[('ibus', 'm17n:t:rfc1345-plus'), ('xkb', 'us')]"
         - key: xkb-options
-          # TODO(https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=945971): Use
-          # caps:escape_shifted_capslock once that's available.
-          value: "['caps:swapescape']"
+          value: "['caps:escape_shifted_capslock']"
       - dir: interface
         children:
         - key: clock-show-weekday
