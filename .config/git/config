@@ -30,6 +30,9 @@
 	# status
 	st = status
 
+	# push
+	fpush = push --force-with-lease
+
 [pretty]
 	shorter = tformat:%C(auto)%h %ae %C(blue)%ar%C(auto)%d%n%s
 
