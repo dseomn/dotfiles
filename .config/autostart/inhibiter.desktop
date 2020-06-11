@@ -1,0 +1,5 @@
+[Desktop Entry]
+Name=inhibiter
+Exec=sh -c "exec ~/.local/lib/inhibiter/inhibiter.py"
+Terminal=false
+Type=Application

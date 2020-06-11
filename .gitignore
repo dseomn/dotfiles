@@ -40,6 +40,8 @@
 !/.local/lib/dir-alias/**
 !/.local/lib/dotfiles/
 !/.local/lib/dotfiles/**
+!/.local/lib/inhibiter/
+!/.local/lib/inhibiter/**
 !/.local/lib/input-device-handler/
 !/.local/lib/input-device-handler/**
 !/.local/lib/python3/
