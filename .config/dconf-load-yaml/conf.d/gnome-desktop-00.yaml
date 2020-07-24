@@ -38,6 +38,8 @@
         children:
         - key: clock-show-weekday
           value: "true"
+        - key: cursor-size
+          reset: false
         - key: font-name
           value: "'Sans 10'"
         - key: document-font-name
@@ -48,6 +50,8 @@
           value: "false"
         - key: show-battery-percentage
           value: "true"
+        - key: text-scaling-factor
+          reset: false
       - dir: notifications
         children:
         - key: show-in-lock-screen
