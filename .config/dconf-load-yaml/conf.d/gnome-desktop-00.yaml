@@ -20,6 +20,10 @@
     - dir: desktop
       reset: true
       children:
+      - dir: a11y
+        children:
+        - key: always-show-universal-access-status
+          value: "true"
       - dir: background
         children:
         - key: picture-uri
