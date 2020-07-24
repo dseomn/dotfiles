@@ -161,6 +161,12 @@
             value: "500"
           - key: swap-show-text
             value: "false"
+          - key: thermal-display
+            value: "true"
+          - key: thermal-show-text
+            value: "false"
+          - key: thermal-style
+            value: "'digit'"
         - dir: wsmatrix
           children:
           - key: multi-monitor
