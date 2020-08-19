@@ -81,4 +81,13 @@
     wait-command="true"
     for-each-file="true"
     />
+
+  <script
+    id="tXI0cxU2"
+    shell-script="false"
+    display-name="nogeo"
+    command="exiftool -gps:all= -o %P/%N-nogeo%E %F"
+    wait-command="true"
+    for-each-file="true"
+    />
 </scripts>
