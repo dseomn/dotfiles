@@ -38,7 +38,7 @@
           'pidgin.desktop',
           'gmusicbrowser.desktop',
           'org.musicbrainz.Picard.desktop',
-          'exfalso.desktop',
+          'io.github.quodlibet.ExFalso.desktop',
           'org.gnome.gThumb.desktop',
           'org.gnome.Nautilus.desktop']
       - key: had-bluetooth-devices-setup
