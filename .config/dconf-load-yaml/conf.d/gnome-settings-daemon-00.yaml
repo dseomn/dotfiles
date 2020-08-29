@@ -48,9 +48,19 @@
             value: "@as []"
           - key: custom-keybindings
             value: >-
-              ['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/screenshot/']
+              ['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/rotate-play-mode/',
+              '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/screenshot/']
           - dir: custom-keybindings
             children:
+            - dir: rotate-play-mode
+              children:
+              - key: name
+                value: "'Rotate music play mode'"
+              - key: binding
+                value: "'<Shift><Alt>question'"
+              - key: command
+                value: >-
+                  "dconf-rotate-values /org/gnome/Lollypop/repeat \"'auto_random'\" \"'track'\""
             - dir: screenshot
               children:
               - key: name
