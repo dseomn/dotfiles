@@ -27,6 +27,11 @@ if test ! -f "$1" ; then
   exit 1
 fi
 
+# Do not create a change id if requested
+if test "false" = "`git config --bool --get gerrit.createChangeId`" ; then
+  exit 0
+fi
+
 # $RANDOM will be undefined if not using bash, so don't use set -u
 random=$( (whoami ; hostname ; date; cat $1 ; echo $RANDOM) | git hash-object --stdin)
 dest="$1.tmp.${random}"
@@ -43,17 +48,23 @@ if test ! -s "${dest}" ; then
   exit 1
 fi
 
-if ! mv "${dest}" "$1" ; then
-  echo "cannot mv ${dest} to $1"
-  exit 1
-fi
-
-# Avoid the --in-place option which only appeared in Git 2.8
-# Avoid the --if-exists option which only appeared in Git 2.15
-if ! git -c trailer.ifexists=doNothing interpret-trailers \
-      --trailer "Change-Id: I${random}" < "$1" > "${dest}" ; then
-  echo "cannot insert change-id line in $1"
-  exit 1
+reviewurl="$(git config --get gerrit.reviewUrl)"
+if test -n "${reviewurl}" ; then
+  if ! git interpret-trailers --parse < "$1" | grep -q '^Link:.*/id/I[0-9a-f]\{40\}$' ; then
+    if ! git interpret-trailers \
+          --trailer "Link: ${reviewurl%/}/id/I${random}" < "$1" > "${dest}" ; then
+      echo "cannot insert link footer in $1"
+      exit 1
+    fi
+  fi
+else
+  # Avoid the --in-place option which only appeared in Git 2.8
+  # Avoid the --if-exists option which only appeared in Git 2.15
+  if ! git -c trailer.ifexists=doNothing interpret-trailers \
+        --trailer "Change-Id: I${random}" < "$1" > "${dest}" ; then
+    echo "cannot insert change-id line in $1"
+    exit 1
+  fi
 fi
 
 if ! mv "${dest}" "$1" ; then
