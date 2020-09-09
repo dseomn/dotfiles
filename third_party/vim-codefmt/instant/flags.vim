@@ -33,8 +33,11 @@ endif
 
 
 " Shout if maktaba is too old. Done here to ensure it's always triggered.
-if !maktaba#IsAtLeastVersion('1.10.0')
-  call maktaba#error#Shout('Codefmt requires maktaba version 1.10.0.')
+" We need at least 1.12.0 so that maktaba#ensure#IsCallable works on Neovim and
+" recent Vim (newer than is actually in Travis/Xenial).
+" See https://github.com/google/vim-maktaba/issues/173
+if !maktaba#IsAtLeastVersion('1.12.0')
+  call maktaba#error#Shout('Codefmt requires maktaba version 1.12.0.')
   call maktaba#error#Shout('You have maktaba version %s.', maktaba#VERSION)
   call maktaba#error#Shout('Please update your maktaba install.')
 endif
@@ -49,10 +52,11 @@ call s:plugin.flags.autopep8_executable.AddCallback(
     \ maktaba#function#FromExpr('codefmt#autopep8#InvalidateVersion()'), 0)
 
 ""
-" The path to the clang-format executable.
+" The path to the clang-format executable. String, list, or callable that
+" takes no args and returns a string or a list.
 call s:plugin.Flag('clang_format_executable', 'clang-format')
-" Invalidate cache of detected clang-format version when this is changed, regardless
-" of {value} arg.
+" Invalidate cache of detected clang-format version when this is changed,
+" regardless of {value} arg.
 call s:plugin.flags.clang_format_executable.AddCallback(
     \ maktaba#function#FromExpr('codefmt#clangformat#InvalidateVersion()'), 0)
 
@@ -81,6 +85,10 @@ call s:plugin.Flag('js_beautify_executable', 'js-beautify')
 call s:plugin.Flag('yapf_executable', 'yapf')
 
 ""
+" The path to the black executable.
+call s:plugin.Flag('black_executable', 'black')
+
+""
 " The path to the gn executable.
 call s:plugin.Flag('gn_executable', 'gn')
 
@@ -95,23 +103,68 @@ call s:plugin.Flag('buildifier_executable', 'buildifier')
 call s:plugin.Flag('google_java_executable', 'google-java-format')
 
 ""
-" Command line arguments to to feed shfmt. Either a list or callable that
+" Command line arguments to feed shfmt. Either a list or callable that
 " takes no args and returns a list with command line arguments. By default, uses
 " the Google's style.
 " See https://github.com/mvdan/sh for details.
 call s:plugin.Flag('shfmt_options', ['-i', '2', '-sr', '-ci'])
 
 ""
-" The path to the shfmt executable.
+" The path to the shfmt executable. String, list, or callable that
+" takes no args and returns a string or a list.
 call s:plugin.Flag('shfmt_executable', 'shfmt')
 
 ""
-" Command line arguments to to feed prettier. Either a list or callable that
+" Command line arguments to feed prettier. Either a list or callable that
 " takes no args and returns a list with command line arguments.
-call s:plugin.Flag('prettier_options', [
-    \ '--single-quote', '--trailing-comma=all',
-    \ '--arrow-parens=always', '--print-width=80'])
+call s:plugin.Flag('prettier_options', [])
 
 ""
-" The path to the prettier executable.
-call s:plugin.Flag('prettier_executable', 'prettier')
+" @private
+function s:LookupPrettierExecutable() abort
+  return executable('npx') ? ['npx', '--no-install', 'prettier'] : 'prettier'
+endfunction
+
+""
+" The path to the prettier executable. String, list, or callable that
+" takes no args and returns a string or a list. The default uses npx if
+" available, so that the repository-local prettier will have priority.
+call s:plugin.Flag('prettier_executable', function('s:LookupPrettierExecutable'))
+
+" Invalidate cache of detected prettier availability whenever
+" prettier_executable changes.
+call s:plugin.flags.prettier_executable.AddCallback(
+    \ maktaba#function#FromExpr('codefmt#prettier#InvalidateIsAvailable()'), 0)
+
+""
+" Command line arguments to feed rustfmt. Either a list or callable that
+" takes no args and returns a list with command line arguments.
+call s:plugin.Flag('rustfmt_options', [])
+
+""
+" The path to the rustfmt executable.
+call s:plugin.Flag('rustfmt_executable', 'rustfmt')
+
+""
+" @private
+" This is declared above zprint_options to avoid interfering with vimdoc parsing
+" the maktaba flag.
+function s:ZprintOptions() abort
+  return &textwidth ? ['{:width ' . &textwidth . '}'] : []
+endfunction
+
+""
+" Command line arguments to feed zprint. Either a list or callable that takes no
+" args and returns a list with command line arguments. The default configures
+" zprint with Vim's textwidth.
+call s:plugin.Flag('zprint_options', function('s:ZprintOptions'))
+
+""
+" The path to the zprint executable. Typically this is one of the native
+" images (zprintl or zprintm) from https://github.com/kkinnear/zprint/releases
+" installed as zprint.
+call s:plugin.Flag('zprint_executable', 'zprint')
+
+""
+" The path to the fish_indent executable.
+call s:plugin.Flag('fish_indent_executable', 'fish_indent')

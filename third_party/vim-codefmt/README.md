@@ -12,9 +12,10 @@ helpfiles in the `doc/` directory. The helpfiles are also available via
 
 * [Bazel](https://www.github.com/bazelbuild/bazel) BUILD files (buildifier)
 * C, C++ (clang-format)
-* CSS (js-beautify)
-* Chrome GN files (gn)
+* [Clojure](https://clojure.org/) ([zprint](https://github.com/kkinnear/zprint))
+* CSS, Sass, SCSS, Less (js-beautify)
 * Dart (dartfmt)
+* Fish ([fish_indent](https://fishshell.com/docs/current/commands.html#fish_indent))
 * Go (gofmt)
 * [GN](https://www.chromium.org/developers/gn-build-configuration) (gn)
 * HTML (js-beautify)
@@ -22,14 +23,17 @@ helpfiles in the `doc/` directory. The helpfiles are also available via
 * JavaScript (clang-format or [prettier](https://prettier.io))
 * JSON (js-beautify)
 * Proto (clang-format)
-* Python (Autopep8 or YAPF)
+* Python (Autopep8, Black, or YAPF)
+* Rust ([rustfmt](https://github.com/rust-lang/rustfmt))
 * TypeScript (clang-format)
 * Shell (shfmt)
+* [Vue](http://vuejs.org) (prettier)
 
 # Commands
 
 Use `:FormatLines` to format a range of lines or use `:FormatCode` to format
-the entire buffer.
+the entire buffer. Use `:NoAutoFormatBuffer` to disable current buffer
+formatting.
 
 # Usage example
 
@@ -78,14 +82,16 @@ Want to just sit back and let autoformat happen automatically? Add this to your
 ```vim
 augroup autoformat_settings
   autocmd FileType bzl AutoFormatBuffer buildifier
-  autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
+  autocmd FileType c,cpp,proto,javascript,arduino AutoFormatBuffer clang-format
   autocmd FileType dart AutoFormatBuffer dartfmt
   autocmd FileType go AutoFormatBuffer gofmt
   autocmd FileType gn AutoFormatBuffer gn
-  autocmd FileType html,css,json AutoFormatBuffer js-beautify
+  autocmd FileType html,css,sass,scss,less,json AutoFormatBuffer js-beautify
   autocmd FileType java AutoFormatBuffer google-java-format
   autocmd FileType python AutoFormatBuffer yapf
   " Alternative: autocmd FileType python AutoFormatBuffer autopep8
+  autocmd FileType rust AutoFormatBuffer rustfmt
+  autocmd FileType vue AutoFormatBuffer prettier
 augroup END
 ```
 

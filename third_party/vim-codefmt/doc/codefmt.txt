@@ -11,6 +11,7 @@ CONTENTS                                                    *codefmt-contents*
   6. Autocommands...........................................|codefmt-autocmds|
   7. Functions.............................................|codefmt-functions|
   8. Mappings...............................................|codefmt-mappings|
+      1. Recommended zprint mappings.................|codefmt-mappings-zprint|
 
 ==============================================================================
 INTRODUCTION                                                   *codefmt-intro*
@@ -29,7 +30,8 @@ The path to the autopep8 executable.
 Default: 'autopep8' `
 
                                              *codefmt:clang_format_executable*
-The path to the clang-format executable.
+The path to the clang-format executable. String, list, or callable that takes
+no args and returns a string or a list.
 Default: 'clang-format' `
 
                                                   *codefmt:clang_format_style*
@@ -52,6 +54,10 @@ Default: 'dartfmt' `
 The path to the js-beautify executable.
 Default: 'js-beautify' `
 
+                                                     *codefmt:black_executable*
+The path to the black executable.
+Default: 'black' `
+
                                                      *codefmt:yapf_executable*
 The path to the yapf executable.
 Default: 'yapf' `
@@ -70,24 +76,51 @@ The path to the google-java executable.  Generally, this should have the form:
 Default: 'google-java-format' `
 
                                                        *codefmt:shfmt_options*
-Command line arguments to to feed shfmt. Either a list or callable that takes
-no args and returns a list with command line arguments. By default, uses the
+Command line arguments to feed shfmt. Either a list or callable that takes no
+args and returns a list with command line arguments. By default, uses the
 Google's style. See https://github.com/mvdan/sh for details.
 Default: ['-i', '2', '-sr', '-ci'] `
 
                                                     *codefmt:shfmt_executable*
-The path to the shfmt executable.
+The path to the shfmt executable. String, list, or callable that takes no args
+and returns a string or a list.
 Default: 'shfmt' `
 
                                                     *codefmt:prettier_options*
-Command line arguments to to feed prettier. Either a list or callable that
-takes no args and returns a list with command line arguments.
-Default: [ '--single-quote', '--trailing-comma=all', '--arrow-parens=always',
-  '--print-width=80'] `
+Command line arguments to feed prettier. Either a list or callable that takes
+no args and returns a list with command line arguments.
+Default: [] `
 
                                                  *codefmt:prettier_executable*
-The path to the prettier executable.
-Default: 'prettier' `
+The path to the prettier executable. String, list, or callable that takes no
+args and returns a string or a list. The default uses npx if available, so
+that the repository-local prettier will have priority.
+Default: function('s:LookupPrettierExecutable') `
+
+                                                     *codefmt:rustfmt_options*
+Command line arguments to feed rustfmt. Either a list or callable that takes
+no args and returns a list with command line arguments.
+Default: [] `
+
+                                                  *codefmt:rustfmt_executable*
+The path to the rustfmt executable.
+Default: 'rustfmt' `
+
+                                                      *codefmt:zprint_options*
+Command line arguments to feed zprint. Either a list or callable that takes no
+args and returns a list with command line arguments. The default configures
+zprint with Vim's textwidth.
+Default: function('s:ZprintOptions') `
+
+                                                   *codefmt:zprint_executable*
+The path to the zprint executable. Typically this is one of the native images
+(zprintl or zprintm) from https://github.com/kkinnear/zprint/releases
+installed as zprint.
+Default: 'zprint' `
+
+                                              *codefmt:fish_indent_executable*
+The path to the fish_indent executable.
+Default: 'fish_indent' `
 
                                                     *codefmt:plugin[autocmds]*
 Configures whether plugin/autocmds.vim should be loaded.
@@ -130,10 +163,12 @@ plugins are enabled or what other software is installed on your system.
 The current list of defaults by filetype is:
   * bzl (Bazel): buildifier
   * c, cpp, proto, javascript, typescript: clang-format
-  * go: gofmt
-  * python: autopep8, yapf
-  * gn: gn
+  * clojure: zprint
   * dart: dartfmt
+  * fish: fish_indent
+  * gn: gn
+  * go: gofmt
+  * python: autopep8, black, yapf
 
 ==============================================================================
 DICTIONARIES                                                   *codefmt-dicts*
@@ -202,6 +237,39 @@ codefmt#FormatMap({type})                                *codefmt#FormatMap()*
   Suitable for use as 'operatorfunc'; see |g@| for details. The type is
   ignored since formatting only works on complete lines.
 
+codefmt#formatterhelpers#Format({cmd})     *codefmt#formatterhelpers#Format()*
+  Format lines in the current buffer via a formatter invoked by {cmd}, which
+  is a system call represented by either a |maktaba.Syscall| or any argument
+  accepted by |maktaba#syscall#Create()|. The command must include any
+  arguments for the explicit range line numbers to use, if any.
+
+  Throws ERROR(ShellError) if the {cmd} system call fails
+
+codefmt#formatterhelpers#AttemptFakeRangeFormatting({startline}, {endline},
+  {cmd})               *codefmt#formatterhelpers#AttemptFakeRangeFormatting()*
+  Attempt to format a range of lines from {startline} to {endline} in the
+  current buffer via a formatter that doesn't natively support range
+  formatting, which is invoked via {cmd} (a system call represented by either
+  a |maktaba.Syscall| or any argument accepted by |maktaba#syscall#Create()|).
+  It uses a hacky strategy of sending those lines to the formatter in
+  isolation, which gives bad results if the code on those lines isn't a
+  self-contained block of syntax or is part of a larger indent.
+
+  If invoking this hack, please make sure to file a feature request against
+  the tool for range formatting and post a URL for that feature request above
+  code that calls it.
+
+  Throws ERROR(ShellError) if the {cmd} system call fails
+
+codefmt#formatterhelpers#ResolveFlagToArray({flag_name})
+                               *codefmt#formatterhelpers#ResolveFlagToArray()*
+  Resolve a flag (function, string or array) to a normalized array, with
+  special handling to convert a spaceless string to a single-element array.
+  This is the common case for executables, and more importantly, is
+  backward-compatible for existing user settings.
+
+  Throws ERROR(WrongType) if the flag doesn't resolve to a string or array
+
 ==============================================================================
 MAPPINGS                                                    *codefmt-mappings*
 
@@ -220,6 +288,18 @@ formatting ranges that mimic vim's built-in |operator|s:
     over any motion. For instance, <PREFIX>i{ will format all lines inside the
     enclosing curly braces.
   * In visual mode, <PREFIX> will format the visual selection.
+
+==============================================================================
+RECOMMENDED ZPRINT MAPPINGS                          *codefmt-mappings-zprint*
+
+
+Since zprint only works on top-level Clojure forms, it doesn't make sense to
+format line ranges that aren't complete forms. If you're using vim-sexp
+(https://github.com/guns/vim-sexp), the following mapping replaces the default
+"format the current line" with "format the current top-level form."
+>
+  autocmd FileType clojure nmap <buffer> <silent> <leader>== <leader>=iF
+<
 
 
 vim:tw=78:ts=8:ft=help:norl:
