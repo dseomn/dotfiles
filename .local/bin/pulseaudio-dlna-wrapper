@@ -1,0 +1,48 @@
+#!/bin/bash
+
+# Copyright 2020 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
+nft_handles=()
+
+
+add_nft_rule() {
+  local output
+  output="$(sudo nft --echo --handle add rule inet filter input "$@")" ||
+    return $?
+  nft_handles+=("${output##* handle }")
+}
+
+
+cleanup_nft() {
+  local handle
+  for handle in "${nft_handles[@]}"; do
+    sudo nft delete rule inet filter input handle "$handle" || return $?
+  done
+}
+
+
+trap 'exit 1' HUP INT TERM
+trap 'cleanup_nft' EXIT
+
+
+port=$((RANDOM + 1025))
+add_nft_rule tcp dport "$port" accept || exit $?
+msearch_port=$((RANDOM + 1025))
+add_nft_rule udp sport 1900 udp dport "$msearch_port" accept || exit $?
+
+
+pulseaudio-dlna --port="$port" --codec=l16 --msearch-port="$msearch_port" ||
+  exit $?

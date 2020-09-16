@@ -169,6 +169,7 @@ Recommends:
   musescore,
   picard,
   povray,
+  pulseaudio-dlna,
   quodlibet,
   scdaemon,
   sgt-puzzles,
