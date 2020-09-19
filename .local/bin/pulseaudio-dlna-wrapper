@@ -40,9 +40,6 @@ trap 'cleanup_nft' EXIT
 
 port=$((RANDOM + 1025))
 add_nft_rule tcp dport "$port" accept || exit $?
-msearch_port=$((RANDOM + 1025))
-add_nft_rule udp sport 1900 udp dport "$msearch_port" accept || exit $?
 
 
-pulseaudio-dlna --port="$port" --codec=l16 --msearch-port="$msearch_port" ||
-  exit $?
+pulseaudio-dlna --port="$port" --codec=l16 || exit $?
