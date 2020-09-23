@@ -359,9 +359,7 @@ Plugin.MapPrefix({letter}, [throw])                       *Plugin.MapPrefix()*
 Plugin.IsLibrary()                                        *Plugin.IsLibrary()*
   Checks that this plugin is a library plugin. In order to be a library
   plugin, the plugin must contain an autoload/ directory and must not contain
-  ftplugin/, ftdetect/, syntax/, indent/, nor instant/ directories. If it
-  contains a plugin/ directory, that directory must contain only a flags.vim
-  file.
+  ftplugin/, ftdetect/, syntax/, indent/, plugin/, nor instant/ directories.
 
 Plugin.GetExtensionRegistry()                  *Plugin.GetExtensionRegistry()*
   Returns the |maktaba.ExtensionRegistry| belonging to this plugin.
@@ -372,7 +370,7 @@ Plugin.GetExtensionRegistry()                  *Plugin.GetExtensionRegistry()*
 
                                                             *maktaba.Selector*
 Representation of a set of data for a user to select from, e.g. list of files.
-It can be created with |maktaba#selector#Create()|, configured with syntax
+It can be created with |maktaba#ui#selector#Create()|, configured with syntax
 highlighting, key mappings, etc. and shown as a vim window.
 
 Selector.WithMappings({keymappings})                 *Selector.WithMappings()*
@@ -553,12 +551,13 @@ Syscall.CallAsync({callback}, {allow_sync_fallback})     *Syscall.CallAsync()*
   where env_dict contains tab, buffer, path, column and line info. This
   fallback will be deprecated and stop working in future versions of maktaba.
 
-  Asynchronous calls are executed via vim's |job| support. If the vim instance
-  is missing job support, this will try to fall back to legacy |clientserver|
-  invocation, which has a few preconditions of its own (see below). If neither
-  option is available, asynchronous calls are not possible, and the call will
-  either throw |ERROR(MissingFeature)| or fall back to synchronous calls,
-  depending on the {allow_sync_fallback} parameter.
+  Asynchronous calls are executed via vim's |job| support.  For nvim, they are
+  executed using |job_control|.  If the vim instance is missing job support,
+  this will try to fall back to legacy |clientserver| invocation, which has a
+  few preconditions of its own (see below). If neither option is available,
+  asynchronous calls are not possible, and the call will either throw
+  |ERROR(MissingFeature)| or fall back to synchronous calls, depending on the
+  {allow_sync_fallback} parameter.
 
   The legacy fallback executes calls via |--remote-expr| using vim's
   |clientserver| capabilities, so the preconditions for it are vim being
@@ -1678,14 +1677,6 @@ maktaba#rtp#Load({dir})                                   *maktaba#rtp#Load()*
 maktaba#rtp#DirDefinesFiletypes({dir})     *maktaba#rtp#DirDefinesFiletypes()*
   Whether or not runtimepath directory {dir} defines a new filetype.
 
-maktaba#selector#Create({infolist})                *maktaba#selector#Create()*
-  Creates a |maktaba.Selector| from {infolist} that can be configured and
-  shown.
-
-  Each entry in {infolist} may be either a line to display, or a 2-item list
-  containing `[LINE, DATA]`. If present, DATA will be passed to the action
-  function as a second argument.
-
 maktaba#setting#ParseHandle({text})            *maktaba#setting#ParseHandle()*
   Parses a flag handle off of {text}, returns a tuple containing [flagname,
   foci, leftover]. See |maktaba#setting#Handle()|; the only difference is that
@@ -1800,6 +1791,14 @@ maktaba#test#Override({target}, {replacement})       *maktaba#test#Override()*
   Due to vim's naming limitations, this function must make (and source) an
   adequately named temporary file. As such, {replacement} MUST be a string,
   funcref, or funcdict usable from any given scope (i.e., not script-local).
+
+maktaba#ui#selector#Create({infolist})          *maktaba#ui#selector#Create()*
+  Creates a |maktaba.Selector| from {infolist} that can be configured and
+  shown.
+
+  Each entry in {infolist} may be either a line to display, or a 2-item list
+  containing `[LINE, DATA]`. If present, DATA will be passed to the action
+  function as a second argument.
 
 maktaba#user#Name()                                      *maktaba#user#Name()*
   Gets the user's name.
@@ -2010,6 +2009,9 @@ e.g. when a |has()| check fails or |v:servername| wasn't set.
 For use in code that should never be reached. Should only be thrown to
 indicate there's a bug in the plugin, and should never be caught or declared
 with `@throws`.
+
+                                                           *ERROR(ShellError)*
+For when a |maktaba.Syscall| returns a non-zero exit code.
 
 ==============================================================================
 PYTHON                                                        *maktaba-python*

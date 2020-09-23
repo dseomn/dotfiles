@@ -14,6 +14,10 @@ if !exists('s:vimjob_disabled')
   let s:vimjob_disabled = 0
 endif
 
+if !exists('s:terminal_disabled')
+  let s:terminal_disabled = 0
+endif
+
 if !exists('s:force_sync_fallback_allowed')
   let s:force_sync_fallback_allowed = 0
 endif
@@ -73,12 +77,24 @@ function! s:DoSyscallCommon(syscall, CallFunc, throw_errors) abort
     return l:return_data
   endif
 
+  throw maktaba#syscall#ShellError(a:syscall, l:return_data)
+endfunction
+
+
+""
+" @exception
+" For when a @dict(Syscall) returns a non-zero exit code.
+function! maktaba#syscall#ShellError(syscall, return_data) abort
   " Translate exit code into thrown ShellError.
-  let l:err_msg = 'Error running: %s'
-  if has_key(l:return_data, 'stderr')
-    let l:err_msg .= "\n" . l:return_data.stderr
+  let l:extra_info_msg = ''
+  if has_key(a:return_data, 'stderr')
+    let l:extra_info_msg = "\n" . a:return_data.stderr
   endif
-  throw maktaba#error#Message('ShellError', l:err_msg, a:syscall.GetCommand())
+  return maktaba#error#Message(
+      \ 'ShellError',
+      \ 'Error running: %s%s',
+      \ a:syscall.GetCommand(),
+      \ l:extra_info_msg)
 endfunction
 
 
@@ -110,7 +126,7 @@ endfunction
 " Returns whether the current vim session supports asynchronous calls.
 function! maktaba#syscall#IsAsyncAvailable() abort
   return !s:async_disabled && (
-      \ (!s:vimjob_disabled && has('job')) ||
+      \ (!s:vimjob_disabled && (has('job') || has('nvim'))) ||
       \ (has('clientserver') && !empty(v:servername)))
 endfunction
 
@@ -123,7 +139,16 @@ endfunction
 function! maktaba#syscall#DoCallForeground(pause) abort dict
   let l:return_data = {}
   if a:pause
-    execute '!' . s:EscapeSpecialChars(self.GetCommand())
+    " Neovim has supported terminals for all versioned releases so we don't need
+    " a version or feature check here.
+    if !s:terminal_disabled && has('nvim')
+        let l:cmd = 'noautocmd new | terminal '
+    elseif !s:terminal_disabled && has('terminal')
+        let l:cmd = 'terminal '
+    else
+        let l:cmd = '!'
+    endif
+    execute l:cmd . s:EscapeSpecialChars(self.GetCommand())
   else
     silent execute '!' . s:EscapeSpecialChars(self.GetCommand())
     redraw!
@@ -287,12 +312,12 @@ endfunction
 " env_dict contains tab, buffer, path, column and line info. This fallback will
 " be deprecated and stop working in future versions of maktaba.
 "
-" Asynchronous calls are executed via vim's |job| support. If the vim instance
-" is missing job support, this will try to fall back to legacy |clientserver|
-" invocation, which has a few preconditions of its own (see below). If neither
-" option is available, asynchronous calls are not possible, and the call will
-" either throw |ERROR(MissingFeature)| or fall back to synchronous calls,
-" depending on the {allow_sync_fallback} parameter.
+" Asynchronous calls are executed via vim's |job| support, or neovim's
+" |job-control|. If the vim instance is missing job support, this will try to
+" fall back to legacy |clientserver| invocation, which has a few preconditions
+" of its own (see below). If neither option is available, asynchronous calls are
+" not possible, and the call will either throw |ERROR(MissingFeature)| or fall
+" back to synchronous calls, depending on the {allow_sync_fallback} parameter.
 "
 " The legacy fallback executes calls via |--remote-expr| using vim's
 " |clientserver| capabilities, so the preconditions for it are vim being
@@ -320,7 +345,7 @@ function! maktaba#syscall#CallAsync(Callback, allow_sync_fallback) abort dict
       if s:async_disabled
         let l:reason = 'disabled by maktaba#syscall#SetAsyncDisabled'
       else
-        let l:reason = 'no +job support and no fallback available'
+        let l:reason = 'no +job support, not nvim, and no fallback available'
       endif
       throw maktaba#error#MissingFeature(
           \ 'Cannot run async commands (%s). See :help Syscall.CallAsync',
@@ -331,6 +356,10 @@ function! maktaba#syscall#CallAsync(Callback, allow_sync_fallback) abort dict
   if !s:vimjob_disabled && has('job')
     let l:vimjob_invocation =
         \ maktaba#syscall#async#CreateInvocation(self, l:invocation)
+    call l:vimjob_invocation.Start()
+  elseif !s:vimjob_disabled && has('nvim')
+    let l:vimjob_invocation =
+        \ maktaba#syscall#neovim#CreateInvocation(self, l:invocation)
     call l:vimjob_invocation.Start()
   else
     " TODO(#190): Remove clientserver implementation.
@@ -442,4 +471,12 @@ endfunction
 " otherwise.
 function! maktaba#syscall#SetVimjobDisabledForTesting(disabled) abort
   let s:vimjob_disabled = maktaba#ensure#IsBool(a:disabled)
+endfunction
+
+
+""
+" @private
+" Disables internal use of |:terminal| if {disabled} is true. Enables otherwise.
+function! maktaba#syscall#SetTermCmdDisabledForTesting(disabled) abort
+  let s:terminal_disabled = maktaba#ensure#IsBool(a:disabled)
 endfunction
