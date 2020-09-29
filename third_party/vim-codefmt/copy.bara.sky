@@ -29,6 +29,7 @@ third_party_workflow(
             "addon-info.json",
         ],
         exclude = [
+            ".github/**",
             "vroom/**",
         ],
     ),
