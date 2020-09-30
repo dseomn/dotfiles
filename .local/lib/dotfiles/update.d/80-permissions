@@ -26,5 +26,4 @@ chmod go-rwx \
     ~/.mozilla \
     ~/.ssh \
     ~/.thunderbird \
-    ~/.vim \
-    ~/.yadm
+    ~/.vim
