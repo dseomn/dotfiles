@@ -31,13 +31,4 @@ third_party_workflow(
         ],
     ),
     destination_root = "third_party/yadm",
-    destination_exclude = [
-        "LICENSE",
-        "copy.bara.sky",
-        "patches/**",
-    ],
-    extra_transformations = [
-        patch.apply(series="patches/series"),
-        core.move("LICENSE", "LICENSE.orig"),
-    ],
 )
