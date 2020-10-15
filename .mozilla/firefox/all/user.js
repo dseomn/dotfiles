@@ -15,5 +15,7 @@
 
 user_pref("browser.tabs.drawInTitlebar", true);
 
+user_pref("media.hardwaremediakeys.enabled", false);
+
 // Prevent tapping Alt from showing the hidden menu bar.
 user_pref("ui.key.menuAccessKeyFocuses", false);
