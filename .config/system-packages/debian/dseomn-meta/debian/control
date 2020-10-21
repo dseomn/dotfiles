@@ -125,7 +125,6 @@ Recommends:
   ibus-gtk,
   ibus-gtk3,
   ibus-m17n,
-  ibus-qt4,
   imagemagick,
   libreoffice,
   libreoffice-gnome,
