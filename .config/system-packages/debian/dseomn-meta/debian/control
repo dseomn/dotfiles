@@ -56,7 +56,7 @@ Recommends:
   android-sdk,
   autoconf,
   automake,
-  bazel,
+  bazel | bazel-bootstrap,
   clang-format,
   devscripts,
   default-jdk-headless,
