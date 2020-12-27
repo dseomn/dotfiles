@@ -53,6 +53,8 @@
 !/.local/lib/shutil/**
 !/.local/lib/system-packages/
 !/.local/lib/system-packages/**
+!/.local/lib/user-scripts/
+!/.local/lib/user-scripts/**
 !/.local/share/
 !/.local/share/gnome-shell/
 !/.local/share/gnome-shell/extensions/
