@@ -9,6 +9,8 @@
 !/.config/dir-alias/**
 !/.config/dotfiles/
 !/.config/dotfiles/**
+!/.config/environment.d/
+!/.config/environment.d/**
 !/.config/fontconfig/
 !/.config/fontconfig/**
 !/.config/git/
@@ -59,6 +61,8 @@
 !/.local/share/gnome-shell/
 !/.local/share/gnome-shell/extensions/
 !/.local/share/gnome-shell/extensions/**
+!/.local/share/i18n/
+!/.local/share/i18n/**
 !/.m17n.d/
 !/.m17n.d/**
 !/.mozilla/

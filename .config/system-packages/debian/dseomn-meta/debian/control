@@ -107,6 +107,7 @@ Recommends:
   blueman,
   dconf-editor,
   firefox,
+  firefox-l10n-nl,
   fonts-dejavu,
   fonts-noto,
   gimp,
@@ -120,6 +121,7 @@ Recommends:
   gnome-weather,
   google-chrome-stable,
   gucharmap,
+  hunspell-nl,
   ibus,
   ibus-clutter,
   ibus-gtk,
@@ -128,6 +130,7 @@ Recommends:
   imagemagick,
   libreoffice,
   libreoffice-gnome,
+  libreoffice-l10n-nl,
 # Firefox needs this for U2F to work.
   libu2f-host0,
   m17n-db,
@@ -139,6 +142,7 @@ Recommends:
   pidgin-plugin-pack,
   simple-scan,
   thunderbird,
+  thunderbird-l10n-nl,
   vim-gtk3 (>= 2:8.0),
 Description: dseomn-desktop
 
