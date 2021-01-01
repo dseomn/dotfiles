@@ -28,7 +28,7 @@ cd "$empty_dir"
 
 
 export I18NPATH=~/.local/share/i18n
-try localedef -f UTF-8 -i nl_US ~/.local/share/locale/nl_US
+try localedef -f UTF-8 -i nl_US@dseomn ~/.local/share/locale/nl_US@dseomn
 
 
 accountsservice_user_path="$(
@@ -46,4 +46,4 @@ try dbus-send \
   --print-reply=literal \
   $accountsservice_user_path \
   org.freedesktop.Accounts.User.SetLanguage \
-  string:nl_US.UTF-8
+  string:nl_US.UTF-8@dseomn
