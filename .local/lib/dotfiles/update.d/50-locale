@@ -29,6 +29,10 @@ cd "$empty_dir"
 
 export I18NPATH=~/.local/share/i18n
 try localedef -f UTF-8 -i nl_US@dseomn ~/.local/share/locale/nl_US@dseomn
+if [ "$(dotfiles-config --bool --get dotfiles.manageSystem)" = "true" ]; then
+  try sudo I18NPATH="$I18NPATH" localedef \
+    --no-archive -f UTF-8 -i nl_US@dseomn nl_US@dseomn
+fi
 
 
 accountsservice_user_path="$(
