@@ -26,6 +26,7 @@ user_pref('calendar.integration.notify', false);
 user_pref('calendar.view.dayendhour', 24);
 user_pref('calendar.view.daystarthour', 0);
 user_pref('calendar.view.visiblehours', 24);
+user_pref('calendar.week.start', 0);
 
 // Calendar accounts.
 user_pref('calendar.registry.13946703-f1ef-473a-84fb-fe13311f277b.name', 'US Holidays');
