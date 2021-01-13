@@ -18,6 +18,23 @@
 user_pref('general.warnOnAboutConfig', false);
 user_pref('mail.tabs.drawInTitlebar', true);
 
+// Localization. Thunderbird doesn't appear to honor some things from the
+// general locale system, so we override things here to match the locale.
+// https://bugzilla.mozilla.org/show_bug.cgi?id=1426907
+// https://searchfox.org/comm-central/source/mozilla/intl/locale/OSPreferences.cpp
+// https://unicode.org/reports/tr35/tr35-dates.html#Date_Format_Patterns
+// https://github.com/unicode-cldr/cldr-dates-modern/tree/master/main
+user_pref('calendar.week.start', 0);
+user_pref('intl.date_time.pattern_override.time_short', 'HH:mm');
+user_pref('intl.date_time.pattern_override.time_medium', 'HH:mm:ss');
+user_pref('intl.date_time.pattern_override.time_long', 'HH:mm:ss z');
+user_pref('intl.date_time.pattern_override.time_full', 'HH:mm:ss zzzz');
+user_pref('intl.date_time.pattern_override.date_short', 'yyyy-MM-dd');
+user_pref('intl.date_time.pattern_override.date_medium', 'd MMM y');
+user_pref('intl.date_time.pattern_override.date_long', 'd MMMM y');
+user_pref('intl.date_time.pattern_override.date_full', 'EEEE d MMMM y');
+user_pref('intl.date_time.pattern_override.date_time_short', '{1} {0}');
+
 // Calendar.
 user_pref('calendar.alarms.playsound', false);
 user_pref('calendar.alarms.show', false);
@@ -26,7 +43,6 @@ user_pref('calendar.integration.notify', false);
 user_pref('calendar.view.dayendhour', 24);
 user_pref('calendar.view.daystarthour', 0);
 user_pref('calendar.view.visiblehours', 24);
-user_pref('calendar.week.start', 0);
 
 // Calendar accounts.
 user_pref('calendar.registry.13946703-f1ef-473a-84fb-fe13311f277b.name', 'US Holidays');
