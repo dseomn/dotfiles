@@ -57,6 +57,8 @@
 !/.local/lib/system-packages/**
 !/.local/lib/user-scripts/
 !/.local/lib/user-scripts/**
+!/.local/lib/user-styles/
+!/.local/lib/user-styles/**
 !/.local/share/
 !/.local/share/gnome-shell/
 !/.local/share/gnome-shell/extensions/
