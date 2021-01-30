@@ -74,6 +74,8 @@
     ("&Z|" "ℤ")  ; U+2124 DOUBLE-STRUCK CAPITAL Z
     ("&A+S" "ℵ")  ; U+2135 ALEF SYMBOL
     ("&B+S" "ℶ")  ; U+2136 BET SYMBOL
+    ("&!(-" "∉")  ; U+2209 NOT AN ELEMENT OF
+    ("&!-)" "∌")  ; U+220C DOES NOT CONTAIN AS MEMBER
     ("&/d" "∕")  ; U+2215 DIVISION SLASH
     ("&\\s" "∖")  ; U+2216 SET MINUS
     ("&!PP" "∦")  ; U+2226 NOT PARALLEL TO
