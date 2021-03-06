@@ -27,3 +27,11 @@ chmod go-rwx \
     ~/.ssh \
     ~/.thunderbird \
     ~/.vim
+
+
+# Same, but for directories not created by this repository.
+for directory in \
+    ~/.cache \
+    ; do
+  [[ -d "$directory" ]] && chmod go-rwx "$directory"
+done
