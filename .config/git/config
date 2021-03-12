@@ -3,16 +3,13 @@
 	name = David Mandelberg
 
 [alias]
-	# TODO: Once aliases can call other aliases, reduce duplication:
-	# https://github.com/git/git/commit/506ee60d222f94a1598769feaba3b3621bd9fa1a
-
 	# log
 	r = log --pretty=fuller --stat -p --reverse
-	rin = log --pretty=fuller --stat -p --reverse ..@{upstream}
-	rout = log --pretty=fuller --stat -p --reverse @{push}..
+	rin = r ..@{upstream}
+	rout = r @{push}..
 	g = log --pretty=shorter --graph --boundary
-	gin = log --pretty=shorter --graph --boundary ..@{upstream}
-	gout = log --pretty=shorter --graph --boundary @{push}..
+	gin = g ..@{upstream}
+	gout = g @{push}..
 	ginout = "! \
 		: log && \
 		cd \"${GIT_PREFIX}\" && \

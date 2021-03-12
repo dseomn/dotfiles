@@ -71,9 +71,6 @@
             value: "'SEGMENTED'"
           - key: dot-style-unfocused
             value: "'SEGMENTED'"
-            # TODO: Delete this once version 38 is available.
-          - key: location-clock
-            value: "'BUTTONSLEFT'"
           - key: multi-monitors
             value: "false"
           - key: panel-element-positions
@@ -133,14 +130,8 @@
             value: "28"
           - key: scroll-panel-action
             value: "'NOTHING'"
-            # TODO: Delete this once version 38 is available.
-          - key: show-showdesktop-button
-            value: "false"
           - key: show-window-previews
             value: "false"
-            # TODO: Delete this once version 38 is available.
-          - key: taskbar-position
-            value: "'LEFTPANEL_FIXEDCENTER'"
         - dir: system-monitor
           children:
           - key: background
