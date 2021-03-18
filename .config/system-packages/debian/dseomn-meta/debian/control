@@ -73,6 +73,7 @@ Recommends:
   python3-pytest-cov,
   r-recommended,
   subversion,
+  texlive-fonts-extra,
   texlive-latex-recommended,
   uuid-runtime,
   valgrind,
