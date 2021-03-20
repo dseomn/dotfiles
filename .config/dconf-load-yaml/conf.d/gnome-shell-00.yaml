@@ -24,8 +24,7 @@
         reset: false
       - key: enabled-extensions
         value: >-
-          ['LogOutButton@kyle.aims.ac.za',
-          'caffeine@patapon.info',
+          ['caffeine@patapon.info',
           'dash-to-panel@jderose9.github.com',
           'system-monitor@paradoxxx.zero.gmail.com',
           'ubuntu-appindicators@ubuntu.com',

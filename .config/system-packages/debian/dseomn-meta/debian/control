@@ -116,7 +116,6 @@ Recommends:
   gnome-clocks,
   gnome-shell-extension-appindicator,
   gnome-shell-extension-caffeine,
-  gnome-shell-extension-log-out-button,
   gnome-shell-extension-system-monitor,
   gnome-tweaks,
   gnome-weather,
