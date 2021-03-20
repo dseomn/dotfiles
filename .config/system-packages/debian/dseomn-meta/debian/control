@@ -40,6 +40,7 @@ Recommends:
   mlocate | locate,
   ncurses-term,
   netcat-openbsd | netcat-traditional | netcat,
+  netcat-openbsd,
   patch,
   python3 (>= 3.5),
   pwgen,
