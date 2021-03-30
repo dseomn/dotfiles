@@ -22,7 +22,7 @@ shrcutil_source ~/third_party/git-contrib/completion/git-prompt.sh || return
 # know when it's relevant. To compensate, hide the status when on the "correct"
 # branch in a clean, up-to-date state.
 __prompt_part_yadm() {
-  [[ -d ~/.config/yadm/repo.git ]] || return
+  [[ -d ~/.local/share/yadm/repo.git ]] || return
 
   # Dotfiles affect the general environment, not just paths under $HOME, so the
   # `cd` commands below are to show the same status regardless of $PWD. Most of
@@ -33,7 +33,7 @@ __prompt_part_yadm() {
 
   local yadm_ps1="$(
     cd
-    export GIT_DIR=~/.config/yadm/repo.git
+    export GIT_DIR=~/.local/share/yadm/repo.git
     GIT_PS1_SHOWDIRTYSTATE=yes
     GIT_PS1_SHOWSTASHSTATE=yes
     GIT_PS1_SHOWUNTRACKEDFILES=yes

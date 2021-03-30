@@ -83,7 +83,6 @@
 !/third_party/**
 
 /.config/dotfiles/conf.local.d/
-/.config/yadm/repo.git/
 /.ssh/authorized_keys
 /.ssh/control/**
 /.ssh/id_*
