@@ -24,7 +24,7 @@ third_party_workflow(
     origin_files = glob(
         include = [
             "LICENSE",
-            "completion/yadm.bash_completion",
+            "completion/bash/yadm",
             "yadm",
             "yadm.1",
             "yadm.md",
