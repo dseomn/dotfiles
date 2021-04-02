@@ -65,6 +65,7 @@ Recommends:
   guile-2.2,
   ipython3,
   jsbeautifier,
+  kubernetes-client,
   manpages-dev,
   manpages-posix,
   manpages-posix-dev,
