@@ -14,7 +14,7 @@
 
 ""
 " @section Introduction, intro
-" @order intro config formatters dicts commands autocmds functions mappings
+" @order intro formatters config commands autocmds mappings dicts functions
 " Provides a @command(FormatCode) command to intelligently reformat code.
 
 ""
@@ -176,3 +176,7 @@ call s:plugin.Flag('nixpkgs_fmt_executable', 'nixpkgs-fmt')
 ""
 " The path to the luaformatterfiveone executable.
 call s:plugin.Flag('luaformatterfiveone_executable', 'luaformatterfiveone')
+
+""
+" The path to the cljstyle executable.
+call s:plugin.Flag('cljstyle_executable', 'cljstyle')
