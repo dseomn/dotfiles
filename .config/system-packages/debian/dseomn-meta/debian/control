@@ -43,7 +43,7 @@ Recommends:
   netcat-openbsd,
   patch,
   pwgen,
-  python3 (>= 3.5),
+  python3 (>= 3.7),
   rsync,
 Description: dseomn-standard
 
