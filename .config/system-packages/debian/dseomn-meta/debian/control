@@ -31,19 +31,19 @@ Depends:
 Recommends:
   aptitude,
   bash-completion,
+  bind9-host | host,
   command-not-found,
+  curl,
   diffutils,
   dnsutils,
-  bind9-host | host,
-  curl,
   file,
   mlocate | locate,
   ncurses-term,
   netcat-openbsd | netcat-traditional | netcat,
   netcat-openbsd,
   patch,
-  python3 (>= 3.5),
   pwgen,
+  python3 (>= 3.5),
   rsync,
 Description: dseomn-standard
 
@@ -51,16 +51,16 @@ Package: dseomn-dev
 Architecture: all
 Depends:
   ${misc:Depends},
-  dseomn-standard (= ${source:Version}),
   build-essential,
+  dseomn-standard (= ${source:Version}),
 Recommends:
   android-sdk,
   autoconf,
   automake,
   bazel | bazel-bootstrap,
   clang-format,
-  devscripts,
   default-jdk-headless,
+  devscripts,
   dpkg-dev,
   guile-2.2,
   ipython3,
@@ -108,9 +108,9 @@ Depends:
   python3-pyudev,
   xinput,
 Recommends:
-  dseomn-dev (= ${source:Version}),
   blueman,
   dconf-editor,
+  dseomn-dev (= ${source:Version}),
   firefox,
   firefox-l10n-nl,
   fonts-dejavu,
