@@ -15,10 +15,16 @@
 # limitations under the License.
 
 
+pecho() { printf '%s\n' "$*"; }
+error() { pecho "ERROR: $*" >&2; }
+fatal() { error "$*"; exit 1; }
+try() { "$@" || fatal "Command failed: $*"; }
+
+
 # Restrict permissions on directories that could potentially be created by this
 # repository and could also potentially have sensitive information that is not
 # in this repository.
-chmod go-rwx \
+try chmod go-rwx \
     ~/.config \
     ~/.gnupg \
     ~/.ipython \
@@ -33,5 +39,5 @@ chmod go-rwx \
 for directory in \
     ~/.cache \
     ; do
-  [[ -d "$directory" ]] && chmod go-rwx "$directory"
+  [[ -d "$directory" ]] && try chmod go-rwx "$directory"
 done
