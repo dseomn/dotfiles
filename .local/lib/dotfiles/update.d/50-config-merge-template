@@ -16,4 +16,12 @@
 
 
 export PYTHONPATH="${HOME}/.local/lib/python3/site-packages"
+
+
+if ! python3 -c 'import jinja2' > /dev/null 2>&1; then
+  echo 'Skipping config_merge_template because of missing dependencies.'
+  exit 0
+fi
+
+
 exec python3 -m config_merge_template.main
