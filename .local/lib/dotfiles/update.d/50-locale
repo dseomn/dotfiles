@@ -35,19 +35,23 @@ if [ "$(dotfiles-config --bool --get dotfiles.manageSystem)" = "true" ]; then
 fi
 
 
-accountsservice_user_path="$(
-    try dbus-send \
-      --system \
-      --dest=org.freedesktop.Accounts \
-      --print-reply=literal \
-      /org/freedesktop/Accounts \
-      org.freedesktop.Accounts.FindUserByName \
-      "string:${USER}"
-)" || exit 1
-try dbus-send \
-  --system \
-  --dest=org.freedesktop.Accounts \
-  --print-reply=literal \
-  $accountsservice_user_path \
-  org.freedesktop.Accounts.User.SetLanguage \
-  string:nl_US.UTF-8@dseomn
+if [ -e /run/dbus/system_bus_socket ]; then
+  accountsservice_user_path="$(
+      try dbus-send \
+        --system \
+        --dest=org.freedesktop.Accounts \
+        --print-reply=literal \
+        /org/freedesktop/Accounts \
+        org.freedesktop.Accounts.FindUserByName \
+        "string:${USER}"
+  )" || exit 1
+  try dbus-send \
+    --system \
+    --dest=org.freedesktop.Accounts \
+    --print-reply=literal \
+    $accountsservice_user_path \
+    org.freedesktop.Accounts.User.SetLanguage \
+    string:nl_US.UTF-8@dseomn
+else
+  echo 'Not updating locale with Accounts service, because of no system dbus.'
+fi
