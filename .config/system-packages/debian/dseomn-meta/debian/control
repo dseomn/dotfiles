@@ -54,7 +54,6 @@ Depends:
   build-essential,
   dseomn-standard (= ${source:Version}),
 Recommends:
-  android-sdk,
   autoconf,
   automake,
   bazel | bazel-bootstrap,
@@ -62,23 +61,17 @@ Recommends:
   default-jdk-headless,
   devscripts,
   dpkg-dev,
-  guile-2.2,
   ipython3,
   jsbeautifier,
-  kubernetes-client,
   manpages-dev,
   manpages-posix,
   manpages-posix-dev,
   nodejs,
   php-cli,
-  podman,
   python3-pytest,
   python3-pytest-cov,
   r-recommended,
-  runsc,
   subversion,
-  texlive-fonts-extra,
-  texlive-latex-recommended,
   uuid-runtime,
   valgrind,
   virtualenv,
@@ -86,6 +79,21 @@ Recommends:
   xsltproc,
   yapf3,
 Description: dseomn-dev
+
+Package: dseomn-dev-full
+Architecture: all
+Depends:
+  ${misc:Depends},
+  dseomn-dev (= ${source:Version}),
+Recommends:
+  android-sdk,
+  guile-2.2,
+  kubernetes-client,
+  podman,
+  runsc,
+  texlive-fonts-extra,
+  texlive-latex-recommended,
+Description: dseomn-dev-full
 
 Package: dseomn-desktop
 Architecture: all
@@ -160,6 +168,7 @@ Recommends:
   abcmidi,
   ardour,
   audacity,
+  dseomn-dev-full (= ${source:Version}),
   exfalso,
   ffmpeg,
   flac,
