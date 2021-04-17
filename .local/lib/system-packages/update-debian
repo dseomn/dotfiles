@@ -29,7 +29,7 @@ fi
 
 
 # Install this script's dependencies.
-sudo apt-get install devscripts
+sudo apt-get $YADM_BOOTSTRAP_APT_GET_OPTIONS install devscripts
 
 
 workdir="$(mktemp -d)" || exit 1
@@ -54,4 +54,5 @@ done
 ) || exit 1
 
 
-sudo apt-get --with-source "${workdir}/debian/Packages" install $to_install
+sudo apt-get $YADM_BOOTSTRAP_APT_GET_OPTIONS \
+  --with-source "${workdir}/debian/Packages" install $to_install
