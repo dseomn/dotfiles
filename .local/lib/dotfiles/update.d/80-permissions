@@ -39,5 +39,5 @@ try chmod go-rwx \
 for directory in \
     ~/.cache \
     ; do
-  [[ -d "$directory" ]] && try chmod go-rwx "$directory"
+  [[ -d "$directory" ]] && try chmod go-rwx "$directory" || true
 done
