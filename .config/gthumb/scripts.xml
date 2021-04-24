@@ -29,24 +29,6 @@
     />
 
   <script
-    id="qASSVDNe"
-    shell-script="true"
-    display-name="ufraw-batch"
-    command="ufraw-batch --conf=&quot;$HOME/.config/ufrawrc&quot; --output=%P/%N-raw.jpg %F"
-    wait-command="true"
-    for-each-file="true"
-    />
-
-  <script
-    id="NTstgSgs"
-    shell-script="true"
-    display-name="ufraw-batch-tif"
-    command="ufraw-batch --conf=&quot;$HOME/.config/ufrawrc&quot; --output=%P/%N-raw.tif %F"
-    wait-command="true"
-    for-each-file="true"
-    />
-
-  <script
     id="Qfrh9aIH"
     shell-script="false"
     display-name="1024x1024q80"
