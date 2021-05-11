@@ -174,7 +174,10 @@ __prompt_set() {
     "$fn"
   done
 
-  PS1="${__prompt_value[ps1]}"'\[\e]0;'"${__prompt_value[title]}"'\007\]'
+  PS1="${__prompt_value[ps1]}"
+  if tput hs > /dev/null 2>&1; then  # has_status_line
+    PS1="${PS1}"'\[\e]0;'"${__prompt_value[title]}"'\007\]'
+  fi
 }
 
 precmd_functions+=(__prompt_set)
