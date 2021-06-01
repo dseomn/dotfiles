@@ -207,6 +207,8 @@
             value: "false"
           - key: thermal-display
             value: "true"
+          - key: thermal-sensor-file
+            reset: false
           - key: thermal-show-text
             value: "false"
           - key: thermal-style
