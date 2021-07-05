@@ -259,6 +259,7 @@ def genre_from_media(tagger, metadata_, *args):
           'media/optical/dvd/dvd-audio',
       ),
       'Digital Media': ('media/digital',),
+      'Other': ('media/other',),
   }
   for media in metadata_.getall('media'):
     if media not in media_to_genres:
