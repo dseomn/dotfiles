@@ -1,0 +1,5 @@
+[Desktop Entry]
+Name=gnome-system-monitor-set-thermal
+Exec=sh -c "exec ~/.local/bin/gnome-system-monitor-set-thermal"
+Terminal=false
+Type=Application

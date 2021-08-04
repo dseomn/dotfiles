@@ -208,6 +208,7 @@
           - key: thermal-display
             value: "true"
           - key: thermal-sensor-file
+            # See ~/.local/bin/gnome-system-monitor-set-thermal
             reset: false
           - key: thermal-show-text
             value: "false"
