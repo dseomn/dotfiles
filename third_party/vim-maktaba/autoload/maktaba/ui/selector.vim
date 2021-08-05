@@ -333,7 +333,7 @@ function! maktaba#ui#selector#DoGetHelpLines() dict abort
     let l:lines = []
     for l:key in sort(keys(l:keys_comments))
       call extend(l:lines,
-          \ s:CommentLines(printf('%s\t: %s', l:key, l:keys_comments[l:key])))
+          \ s:CommentLines(printf("%s\t: %s", l:key, l:keys_comments[l:key])))
     endfor
     return l:lines
   else
@@ -355,15 +355,13 @@ endfunction
 " Toggle whether verbose help is shown for the selector.
 function! maktaba#ui#selector#DoToggleHelp() dict abort
   " TODO(dbarnett): Don't modify buffer if none exists.
-  let l:prev_read = &readonly
-  let l:prev_mod = &modifiable
   setlocal noreadonly
   setlocal modifiable
   let l:len_help = len(self._GetHelpLines())
   let self._is_verbose = !self._is_verbose
   call maktaba#buffer#Overwrite(1, l:len_help, self._GetHelpLines())
-  let &readonly = l:prev_read
-  let &modifiable = l:prev_mod
+  setlocal readonly
+  setlocal nomodifiable
 endfunction
 
 
@@ -406,8 +404,8 @@ endfunction
 function! maktaba#ui#selector#KeyCall(scrubbed_key) abort
   let l:selector = s:selectors_by_buffer_number[bufnr('%')]
   let l:contents = getline('.')
-  let l:action_func = l:selector._mappings[a:scrubbed_key][0]
-  let l:window_func = l:selector._mappings[a:scrubbed_key][1]
+  let l:ActionFunc = l:selector._mappings[a:scrubbed_key][0]
+  let l:WindowFunc = l:selector._mappings[a:scrubbed_key][1]
   if l:contents[0] ==# '"' &&
       \ a:scrubbed_key !=# s:QUIT_KEY
       \ && a:scrubbed_key !=# s:HELP_KEY
@@ -418,11 +416,11 @@ function! maktaba#ui#selector#KeyCall(scrubbed_key) abort
   catch /ERROR(NotFound):/
     " No data associated with line. Ignore and leave l:datum undefined.
   endtry
-  call maktaba#function#Call(l:window_func)
+  call maktaba#function#Call(l:WindowFunc)
   if exists('l:datum')
-    call maktaba#function#Call(l:action_func, [l:contents, l:datum])
+    call maktaba#function#Call(l:ActionFunc, [l:contents, l:datum])
   else
-    call maktaba#function#Call(l:action_func, [l:contents])
+    call maktaba#function#Call(l:ActionFunc, [l:contents])
   endif
 endfunction
 

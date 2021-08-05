@@ -1,6 +1,6 @@
 "" Utilities for making system calls and dealing with the shell.
 
-let s:plugin = maktaba#Maktaba()
+let s:maktaba = maktaba#Maktaba()
 
 if !exists('s:usable_shell')
   let s:usable_shell = '\v^/bin/sh$'
@@ -56,7 +56,7 @@ function! s:DoSyscallCommon(syscall, CallFunc, throw_errors) abort
   let l:return_data = {}
 
   " Force shell to /bin/sh since vim only works properly with POSIX shells.
-  " If the shell is a whitelisted wrapper, override the wrapped shell via $SHELL
+  " If the shell is an allowed wrapper, override the wrapped shell via $SHELL
   " instead.
   let l:shell_state = maktaba#value#SaveAll(['&shell', '$SHELL'])
   if &shell !~# s:usable_shell
@@ -333,7 +333,7 @@ function! maktaba#syscall#CallAsync(Callback, allow_sync_fallback) abort dict
       \ maktaba#ensure#IsCallable(a:Callback))
   if !maktaba#syscall#IsAsyncAvailable()
     if a:allow_sync_fallback || s:force_sync_fallback_allowed
-      call s:plugin.logger.Warn('Async support not available. ' .
+      call s:maktaba.logger.Warn('Async support not available. ' .
           \ 'Falling back to synchronous execution for system call: ' .
           \ self.GetCommand())
       let l:return_data = self.Call(0)

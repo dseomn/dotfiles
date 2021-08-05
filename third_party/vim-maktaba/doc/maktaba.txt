@@ -265,6 +265,18 @@ Logger.Severe({message}, [args...])                          *Logger.Severe()*
 The maktaba plugin object. Exposes functions that operate on the plugin
 itself.
 
+Plugin.Source({file}, [optional])                            *Plugin.Source()*
+  Sources {file}, which should be a list specifying the location of a file
+  from the plugin root. For example, if you want to source
+  plugin/commands.vim, call this function on ['plugin', 'commands']. The
+  referenced file will be sourced, if it exists. Otherwise, exceptions will be
+  thrown, unless you set [optional]. If [optional] exists, this function
+  returns whether or not the file was actually sourced.
+  [optional] is 0 if omitted.
+  Throws ERROR(BadValue) if {file} describes a directory.
+  Throws ERROR(NotAuthorized) if {file} cannot be read.
+  Throws ERROR(NotFound) if {file} does not describe a plugin file.
+
 Plugin.Load([file], [optional])                                *Plugin.Load()*
   If [file] is given, the plugin file plugin/<file>.vim will be sourced. An
   error will be thrown if [file] does not exist unless [optional] is set. If
@@ -292,6 +304,10 @@ Plugin.AddonInfo()                                        *Plugin.AddonInfo()*
   Otherwise, returns an empty dict.
   Throws ERROR(BadValue) if addon-info.json isn't valid JSON.
 
+Plugin.AllFlags()                                          *Plugin.AllFlags()*
+  Returns a dictionary of |maktaba.Flag| handles defined on the plugin, with
+  flag names as keys.
+
 Plugin.Flag({flag})                                            *Plugin.Flag()*
   Returns the value of {flag}. See |maktaba#setting#Handle()| for {flag}
   syntax.
@@ -301,6 +317,8 @@ Plugin.Flag({flag})                                            *Plugin.Flag()*
     maktaba#plugin#Get('myplugin').Flag('foo')
     maktaba#plugin#Get('myplugin').flags.foo.Get()
 <
+  except that the second version will not trigger flag loading if they haven't
+  been loaded already.
 
   You may access a portion of a flag (a specific value in a dict flag, or a
   specific item in a list flag) using a fairly natural square bracket syntax:
@@ -309,7 +327,7 @@ Plugin.Flag({flag})                                            *Plugin.Flag()*
 <
   This is equivalent to:
 >
-    maktaba#plugin#Get('myplugin').flags.plugin.Get()['autocmds']
+    maktaba#plugin#Get('myplugin').Flag('plugin')['autocmds']
 <
   This syntax can be chained:
 >
@@ -330,6 +348,8 @@ Plugin.Flag({flag}, {value})
     maktaba#plugin#Get('myplugin').Flag('foo', 'bar')
     maktaba#plugin#Get('myplugin').flags.foo.Set('bar')
 <
+  except that the second version will not trigger flag loading if they haven't
+  been loaded already.
 
   Also supports dict flag syntax:
 >
@@ -337,6 +357,9 @@ Plugin.Flag({flag}, {value})
 <
 
   Throws ERROR(BadValue) if {flag} is an invalid flag name.
+
+Plugin.HasFlag({flag})                                      *Plugin.HasFlag()*
+  Whether or not the plugin has a flag named {flag}.
 
 Plugin.MapPrefix({letter}, [throw])                       *Plugin.MapPrefix()*
   Returns the user's desired map prefix for the plugin. If the user has not
@@ -551,13 +574,13 @@ Syscall.CallAsync({callback}, {allow_sync_fallback})     *Syscall.CallAsync()*
   where env_dict contains tab, buffer, path, column and line info. This
   fallback will be deprecated and stop working in future versions of maktaba.
 
-  Asynchronous calls are executed via vim's |job| support.  For nvim, they are
-  executed using |job_control|.  If the vim instance is missing job support,
-  this will try to fall back to legacy |clientserver| invocation, which has a
-  few preconditions of its own (see below). If neither option is available,
-  asynchronous calls are not possible, and the call will either throw
-  |ERROR(MissingFeature)| or fall back to synchronous calls, depending on the
-  {allow_sync_fallback} parameter.
+  Asynchronous calls are executed via vim's |job| support, or neovim's
+  |job-control|. If the vim instance is missing job support, this will try to
+  fall back to legacy |clientserver| invocation, which has a few preconditions
+  of its own (see below). If neither option is available, asynchronous calls
+  are not possible, and the call will either throw |ERROR(MissingFeature)| or
+  fall back to synchronous calls, depending on the {allow_sync_fallback}
+  parameter.
 
   The legacy fallback executes calls via |--remote-expr| using vim's
   |clientserver| capabilities, so the preconditions for it are vim being
@@ -1537,21 +1560,6 @@ maktaba#plugin#GetOrInstall({dir}, [settings]) *maktaba#plugin#GetOrInstall()*
   Throws ERROR(AlreadyExists) if the existing plugin comes from a different
   directory.
   Throws ERROR(ConfigError) if [settings] cannot be applied to this plugin.
-
-maktaba#plugin#Source({file}, [optional])            *maktaba#plugin#Source()*
-  Sources {file}, which should be a list specifying the location of a file
-  from the plugin root. For example, if you want to source
-  plugin/commands.vim, call this function on ['plugin', 'commands']. The
-  referenced file will be sourced, if it exists. Otherwise, exceptions will be
-  thrown, unless you set [optional]. If [optional] exists, this function
-  returns whether or not the file was actually sourced.
-  [optional] is 0 if omitted.
-  Throws ERROR(BadValue) if {file} describes a directory.
-  Throws ERROR(NotAuthorized) if {file} cannot be read.
-  Throws ERROR(NotFound) if {file} does not describe a plugin file.
-
-maktaba#plugin#HasFlag({flag})                      *maktaba#plugin#HasFlag()*
-  Whether or not the plugin has a flag named {flag}.
 
 maktaba#python#ImportModule({plugin}, {name})  *maktaba#python#ImportModule()*
   Imports python module {name} into vim from {plugin}. Checks for {name} in
