@@ -21,7 +21,7 @@ if [ -z "$BASH_VERSION" ]; then
   [ "$YADM_TEST" != 1 ] && exec bash "$0" "$@"
 fi
 
-VERSION=3.1.0
+VERSION=3.1.1
 
 YADM_WORK="$HOME"
 YADM_DIR=
@@ -767,8 +767,8 @@ function clone() {
       rm -rf "$YADM_REPO" "$wc"
       error_out "Unable to clone the repository"
   }
-  rm -rf "$wc"
   configure_repo
+  rm -rf "$wc"
 
   # then reset the index as the --no-checkout flag makes the index empty
   "$GIT_PROGRAM" reset --quiet -- .
@@ -865,7 +865,10 @@ function _set_gpg_options() {
   if [ "$gpg_key" = "ASK" ]; then
     GPG_OPTS=("--no-default-recipient" "-e")
   elif [ "$gpg_key" != "" ]; then
-    GPG_OPTS=("-e" "-r $gpg_key")
+    GPG_OPTS=("-e")
+    for key in $gpg_key; do
+      GPG_OPTS+=("-r $key")
+    done
   else
     GPG_OPTS=("-c")
   fi
