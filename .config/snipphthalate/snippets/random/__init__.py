@@ -14,6 +14,7 @@
 
 import random
 import secrets
+import uuid
 
 from snipphthalate import plugin
 
@@ -23,3 +24,4 @@ class RandomPlugin(plugin.Jinja2SnippetPlugin):
   def update_context(self, jinja2_context, snipphthalate_context, variant):
     jinja2_context['random'] = random
     jinja2_context['secrets'] = secrets
+    jinja2_context['uuid'] = uuid
