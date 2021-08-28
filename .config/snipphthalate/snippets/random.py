@@ -12,12 +12,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import random
 import secrets
 
 from snipphthalate import plugin
 
+
+def _random_mac():
+  # https://en.wikipedia.org/wiki/MAC_address
+  octets = list(secrets.token_bytes(nbytes=6))
+  octets[0] |= 0x02  # Locally-administered.
+  octets[0] &= ~0x01  # Unicast.
+  return ':'.join(f'{octet:02x}' for octet in octets)
+
+
 _VARIANTS = {
     'hex4': lambda: secrets.token_hex(nbytes=4),
+    'mac': _random_mac,
+    'port': lambda: str(random.randint(1024, 49151)),
 }
 
 
