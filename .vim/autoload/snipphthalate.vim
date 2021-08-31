@@ -56,6 +56,7 @@ function! snipphthalate#InsertSnippet(tag) abort
     let l:insert_at = col('.') - 1
     call setline(
         \ '.', l:line[: l:insert_at - 1] . l:text . l:line[l:insert_at :])
+    call cursor(0, col('.') + strlen(l:text))
   endif
 endfunction
 
