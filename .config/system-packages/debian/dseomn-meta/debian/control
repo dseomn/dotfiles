@@ -166,9 +166,6 @@ Recommends:
   thunderbird,
   thunderbird-l10n-nl,
   vim-gtk3 (>= 2:8.0),
-Conflicts:
-# TODO(dseomn): Remove this once all the extensions work with GNOME 40.
-  gnome-shell (>= 40),
 Description: dseomn-desktop
 
 Package: dseomn-desktop-full
