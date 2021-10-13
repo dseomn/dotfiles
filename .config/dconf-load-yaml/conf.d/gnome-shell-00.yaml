@@ -222,6 +222,12 @@
             value: "4"
           - key: num-rows
             value: "3"
+          - key: popup-timeout
+            value: "0"
+          - key: show-workspace-names
+            value: "false"
+          - key: wraparound-mode
+            value: "'none'"
       - dir: weather
         children:
         - key: locations
