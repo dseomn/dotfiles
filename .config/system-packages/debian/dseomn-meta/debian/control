@@ -99,9 +99,6 @@ Recommends:
   runsc,
   texlive-fonts-extra,
   texlive-latex-recommended,
-Conflicts:
-# TODO(https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=996271): Remove this.
-  python3-jinja2 (>= 3~),
 Description: dseomn-dev-full
 
 Package: dseomn-desktop
