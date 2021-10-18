@@ -226,8 +226,6 @@
             value: "0"
           - key: show-workspace-names
             value: "false"
-          - key: wraparound-mode
-            value: "'none'"
       - dir: weather
         children:
         - key: locations
