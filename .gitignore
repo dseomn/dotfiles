@@ -32,6 +32,9 @@
 !/.config/yapf/
 !/.config/yapf/**
 !/.gitconfig
+!/.gnupg/
+!/.gnupg/keyring.d/
+!/.gnupg/keyring.d/**
 !/.hgrc
 !/.inputrc.local
 !/.ipython/
