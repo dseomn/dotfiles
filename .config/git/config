@@ -36,6 +36,9 @@
 [color]
 	ui = true
 
+[init]
+	defaultBranch = main
+
 [diff]
 	mnemonicPrefix = true
 	renames = true
