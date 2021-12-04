@@ -34,6 +34,7 @@ user_pref('intl.date_time.pattern_override.date_medium', 'd MMM y');
 user_pref('intl.date_time.pattern_override.date_long', 'd MMMM y');
 user_pref('intl.date_time.pattern_override.date_full', 'EEEE d MMMM y');
 user_pref('intl.date_time.pattern_override.date_time_short', '{1} {0}');
+user_pref('intl.locale.requested', '');
 
 // Calendar.
 user_pref('calendar.alarms.playsound', false);
