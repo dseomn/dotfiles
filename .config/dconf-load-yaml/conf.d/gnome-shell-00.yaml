@@ -36,6 +36,7 @@
           'thunderbird.desktop',
           'pidgin.desktop',
           'gmusicbrowser.desktop',
+          'org.gnome.Lollypop.desktop',
           'org.musicbrainz.Picard.desktop',
           'io.github.quodlibet.ExFalso.desktop',
           'org.gnome.gThumb.desktop',
