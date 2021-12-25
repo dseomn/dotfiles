@@ -24,14 +24,8 @@
         children:
         - key: destination
           value: "'file://{{ env.HOME }}/Pictures/Photographs/%5Bunsorted%5D'"
-        - key: subfolder-custom-format
-          value: "'%Y %m%B %d'"
-        - key: subfolder-format
-          value: "'custom'"
-        - key: subfolder-single
-          value: "true"
-        - key: subfolder-type
-          value: "'file-date'"
+        - key: subfolder-template
+          value: "'%D{ %Y-%m-%d }'"
         - key: warn-delete-unsupported
           value: "false"
       - dir: photo-importer
