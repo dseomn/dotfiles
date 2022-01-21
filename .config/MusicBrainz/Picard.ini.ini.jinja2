@@ -14,24 +14,41 @@
 
 
 [application]
-version=2.1.0.final0
+version=2.7.3.final0
 
 [persist]
+{{ copy('persist', 'album_view_header_locked') }}
+{{ copy('persist', 'album_view_header_state') }}
 {{ copy('persist', 'album_view_sizes') }}
+{{ copy('persist', 'current_browser_path') }}
 {{ copy('persist', 'current_directory') }}
+{{ copy('persist', 'file_view_header_locked') }}
+{{ copy('persist', 'file_view_header_state') }}
 {{ copy('persist', 'file_view_sizes') }}
 {% for option in config['persist'] if option.startswith('geometry_') %}
   {{ copy('persist', option) }}
 {% endfor %}
+{{ copy('persist', 'mediaplayer_playback_rate') }}
+{{ copy('persist', 'mediaplayer_volume') }}
+{{ copy('persist', 'metadatabox_header_state') }}
 {{ copy('persist', 'oauth_access_token') }}
 {{ copy('persist', 'oauth_access_token_expires') }}
 {{ copy('persist', 'oauth_refresh_token') }}
 {{ copy('persist', 'oauth_refresh_token_scopes') }}
 {{ copy('persist', 'oauth_username') }}
 show_changes_first=true
+{{ copy('persist', 'splitters_MainWindow') }}
+{{ copy('persist', 'splitters_OptionsDialog') }}
+{{ copy('persist', 'splitters_ScriptEditorDialog') }}
 view_cover_art=false
+{{ copy('persist', 'view_file_browser') }}
+{{ copy('persist', 'view_metadata_view') }}
+{{ copy('persist', 'view_toolbar') }}
 {{ copy('persist', 'window_maximized') }}
 {{ copy('persist', 'window_state') }}
+
+[profiles]
+{{ copy('profiles', 'user_profile_settings') }}
 
 [setting]
 {{ copy('setting', 'acoustid_apikey') }}
@@ -50,14 +67,14 @@ enabled_plugins={{
       'viewvariables',
   ])
 }}
+file_renaming_scripts=
 folksonomy_tags=true
-ignore_genres=
 ignore_track_duration_difference_under=1
 max_genres=100
 min_genre_usage=0
 nat_name=[non-album tracks]
 only_my_genres=true
-preserved_tags="{{
+preserved_tags={{
   ', '.join([
       'bpm',
       'comment:',
@@ -98,11 +115,13 @@ preserved_tags="{{
       'coding_history',
       'VXNG',
   ])
-}}"
+}}
 remove_ape_from_mp3=true
 remove_id3_from_flac=true
 save_images_to_files=false
 save_images_to_tags=false
+script_exceptions=@Invalid()
+selected_file_naming_script_id=
 standardize_artists=true
 standardize_instruments=true
 track_ars=true
