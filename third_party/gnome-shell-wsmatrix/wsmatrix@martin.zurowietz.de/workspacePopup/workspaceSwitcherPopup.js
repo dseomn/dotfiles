@@ -22,6 +22,7 @@ class WorkspaceSwitcherPopup extends SwitcherPopup.SwitcherPopup {
         this._items = this._createThumbnails();
         this._switcherList = new WorkspaceSwitcherPopupList.WorkspaceSwitcherPopupList(this._items, this._createLabels(), options);
         this._overviewKeybindingActions = options.overveiwKeybindingActions;
+        this._noModsTimeoutId = 0;
 
         // Initially disable hover so we ignore the enter-event if
         // the switcher appears underneath the current pointer location
@@ -96,7 +97,14 @@ class WorkspaceSwitcherPopup extends SwitcherPopup.SwitcherPopup {
         }
 
         if (this._popupTimeout > 0 && !this._toggle) {
-            this._noModsTimeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, this._popupTimeout + 150, this._finish.bind(this));
+            this._noModsTimeoutId = GLib.timeout_add(
+                GLib.PRIORITY_DEFAULT,
+                this._popupTimeout,
+                () => {
+                    this._finish(global.display.get_current_time_roundtrip());
+                    this._noModsTimeoutId = 0;
+                    return GLib.SOURCE_REMOVE;
+                });
         }
 
         this._toggle = toggle;
@@ -104,7 +112,9 @@ class WorkspaceSwitcherPopup extends SwitcherPopup.SwitcherPopup {
             mask = 0
         }
 
-        if (super.show(backward, binding, mask)){
+        if (this.show(backward, binding, mask)){
+            this._showImmediately();
+            this.opacity = 255;
             modals.push(this);
         }
     }
@@ -122,7 +132,14 @@ class WorkspaceSwitcherPopup extends SwitcherPopup.SwitcherPopup {
         });
 
         if (this._popupTimeout > 0 && !this._toggle) {
-            this._noModsTimeoutId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, this._popupTimeout, this._finish.bind(this));
+            this._noModsTimeoutId = GLib.timeout_add(
+                GLib.PRIORITY_DEFAULT,
+                this._popupTimeout,
+                () => {
+                    this._finish(global.display.get_current_time_roundtrip());
+                    this._noModsTimeoutId = 0;
+                    return GLib.SOURCE_REMOVE;
+                });
         }
     }
 
@@ -180,7 +197,13 @@ class WorkspaceSwitcherPopup extends SwitcherPopup.SwitcherPopup {
     }
 
     _onDestroy() {
+        if (this._noModsTimeoutId != 0) {
+            GLib.source_remove(this._noModsTimeoutId);
+            this._noModsTimeoutId = 0;
+        }
+
         super._onDestroy();
+
         while (modals.length > 0) {
             modals.pop().destroy();
         }
