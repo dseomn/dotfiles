@@ -109,7 +109,6 @@ Depends:
   dseomn-standard (= ${source:Version}),
   gnome-core,
   gnome-icon-theme,
-  gnome-screenshot,
   gnome-shell-extension-dash-to-panel,
   gnome-terminal,
 # Dependencies of dconf_load_yaml:

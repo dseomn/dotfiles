@@ -227,6 +227,12 @@
             value: "0"
           - key: show-workspace-names
             value: "false"
+      - dir: keybindings
+        children:
+        - key: screenshot
+          value: "@as []"
+        - key: screenshot-window
+          value: "@as []"
       - dir: weather
         children:
         - key: locations

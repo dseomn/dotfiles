@@ -48,16 +48,9 @@
             value: "['<Primary><Shift>question']"
           - key: screensaver
             value: "['<Super>l', '<Primary><Alt>l']"
-          - key: screenshot
-            value: "@as []"
-          - key: area-screenshot
-            value: "@as []"
-          - key: window-screenshot
-            value: "@as []"
           - key: custom-keybindings
             value: >-
-              ['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/rotate-play-mode/',
-              '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/screenshot/']
+              ['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/rotate-play-mode/']
           - dir: custom-keybindings
             children:
             - dir: rotate-play-mode
@@ -69,14 +62,6 @@
               - key: command
                 value: >-
                   "dconf-rotate-values /org/gnome/Lollypop/repeat \"'auto_random'\" \"'track'\""
-            - dir: screenshot
-              children:
-              - key: name
-                value: "'Interactive screenshot'"
-              - key: binding
-                value: "'Print'"
-              - key: command
-                value: "'gnome-screenshot --interactive'"
         - dir: power
           children:
           - key: sleep-inactive-ac-type
