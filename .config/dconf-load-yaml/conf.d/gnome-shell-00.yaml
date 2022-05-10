@@ -223,8 +223,10 @@
             value: "4"
           - key: num-rows
             value: "3"
+          # TODO(gnome-shell >= 42.1): Change this back to zero. See
+          # https://github.com/mzur/gnome-shell-wsmatrix/issues/219 for details.
           - key: popup-timeout
-            value: "0"
+            value: "500"
           - key: show-workspace-names
             value: "false"
       - dir: keybindings
