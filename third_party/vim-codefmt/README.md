@@ -23,6 +23,7 @@ helpfiles in the `doc/` directory. The helpfiles are also available via
 * Java (google-java-format or clang-format)
 * JavaScript (clang-format or [prettier](https://prettier.io))
 * JSON (js-beautify)
+* Kotlin ([ktfmt](https://github.com/facebookincubator/ktfmt))
 * Proto (clang-format)
 * Python (Autopep8, Black, or YAPF)
 * Rust ([rustfmt](https://github.com/rust-lang/rustfmt))
@@ -30,6 +31,7 @@ helpfiles in the `doc/` directory. The helpfiles are also available via
 * Shell (shfmt)
 * [Vue](http://vuejs.org) (prettier)
 * Nix (nixpkgs-fmt)
+* Swift ([swift-format](https://github.com/apple/swift-format))
 
 # Commands
 
@@ -94,6 +96,7 @@ augroup autoformat_settings
   " Alternative: autocmd FileType python AutoFormatBuffer autopep8
   autocmd FileType rust AutoFormatBuffer rustfmt
   autocmd FileType vue AutoFormatBuffer prettier
+  autocmd FileType swift AutoFormatBuffer swift-format
 augroup END
 ```
 
