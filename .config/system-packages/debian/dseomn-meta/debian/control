@@ -95,7 +95,6 @@ Depends:
 Recommends:
   android-sdk,
   guile-2.2,
-  kubernetes-client,
   pgpdump,
   podman,
   runsc,
@@ -151,8 +150,6 @@ Recommends:
   libreoffice,
   libreoffice-gnome,
   libreoffice-l10n-nl,
-# Firefox needs this for U2F to work.
-  libu2f-host0,
   lollypop,
   m17n-db,
   m17n-im-config,
@@ -201,7 +198,6 @@ Recommends:
   performous,
   picard,
   povray,
-  pulseaudio-dlna,
   quodlibet,
   rawtherapee,
   scdaemon,
