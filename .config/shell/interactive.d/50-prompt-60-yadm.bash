@@ -34,6 +34,7 @@ __prompt_part_yadm() {
   local yadm_ps1="$(
     cd
     export GIT_DIR=~/.local/share/yadm/repo.git
+    GIT_PS1_SHOWCONFLICTSTATE=yes
     GIT_PS1_SHOWDIRTYSTATE=yes
     GIT_PS1_SHOWSTASHSTATE=yes
     GIT_PS1_SHOWUNTRACKEDFILES=yes
@@ -41,7 +42,10 @@ __prompt_part_yadm() {
     __git_ps1 '%s'
   )"
 
-  if [[ -z "$target_branch" ]] || [[ "$yadm_ps1" != "${target_branch}=" ]]; then
+  if
+      [[ -z "$target_branch" ]] ||
+      [[ "$yadm_ps1" != "${target_branch} =" ]]
+      then
     prompt_append_raw ' ('
     prompt_append_raw 'yadm' "${FgMagenta}"
     prompt_append_raw ': '
