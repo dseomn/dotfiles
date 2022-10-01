@@ -18,6 +18,7 @@ shrcutil_source ~/third_party/git-contrib/completion/git-prompt.sh || return
 
 # Show git status when in a git repo.
 __prompt_part_git() {
+  local GIT_PS1_SHOWCONFLICTSTATE=yes
   local GIT_PS1_SHOWDIRTYSTATE=yes
   local GIT_PS1_SHOWSTASHSTATE=yes
   local GIT_PS1_SHOWUNTRACKEDFILES=yes
