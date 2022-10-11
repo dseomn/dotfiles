@@ -70,6 +70,7 @@ Recommends:
   ninja-build,
   nodejs,
   php-cli,
+  python3-absl,
   python3-jinja2,
   python3-jsonschema,
   python3-pytest,
