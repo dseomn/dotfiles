@@ -74,8 +74,7 @@ user_pref('mail.identity.default.sig_on_fwd', true);
 user_pref('mail.phishing.detection.enabled', false);
 user_pref('mail.server.default.check_all_folders_for_new', true);
 user_pref('mail.server.default.login_at_startup', true);
-// TODO(https://bugzilla.mozilla.org/show_bug.cgi?id=1734451): Uncomment this.
-// user_pref('mail.server.default.using_subscription', false);
+user_pref('mail.server.default.using_subscription', false);
 user_pref('mail.showCondensedAddresses', false);
 // https://dxr.mozilla.org/comm-central/rev/2a29ee0adb310b54a6a2df72034953fed8f2b043/comm/mailnews/base/public/nsIMsgDBView.idl#45
 user_pref('mailnews.default_view_flags', 33);
