@@ -12,6 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-c.BaseIPythonApplication.extra_config_file = u'ipython_config_local.py'
+c.BaseIPythonApplication.extra_config_file = 'ipython_config_local.py'
 
 c.TerminalInteractiveShell.confirm_exit = False
