@@ -14,4 +14,5 @@
 
 c.BaseIPythonApplication.extra_config_file = 'ipython_config_local.py'
 
+c.TerminalInteractiveShell.autosuggestions_provider = None
 c.TerminalInteractiveShell.confirm_exit = False
