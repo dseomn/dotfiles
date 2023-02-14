@@ -76,5 +76,8 @@
 [url "ssh://git@gitlab.gnome.org/"]
 	pushInsteadOf = https://gitlab.gnome.org/
 
+[url "ssh://git@salsa.debian.org/"]
+	pushInsteadOf = https://salsa.debian.org/
+
 [include]
 	path = config.local
