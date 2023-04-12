@@ -1,0 +1,108 @@
+# Copyright 2023 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
+ship "Spruce Ostrich"
+	plural "Spruce Ostriches"
+	sprite "ship/spruce ostrich"
+	attributes
+		category "Heavy Warship"
+		cost 1000000000
+		shields 100000
+		hull 200000
+		"required crew" 8
+		bunks 5000
+		mass 4000
+		drag 50
+		"heat dissipation" 0.6
+		"fuel capacity" 2000
+		"cargo space" 10000
+		"outfit space" 10000
+		"weapon capacity" 2000
+		"engine capacity" 2000
+		cloak 0.05
+		"cloaking fuel" 0.1
+		"cloaking energy" 25
+		weapon
+			"blast radius" 600
+			"shield damage" 6000
+			"hull damage" 3000
+			"hit force" 6000
+	outfits
+		"Tier 3 Anti-Missile" 6
+		"Pug Gridfire Turret" 4
+		"Heavy Laser Turret" 4
+		"Dual Sunbeam Turret" 8
+		"Fragmentation Grenades" 5000
+		"Laser Rifle" 5000
+		"Pug Biodefenses" 100
+		"Blue Sun Reactor" 16
+		"Systems Core (Large)" 6
+		"Large Heat Shunt" 8
+		"Wanderer Ramscoop" 8
+		"Jump Drive"
+		"Type 4 Radiant Thruster" 12
+		"Type 4 Radiant Steering" 16
+		"Cargo Scanner" 10
+		"Outfit Scanner" 10
+		"Quantum Keystone"
+	engine -160 400 0.8
+	engine -70 400 0.8
+	engine 70 400 0.8
+	engine 160 400 0.8
+	turret -190 -390 "Tier 3 Anti-Missile"
+	turret -55 -390 "Dual Sunbeam Turret"
+	turret 55 -390 "Dual Sunbeam Turret"
+	turret 190 -390 "Tier 3 Anti-Missile"
+	turret -190 -300 "Heavy Laser Turret"
+	turret 190 -300 "Heavy Laser Turret"
+	turret -190 -200 "Pug Gridfire Turret"
+	turret 190 -200 "Pug Gridfire Turret"
+	turret -190 -100 "Dual Sunbeam Turret"
+	turret 190 -100 "Dual Sunbeam Turret"
+	turret -190 0 "Tier 3 Anti-Missile"
+	turret 190 0 "Tier 3 Anti-Missile"
+	turret -190 100 "Dual Sunbeam Turret"
+	turret 190 100 "Dual Sunbeam Turret"
+	turret -190 200 "Pug Gridfire Turret"
+	turret 190 200 "Pug Gridfire Turret"
+	turret -190 265 "Heavy Laser Turret"
+	turret 190 265 "Heavy Laser Turret"
+	turret -190 390 "Tier 3 Anti-Missile"
+	turret -55 390 "Dual Sunbeam Turret"
+	turret 55 390 "Dual Sunbeam Turret"
+	turret 190 390 "Tier 3 Anti-Missile"
+	explode "tiny explosion" 250
+	explode "small explosion" 100
+	explode "medium explosion" 50
+	explode "large explosion" 10
+	explode "huge explosion" 5
+	"final explode" "final explosion large"
+	description "Way too large to be practical, and yet somehow ridiculously overpowered."
+
+
+event "spruce ostrich available"
+	shipyard "Basic Ships"
+		add "Spruce Ostrich"
+
+
+mission "Offer Spruce Ostrich"
+	invisible
+	landing
+	on offer
+		dialog "Do you want a Spruce Ostrich?"
+	on accept
+		payment 2000000000
+		event "spruce ostrich available"
+		fail

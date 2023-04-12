@@ -65,6 +65,9 @@
 !/.local/lib/user-styles/
 !/.local/lib/user-styles/**
 !/.local/share/
+!/.local/share/endless-sky/
+!/.local/share/endless-sky/plugins/
+!/.local/share/endless-sky/plugins/**
 !/.local/share/gnome-shell/
 !/.local/share/gnome-shell/extensions/
 !/.local/share/gnome-shell/extensions/**
