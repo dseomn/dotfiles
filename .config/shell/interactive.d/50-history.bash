@@ -23,6 +23,7 @@ __set_at_least() {
 HISTCONTROL=ignoredups
 __set_at_least HISTSIZE $((10 * 1000))
 __set_at_least HISTFILESIZE $((100 * 1000))
+set +o histexpand
 shopt -s histappend
 
 unset -f __set_at_least
