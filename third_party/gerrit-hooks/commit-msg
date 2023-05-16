@@ -50,7 +50,7 @@ dest="$1.tmp.${random}"
 
 trap 'rm -f "$dest" "$dest-2"' EXIT
 
-if ! git stripspace --strip-comments < "$1" > "${dest}" ; then
+if ! cat "$1" | sed -e '/>8/q' | git stripspace --strip-comments > "${dest}" ; then
    echo "cannot strip comments from $1"
    exit 1
 fi
@@ -64,7 +64,7 @@ reviewurl="$(git config --get gerrit.reviewUrl)"
 if test -n "${reviewurl}" ; then
   token="Link"
   value="${reviewurl%/}/id/I$random"
-  pattern=".*/id/I[0-9a-f]\{40\}$"
+  pattern=".*/id/I[0-9a-f]\{40\}"
 else
   token="Change-Id"
   value="I$random"
