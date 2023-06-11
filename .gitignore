@@ -19,6 +19,8 @@
 !/.config/git/**
 !/.config/hg/
 !/.config/hg/**
+!/.config/pipewire/
+!/.config/pipewire/**
 !/.config/shell/
 !/.config/shell/**
 !/.config/snipphthalate/
