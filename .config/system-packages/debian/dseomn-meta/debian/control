@@ -125,6 +125,7 @@ Depends:
   xinput,
 Recommends:
   blueman,
+  d-feet,
   dconf-editor,
   dseomn-dev (= ${source:Version}),
   file-roller,
