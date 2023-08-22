@@ -31,15 +31,20 @@
 "   * clojure: cljstyle, zprint
 "   * dart: dartfmt
 "   * fish: fish_indent
+"   * elixir: mixformat
 "   * gn: gn
 "   * go: gofmt
+"   * haskell: ormolu
 "   * java: google-java-format
 "   * javascript, json, html, css: js-beautify
 "   * javascript, html, css, markdown: prettier
+"   * json, jsonnet: jsonnetfmt
 "   * kotlin: ktfmt
 "   * lua: luaformatterfiveone
 "   * nix: nixpkgs-fmt
+"   * ocaml: ocamlformat
 "   * python: autopep8, black, yapf
+"   * ruby: rubocop
 "   * rust: rustfmt
 "   * sh: shfmt
 "   * swift: swift-format
@@ -61,10 +66,12 @@ call s:registry.AddExtension(codefmt#clangformat#GetFormatter())
 call s:registry.AddExtension(codefmt#cljstyle#GetFormatter())
 call s:registry.AddExtension(codefmt#zprint#GetFormatter())
 call s:registry.AddExtension(codefmt#dartfmt#GetFormatter())
+call s:registry.AddExtension(codefmt#mixformat#GetFormatter())
 call s:registry.AddExtension(codefmt#fish_indent#GetFormatter())
 call s:registry.AddExtension(codefmt#gn#GetFormatter())
 call s:registry.AddExtension(codefmt#gofmt#GetFormatter())
 call s:registry.AddExtension(codefmt#googlejava#GetFormatter())
+call s:registry.AddExtension(codefmt#jsonnetfmt#GetFormatter())
 call s:registry.AddExtension(codefmt#jsbeautify#GetFormatter())
 call s:registry.AddExtension(codefmt#prettier#GetFormatter())
 call s:registry.AddExtension(codefmt#ktfmt#GetFormatter())
@@ -74,6 +81,9 @@ call s:registry.AddExtension(codefmt#autopep8#GetFormatter())
 call s:registry.AddExtension(codefmt#isort#GetFormatter())
 call s:registry.AddExtension(codefmt#black#GetFormatter())
 call s:registry.AddExtension(codefmt#yapf#GetFormatter())
+call s:registry.AddExtension(codefmt#rubocop#GetFormatter())
 call s:registry.AddExtension(codefmt#rustfmt#GetFormatter())
 call s:registry.AddExtension(codefmt#shfmt#GetFormatter())
 call s:registry.AddExtension(codefmt#swiftformat#GetFormatter())
+call s:registry.AddExtension(codefmt#ormolu#GetFormatter())
+call s:registry.AddExtension(codefmt#ocamlformat#GetFormatter())
