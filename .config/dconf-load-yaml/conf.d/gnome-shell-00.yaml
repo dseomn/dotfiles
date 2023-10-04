@@ -51,12 +51,16 @@
         children:
         - dir: caffeine
           children:
+          - key: countdown-timer
+            reset: false
           - key: enable-fullscreen
             value: "false"
           - key: restore-state
             value: "true"
           - key: show-notifications
             value: "false"
+          - key: toggle-state
+            reset: false
           - key: user-enabled
             reset: false
         - dir: dash-to-panel
