@@ -18,7 +18,7 @@ all:
 
 
 ParkRatingInspector.zip:
-	curl -L -o '$@' 'https://github.com/Basssiiie/OpenRCT2-ParkRatingInspector/releases/download/v0.2/ParkRatingInspector-v0.2.zip'
+	curl -L -o '$@' 'https://github.com/Basssiiie/OpenRCT2-ParkRatingInspector/releases/download/v0.3/ParkRatingInspector-v0.3.zip'
 ParkRatingInspector.js: ParkRatingInspector.zip
 	unzip 'ParkRatingInspector.zip' '$@'
 	touch '$@'
@@ -26,7 +26,7 @@ all: ParkRatingInspector.js
 
 
 benchwarmer.js:
-	curl -L -o '$@' 'https://github.com/tubbo/openrct2-benchwarmer/releases/download/v1.0.0/benchwarmer.js'
+	curl -L -o '$@' 'https://github.com/tubbo/openrct2-benchwarmer/releases/download/v1.0.1/benchwarmer.js'
 all: benchwarmer.js
 
 
@@ -36,5 +36,5 @@ all: live-ride-measurements.js
 
 
 openrct2-price-manager.js:
-	curl -L -o '$@' 'https://github.com/Sadret/openrct2-price-manager/releases/download/v1.1.1/openrct2-price-manager-1.1.1.js'
+	curl -L -o '$@' 'https://github.com/Sadret/openrct2-price-manager/releases/download/v1.1.2/openrct2-price-manager-1.1.2.js'
 all: openrct2-price-manager.js
