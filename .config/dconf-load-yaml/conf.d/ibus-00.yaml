@@ -13,28 +13,6 @@
 # limitations under the License.
 
 
-{#
- # TODO: Remove this variable once all my ibus versions use the new
- # /org/freedesktop/ibus location.
- #}
-{% set engine_dir %}
-dir: engine
-children:
-- dir: m17n
-  children:
-  - dir: t
-    children:
-    - dir: rfc1345-plus
-      children:
-      - key: preedit-background
-        value: "'none'"
-      - key: preedit-foreground
-        value: "'none'"
-      - key: preedit-underline
-        value: "1"
-{% endset %}
-
-
 - dir: desktop
   children:
   - dir: ibus
@@ -82,7 +60,6 @@ children:
           reset: false
         - key: favorites
           reset: false
-    - {{ engine_dir | indent(6) }}
 - dir: org
   children:
   - dir: freedesktop
@@ -90,4 +67,17 @@ children:
     - dir: ibus
       reset: true
       children:
-      - {{ engine_dir | indent(8) }}
+      - dir: engine
+        children:
+        - dir: m17n
+          children:
+          - dir: t
+            children:
+            - dir: rfc1345-plus
+              children:
+              - key: preedit-background
+                value: "'none'"
+              - key: preedit-foreground
+                value: "'none'"
+              - key: preedit-underline
+                value: "1"
