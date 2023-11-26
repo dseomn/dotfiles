@@ -16,8 +16,6 @@
 // https://bugzilla.mozilla.org/show_bug.cgi?id=1738574#c133
 user_pref("browser.download.start_downloads_in_tmp_dir", true);
 
-user_pref("browser.tabs.drawInTitlebar", true);
-
 // https://kb.mozillazine.org/Keyword.enabled
 user_pref("keyword.enabled", false);
 
