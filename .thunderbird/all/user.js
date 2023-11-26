@@ -16,6 +16,7 @@
 
 // General.
 user_pref('general.warnOnAboutConfig', false);
+user_pref('mail.uidensity', 0);
 
 // Localization. Thunderbird doesn't appear to honor some things from the
 // general locale system, so we override things here to match the locale.
