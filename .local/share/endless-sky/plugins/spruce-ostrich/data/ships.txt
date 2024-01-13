@@ -221,7 +221,7 @@ start "Spruce Ostrich"
 	conversation
 		name
 	account
-		credits 5000000000
+		credits 1e12
 		score 800
 	set "license: Pilot's"
 	set "start: spruce ostrich"
