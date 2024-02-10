@@ -14,13 +14,12 @@
 
 
 [application]
-version=2.7.3.final0
+version=2.11.0.final0
 
 [persist]
 {{ copy('persist', 'album_view_header_locked') }}
 {{ copy('persist', 'album_view_header_state') }}
 {{ copy('persist', 'album_view_sizes') }}
-{{ copy('persist', 'current_browser_path') }}
 {{ copy('persist', 'current_directory') }}
 {{ copy('persist', 'file_view_header_locked') }}
 {{ copy('persist', 'file_view_header_state') }}
@@ -39,7 +38,6 @@ version=2.7.3.final0
 show_changes_first=true
 {{ copy('persist', 'splitters_MainWindow') }}
 {{ copy('persist', 'splitters_OptionsDialog') }}
-{{ copy('persist', 'splitters_ScriptEditorDialog') }}
 view_cover_art=false
 {{ copy('persist', 'view_file_browser') }}
 {{ copy('persist', 'view_metadata_view') }}
@@ -120,6 +118,7 @@ save_images_to_files=false
 save_images_to_tags=false
 script_exceptions=@Invalid()
 selected_file_naming_script_id=
+show_new_user_dialog=false
 standardize_artists=true
 standardize_instruments=true
 track_ars=true
