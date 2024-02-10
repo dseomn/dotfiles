@@ -43,6 +43,8 @@
         value: "'auto_random'"
       - key: replay-gain
         value: "'album'"
+      - key: replay-gain-db
+        value: "-5.0"
       - key: save-state
         value: "true"
       - key: show-tag-tracknumber
