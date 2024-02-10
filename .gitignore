@@ -21,6 +21,8 @@
 !/.config/hg/**
 !/.config/pipewire/
 !/.config/pipewire/**
+!/.config/quodlibet/
+!/.config/quodlibet/**
 !/.config/shell/
 !/.config/shell/**
 !/.config/snipphthalate/

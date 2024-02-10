@@ -1,0 +1,6 @@
+https://musicbrainz.org/release/<musicbrainz_albumid>
+MusicBrainz release
+https://musicbrainz.org/track/<musicbrainz_releasetrackid>
+MusicBrainz track
+https://musicbrainz.org/recording/<musicbrainz_trackid>
+MusicBrainz recording
