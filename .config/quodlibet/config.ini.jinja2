@@ -62,6 +62,7 @@ refresh_on_start = false
         '_size_single',
     )) and option not in (
         'queue_position',
+        'sidebar_pos',
     )
 %}
 {{ copy('memory', option) }}
@@ -80,6 +81,7 @@ repeat = False
 {{ copy('memory', 'seek') }}
 shuffle = False
 shufflequeue = false
+sidebar_pos = 1.0
 {{ copy('memory', 'song') }}
 sortby = 0album
 volume = 1.0
