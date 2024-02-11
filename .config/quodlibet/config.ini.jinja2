@@ -51,7 +51,7 @@ split_on =
 refresh_on_start = false
 
 [memory]
-{% for option in config['memory']
+{% for option in (config['memory'] if 'memory' in config else {})
     if ('_' + option).endswith((
         '_last_active_version',
         '_maximized',
@@ -66,7 +66,7 @@ refresh_on_start = false
 %}
 {{ copy('memory', option) }}
 {% endfor %}
-browser = {{ config['memory'].get('browser', 'CoverGrid') }}
+browser = {{ config.get('memory', 'browser', fallback='CoverGrid') }}
 {{ copy('memory', 'chooser_dir') }}
 {{ copy('memory', 'open_browsers') }}
 {{ copy('memory', 'plugin_selection') }}
