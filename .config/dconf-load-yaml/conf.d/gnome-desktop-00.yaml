@@ -40,6 +40,8 @@
           value: "['caps:escape_shifted_capslock']"
       - dir: interface
         children:
+        - key: clock-format
+          value: "'24h'"
         - key: clock-show-weekday
           value: "true"
         - key: cursor-size
