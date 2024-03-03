@@ -1,0 +1,59 @@
+#!/usr/bin/env python3
+
+# Copyright 2024 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+"""Utility to find good replaygain pre-amp values.
+
+This uses Quodlibet to get replaygain tags, and shows the greatest pre-amp value
+that could be used with each file without needing clipping prevention.
+
+https://wiki.hydrogenaud.io/index.php?title=ReplayGain_2.0_specification
+"""
+
+import argparse
+import itertools
+import math
+import subprocess
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--mode", choices=("album", "track"), required=True)
+    args = parser.parse_args()
+    gain_tag = f"replaygain_{args.mode}_gain"
+    peak_tag = f"replaygain_{args.mode}_peak"
+    quodlibet_results = subprocess.run(
+        (
+            "quodlibet",
+            "--print-query=",
+            f"--with-pattern=<~filename>\n<{gain_tag}>\n<{peak_tag}>",
+        ),
+        stdout=subprocess.PIPE,
+        check=True,
+    )
+    for filename, gain_str, peak_str in itertools.batched(
+        quodlibet_results.stdout.decode().splitlines(), 3
+    ):
+        if not gain_str:
+            continue
+        gain = float(gain_str.partition(" ")[0])
+        peak = float(peak_str) if peak_str else 1.0
+        if peak == 0.0:
+            continue
+        max_pre_amp = 20 * math.log(1 / peak, 10) - gain
+        print(max_pre_amp, filename)
+
+
+if __name__ == "__main__":
+    main()
