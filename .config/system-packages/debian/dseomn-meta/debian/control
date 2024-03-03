@@ -141,6 +141,7 @@ Recommends:
   d-feet,
   dconf-editor,
   dseomn-dev (= ${source:Version}),
+  easyeffects,
   file-roller,
   firefox,
   firefox-l10n-nl,

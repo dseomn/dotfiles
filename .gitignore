@@ -11,6 +11,8 @@
 !/.config/dir-alias/**
 !/.config/dotfiles/
 !/.config/dotfiles/**
+!/.config/easyeffects/
+!/.config/easyeffects/**
 !/.config/environment.d/
 !/.config/environment.d/**
 !/.config/fontconfig/

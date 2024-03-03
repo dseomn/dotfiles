@@ -1,0 +1,48 @@
+{
+    "output": {
+        "blocklist": [
+            "Lollypop",
+            "Quod Libet"
+        ],
+        "equalizer#0": {
+            "balance": 0.0,
+            "bypass": false,
+            "input-gain": -12.0,
+            "left": {
+                "band0": {
+                    "frequency": 22.4,
+                    "gain": 0.0,
+                    "mode": "RLC (BT)",
+                    "mute": false,
+                    "q": 4.36,
+                    "slope": "x1",
+                    "solo": false,
+                    "type": "Off",
+                    "width": 4.0
+                }
+            },
+            "mode": "IIR",
+            "num-bands": 1,
+            "output-gain": 0.0,
+            "pitch-left": 0.0,
+            "pitch-right": 0.0,
+            "right": {
+                "band0": {
+                    "frequency": 22.4,
+                    "gain": 0.0,
+                    "mode": "RLC (BT)",
+                    "mute": false,
+                    "q": 4.36,
+                    "slope": "x1",
+                    "solo": false,
+                    "type": "Off",
+                    "width": 4.0
+                }
+            },
+            "split-channels": false
+        },
+        "plugins_order": [
+            "equalizer#0"
+        ]
+    }
+}
