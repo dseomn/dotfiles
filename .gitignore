@@ -23,6 +23,8 @@
 !/.config/pipewire/**
 !/.config/quodlibet/
 !/.config/quodlibet/**
+!/.config/rsgain/
+!/.config/rsgain/**
 !/.config/shell/
 !/.config/shell/**
 !/.config/snipphthalate/
