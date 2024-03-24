@@ -35,6 +35,8 @@
 !/.config/system-packages/**
 !/.config/tmux/
 !/.config/tmux/**
+!/.config/whipper/
+!/.config/whipper/**
 !/.config/yadm/
 !/.config/yadm/**
 !/.config/yapf/
