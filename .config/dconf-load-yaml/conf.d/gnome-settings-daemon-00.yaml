@@ -24,8 +24,6 @@
         children:
         - dir: color
           children:
-          - key: night-light-enabled
-            value: "true"
           - key: night-light-last-coordinates
             reset: false
           - key: night-light-temperature
