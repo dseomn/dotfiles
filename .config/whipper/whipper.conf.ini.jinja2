@@ -23,7 +23,6 @@ track_template = %%A/%%d/d%%Nt%%t. %%a - %%n
 disc_template = %%A/%%d/d%%Ns01
 unknown = True
 cdr = True
-keep_going = True
 
 {% for section in config.sections() if section.startswith('drive:') -%}
 [{{ section }}]
