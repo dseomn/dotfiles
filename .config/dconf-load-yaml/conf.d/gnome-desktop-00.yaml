@@ -78,6 +78,8 @@
           children:
           - key: natural-scroll
             value: "false"
+          - key: tap-to-click
+            value: "false"
         - dir: trackball
           children:
           - key: scroll-wheel-emulation-button
