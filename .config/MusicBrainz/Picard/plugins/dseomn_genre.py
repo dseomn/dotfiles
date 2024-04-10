@@ -270,6 +270,16 @@ def genre_from_media(tagger, metadata_, *args):
 
 metadata.register_track_metadata_processor(genre_from_media)
 
+
+def genre_from_pregap(tagger, metadata_, *args):
+  """Adds genres for pregap tracks."""
+  if '1' in metadata_.getall('~pregap'):
+    metadata_.add_unique('genre', 'context/hidden-track')
+    metadata_.add_unique('genre', 'context/hidden-track/pregap')
+
+
+metadata.register_track_metadata_processor(genre_from_pregap)
+
 # Regular expression that matches all sections of a string that should be
 # removed when slugifying.
 _SLUG_REMOVE_RE = re.compile(r'[^\s\w/-]+')
