@@ -1,6 +1,8 @@
-const {Clutter, GObject, St} = imports.gi;
-const Main = imports.ui.main;
-const GWorkspaceThumbnail = imports.ui.workspaceThumbnail;
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
+import Clutter from 'gi://Clutter';
+import GObject from 'gi://GObject';
+import St from 'gi://St';
+import {WorkspaceThumbnail} from 'resource:///org/gnome/shell/ui/workspaceThumbnail.js';
 
 var ITEM_SPACING = '12px';
 
@@ -26,7 +28,7 @@ class SwitcherButton extends St.Button {
     }
 });
 
-var WorkspaceSwitcherPopupList = GObject.registerClass({
+export default GObject.registerClass({
     Signals: {
         'item-activated': {param_types: [GObject.TYPE_INT]},
         'item-entered': {param_types: [GObject.TYPE_INT]},
@@ -61,7 +63,7 @@ var WorkspaceSwitcherPopupList = GObject.registerClass({
                 this.redisplay();
             });
 
-            this.add_actor(workspacesRow);
+            this.add_child(workspacesRow);
             this._lists.push(workspacesRow);
         }
 
@@ -111,7 +113,7 @@ var WorkspaceSwitcherPopupList = GObject.registerClass({
         }
 
         bbox.set_child(container);
-        list.add_actor(bbox);
+        list.add_child(bbox);
 
         bbox.connect('clicked', () => this._onItemClicked(bbox));
         bbox.connect('motion-event', () => this._onItemEnter(bbox));
@@ -136,7 +138,7 @@ var WorkspaceSwitcherPopupList = GObject.registerClass({
 
             for (let i = 0; i < bbox.get_child().get_children().length; i++) {
                 let item = bbox.get_child().get_children()[i];
-                if (item instanceof GWorkspaceThumbnail.WorkspaceThumbnail) {
+                if (item instanceof WorkspaceThumbnail) {
                     // 2 is magic number. Can not find the reason for it.
                     item.setScale((bbox.get_width() - leftPadding - rightPadding - 2) / item.get_width(), (bbox.get_height() - topPadding - bottomPadding - 2) / item.get_height());
                 }
@@ -167,12 +169,12 @@ var WorkspaceSwitcherPopupList = GObject.registerClass({
 
     highlight(index, justOutline) {
         if (this._items[this._highlighted]) {
-            this._items[this._highlighted].remove_style_pseudo_class('outlined');
+            this._items[this._highlighted].remove_style_pseudo_class('highlighted');
             this._items[this._highlighted].remove_style_pseudo_class('selected');
         }
 
         if (this._items[index]) {
-            this._items[index].add_style_pseudo_class(justOutline ? 'outlined' : 'selected');
+            this._items[index].add_style_pseudo_class(justOutline ? 'highlighted' : 'selected');
         }
 
         this._highlighted = index;
