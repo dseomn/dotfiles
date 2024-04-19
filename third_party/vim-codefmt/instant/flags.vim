@@ -88,6 +88,10 @@ call s:plugin.Flag('js_beautify_executable', 'js-beautify')
 call s:plugin.Flag('mix_executable', 'mix')
 
 ""
+" The path to the ruff executable.
+call s:plugin.Flag('ruff_executable', 'ruff')
+
+""
 " The path to the yapf executable.
 call s:plugin.Flag('yapf_executable', 'yapf')
 
@@ -137,6 +141,12 @@ call s:plugin.Flag('buildifier_warnings', '')
 ""
 " The path to the jsonnetfmt executable.
 call s:plugin.Flag('jsonnetfmt_executable', 'jsonnetfmt')
+
+""
+" The path to the Julia formatter script, uses `bin/formatjulia.jl` bundled with
+" this plugin.
+call s:plugin.Flag('julia_format_executable',
+      \ maktaba#path#Join([expand('<sfile>:h:h'), 'bin', 'julia', 'format.jl']))
 
 ""
 " The path to the google-java executable.  Generally, this should have the

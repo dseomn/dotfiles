@@ -39,11 +39,12 @@
 "   * javascript, json, html, css: js-beautify
 "   * javascript, html, css, markdown: prettier
 "   * json, jsonnet: jsonnetfmt
+"   * julia: JuliaFormatter
 "   * kotlin: ktfmt
 "   * lua: luaformatterfiveone
 "   * nix: nixpkgs-fmt
 "   * ocaml: ocamlformat
-"   * python: autopep8, black, yapf
+"   * python: autopep8, black, ruff, yapf
 "   * ruby: rubocop
 "   * rust: rustfmt
 "   * sh: shfmt
@@ -74,12 +75,14 @@ call s:registry.AddExtension(codefmt#googlejava#GetFormatter())
 call s:registry.AddExtension(codefmt#jsonnetfmt#GetFormatter())
 call s:registry.AddExtension(codefmt#jsbeautify#GetFormatter())
 call s:registry.AddExtension(codefmt#prettier#GetFormatter())
+call s:registry.AddExtension(codefmt#juliaformatter#GetFormatter())
 call s:registry.AddExtension(codefmt#ktfmt#GetFormatter())
 call s:registry.AddExtension(codefmt#luaformatterfiveone#GetFormatter())
 call s:registry.AddExtension(codefmt#nixpkgs_fmt#GetFormatter())
 call s:registry.AddExtension(codefmt#autopep8#GetFormatter())
 call s:registry.AddExtension(codefmt#isort#GetFormatter())
 call s:registry.AddExtension(codefmt#black#GetFormatter())
+call s:registry.AddExtension(codefmt#ruff#GetFormatter())
 call s:registry.AddExtension(codefmt#yapf#GetFormatter())
 call s:registry.AddExtension(codefmt#rubocop#GetFormatter())
 call s:registry.AddExtension(codefmt#rustfmt#GetFormatter())
