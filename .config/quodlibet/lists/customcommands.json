@@ -1,0 +1,11 @@
+{
+    "Picard": {
+        "name": "Picard",
+        "command": "quodlibet-custom-command-picard",
+        "parameter": "",
+        "pattern": "<~dirname>",
+        "unique": true,
+        "max_args": 9999,
+        "reverse": false
+    }
+}
