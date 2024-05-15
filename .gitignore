@@ -3,6 +3,7 @@
 !/.config/
 !/.config/autostart/
 !/.config/autostart/**
+!/.config/black
 !/.config/config-merge-template/
 !/.config/config-merge-template/**
 !/.config/containers/
