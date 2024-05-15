@@ -147,6 +147,7 @@ Recommends:
   firefox-l10n-nl,
   fonts-dejavu,
   fonts-noto,
+  gddrescue,
   gimp,
   gmusicbrowser,
   gnome-clocks,
@@ -212,6 +213,7 @@ Recommends:
   k3b,
   kdenlive,
   libimage-exiftool-perl,
+  lsdvd,
   musescore,
   openrct2,
   performous,
@@ -229,7 +231,6 @@ Recommends:
   warmux,
   whipper,
   yubikey-manager,
-  yubikey-personalization-gui,
   yubioath-desktop,
   zbar-tools,
 Description: dseomn-desktop-full
