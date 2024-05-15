@@ -1,6 +1,8 @@
 *
 
 !/.config/
+!/.config/autostart/
+!/.config/autostart/**
 !/.config/config-merge-template/
 !/.config/config-merge-template/**
 !/.config/containers/
@@ -56,6 +58,8 @@
 !/.ipython/profile_*/startup/*.ipy
 !/.ipython/profile_*/startup/*.py
 !/.local/
+!/.local/bin/
+!/.local/bin/**
 !/.local/lib/
 !/.local/lib/dir-alias/
 !/.local/lib/dir-alias/**
