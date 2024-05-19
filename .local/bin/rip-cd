@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env python3
 
 # Copyright 2024 Google LLC
 #
@@ -14,40 +14,55 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
-set -euxo pipefail
-
-
-fatal() { printf '%s\n' "$*" >&2; exit 1; }
-
-
-require_nonexistent() {
-  if [[ -e "$1" ]]; then
-    fatal "$1 already exists."
-  fi
-}
+import argparse
+import pathlib
+import subprocess
+import sys
 
 
-case "${1:-}" in
-  d??)
-    disc="$1"
-    ;;
-  *)
-    fatal "Example usage: $0 d01"
-    ;;
-esac
+def _require_nonexistent(path: pathlib.Path):
+    if path.exists(follow_symlinks=False):
+        raise Exception(f"{str(path)!r} already exists.")
 
 
-require_nonexistent "${disc}.cdrdao-disk-info.txt"
-cdrdao disk-info > "${disc}.cdrdao-disk-info.txt" 2>&1
-cat "${disc}.cdrdao-disk-info.txt"
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-d", "--device", default="/dev/cdrom")
+    parser.add_argument("--disc-number", type=int, default=1)
+    args = parser.parse_args()
+    path_prefix = f"d{args.disc_number:02d}"
 
-require_nonexistent "$disc"
-whipper cd rip -O "$disc"
-(
-  cd "$disc"
-  for file in *; do
-    mv -i "$file" "../${disc}${file}"
-  done
-)
-rmdir "$disc"
+    disc_info_path = pathlib.Path(f"{path_prefix}.cdrdao-disk-info.txt")
+    with disc_info_path.open("x") as disc_info_file:
+        subprocess.run(
+            ("cdrdao", "disk-info", "--device", args.device),
+            stdout=disc_info_file,
+            stderr=disc_info_file,
+            check=True,
+        )
+    with disc_info_path.open("r") as disc_info_file:
+        sys.stdout.write(disc_info_file.read())
+
+    whipper_disc_path = pathlib.Path(path_prefix)
+    _require_nonexistent(whipper_disc_path)
+    subprocess.run(
+        (
+            "whipper",
+            "cd",
+            f"--device={args.device}",
+            "rip",
+            f"--output-directory={whipper_disc_path}",
+        ),
+        check=True,
+    )
+    for whipper_file_path in tuple(whipper_disc_path.iterdir()):
+        # TODO(https://github.com/python/cpython/issues/56950): Fix this race
+        # condition.
+        new_path = pathlib.Path(f"{path_prefix}{whipper_file_path.name}")
+        _require_nonexistent(new_path)
+        whipper_file_path.rename(new_path)
+    whipper_disc_path.rmdir()
+
+
+if __name__ == "__main__":
+    main()
