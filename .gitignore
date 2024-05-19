@@ -82,6 +82,8 @@
 !/.local/lib/user-styles/
 !/.local/lib/user-styles/**
 !/.local/share/
+!/.local/share/bash-completion/
+!/.local/share/bash-completion/**
 !/.local/share/endless-sky/
 !/.local/share/endless-sky/plugins/
 !/.local/share/endless-sky/plugins/**
