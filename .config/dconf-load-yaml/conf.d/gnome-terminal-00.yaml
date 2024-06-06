@@ -29,10 +29,8 @@
         - key: default-show-menubar
           value: "false"
         - dir: "profiles:"
-          reset: false
           children:
           - dir: ":b1dcc9dd-5262-4d8d-a863-c897e6d979b9"
-            reset: true
             children:
             - key: visible-name
               value: "'default'"
