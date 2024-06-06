@@ -171,7 +171,6 @@ Recommends:
   libreoffice-l10n-nl,
   lollypop,
   m17n-db,
-  m17n-im-config,
   network-manager-gnome,
   network-manager-openconnect-gnome,
   pidgin,
