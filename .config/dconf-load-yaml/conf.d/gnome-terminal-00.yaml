@@ -30,10 +30,26 @@
           value: "false"
         - dir: "profiles:"
           children:
+          - key: default
+            value: "'b1dcc9dd-5262-4d8d-a863-c897e6d979b9'"
+          - key: list
+            value: "['b1dcc9dd-5262-4d8d-a863-c897e6d979b9', '160d8b25-bcc3-40bd-be76-d405ef4ddb19']"
           - dir: ":b1dcc9dd-5262-4d8d-a863-c897e6d979b9"
             children:
             - key: visible-name
               value: "'default'"
+            - key: scrollbar-policy
+              value: "'never'"
+            - key: use-system-font
+              value: "false"
+            - key: font
+              value: "'Monospace 10'"
+          - dir: ":160d8b25-bcc3-40bd-be76-d405ef4ddb19"
+            children:
+            - key: visible-name
+              value: "'exit-hold'"
+            - key: exit-action
+              value: "'hold'"
             - key: scrollbar-policy
               value: "'never'"
             - key: use-system-font
