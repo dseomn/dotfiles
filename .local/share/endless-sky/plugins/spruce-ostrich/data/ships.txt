@@ -18,7 +18,7 @@ ship "Spruce Ostrich"
 	sprite "ship/spruce ostrich"
 	attributes
 		category Superheavy
-		cost 1000000000
+		cost 1e9
 		shields 100000
 		hull 200000
 		"required crew" 8
