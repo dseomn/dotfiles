@@ -18,8 +18,8 @@
 		git g ${all} --not ${bases}"
 
 	# commit
-	amend = commit --amend -C HEAD
-	reword = commit --amend -c HEAD --only
+	amend = commit --reset-author --amend -C HEAD
+	reword = commit --reset-author --amend -c HEAD --only
 
 	# diff
 	d = diff
