@@ -46,7 +46,7 @@ ship "Spruce Ostrich"
 		"Korath Inferno" 12
 		"Shield Disruptor Turret" 12
 		"Husk-Slice Turret" 12
-		"Enforcer Confrontation Gear" 5000
+		"Anti-Materiel Gun" 5000
 		"Pug Biodefenses" 5000
 		"Blue Sun Reactor" 18
 		"Systems Core (Large)" 12
