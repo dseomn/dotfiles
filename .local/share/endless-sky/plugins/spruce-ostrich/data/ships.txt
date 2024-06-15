@@ -22,12 +22,12 @@ ship "Spruce Ostrich"
 		shields 100000
 		hull 200000
 		"required crew" 8
-		bunks 5000
+		bunks 20000
 		mass 4000
 		drag 50
 		"heat dissipation" 0.6
 		"fuel capacity" 3000
-		"cargo space" 10000
+		"cargo space" 40000
 		"outfit space" 10000
 		"weapon capacity" 3000
 		"engine capacity" 2000
@@ -46,8 +46,8 @@ ship "Spruce Ostrich"
 		"Korath Inferno" 12
 		"Shield Disruptor Turret" 12
 		"Husk-Slice Turret" 12
-		"Anti-Materiel Gun" 5000
-		"Pug Biodefenses" 5000
+		"Anti-Materiel Gun" 20000
+		"Pug Biodefenses" 20000
 		"Blue Sun Reactor" 18
 		"Systems Core (Large)" 12
 		"Large Heat Shunt" 20
@@ -163,8 +163,8 @@ ship "Spruce Ostrich" "Spruce Ostrich (escort)"
 		"Quantum Keystone"
 		"Cargo Expansion" 20
 	add attributes
-		bunks -4900
-		"cargo space" 24000
+		bunks -19900
+		"cargo space" 97500
 	turret "Tier 3 Anti-Missile"
 	turret "Shield Disruptor Turret"
 	turret "Korath Inferno"
