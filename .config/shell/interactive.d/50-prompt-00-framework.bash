@@ -50,7 +50,7 @@ prompt_append() {
   [[ -n "$text" ]] || return
 
   local index="${__prompt_var_counters["$__prompt_function"]}"
-  let __prompt_var_counters["$__prompt_function"]++
+  let '__prompt_var_counters["$__prompt_function"]++'
   local var="${__prompt_function}_${index}"
   __prompt_var["$var"]="$text"
   prompt_append_raw "\${__prompt_var[\"${var}\"]}" "$style"
