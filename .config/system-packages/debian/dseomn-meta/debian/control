@@ -154,6 +154,7 @@ Recommends:
   gnome-shell-extension-appindicator,
   gnome-shell-extension-caffeine,
   gnome-shell-extension-system-monitor,
+  gnome-shell-extensions-extra,
   gnome-tweaks,
   gnome-weather,
   google-chrome-stable,
