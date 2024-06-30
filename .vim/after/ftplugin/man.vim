@@ -22,4 +22,3 @@ let b:did_ftplugin_after = v:true
 
 " Make man page mappings more like vim's builtin help.
 nmap <buffer> <C-O> <C-T>
-nunmap <buffer> q
