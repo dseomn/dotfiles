@@ -26,7 +26,7 @@ all: ParkRatingInspector.js
 
 
 benchwarmer.js:
-	curl -L -o '$@' 'https://github.com/tubbo/openrct2-benchwarmer/releases/download/v1.0.1/benchwarmer.js'
+	curl -L -o '$@' 'https://github.com/tubbo/openrct2-benchwarmer/releases/download/v1.1.1/benchwarmer.js'
 all: benchwarmer.js
 
 
