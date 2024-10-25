@@ -17,6 +17,3 @@ variants:
   dseomn:
     env:
       copyright_holder: David Mandelberg
-  google:
-    env:
-      copyright_holder: Google LLC
