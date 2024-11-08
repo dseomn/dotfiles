@@ -21,6 +21,7 @@ import subprocess
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-d", "--device", default="/dev/cdrom")
+    parser.add_argument("--retry", action="store_true")
     parser.add_argument("output_prefix")
     args = parser.parse_args()
 
@@ -28,6 +29,7 @@ def main():
     subprocess.run(
         (
             "ddrescue",
+            *(("--try-again", "--retrim") if args.retry else ()),
             "--sector-size=2048",
             "--idirect",
             args.device,
