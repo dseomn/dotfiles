@@ -21,11 +21,17 @@ import subprocess
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-d", "--device", default="/dev/cdrom")
+    parser.add_argument("-t", "--type", choices=("bd", "dvd"), default=None)
     parser.add_argument("--retry", action="store_true")
     parser.add_argument("output_prefix")
     args = parser.parse_args()
 
-    subprocess.run(("lsdvd", args.device), check=True)
+    match args.type:
+        case "bd":
+            subprocess.run(("bd_info", args.device), check=True)
+        case "dvd":
+            subprocess.run(("lsdvd", args.device), check=True)
+
     subprocess.run(
         (
             "ddrescue",
