@@ -22,12 +22,12 @@ Package: dseomn-standard
 Architecture: all
 Depends:
   ${misc:Depends},
-  bash (>= 4.4),
-  git (>= 1:2.11),
+  bash,
+  git,
   less,
   man-db,
-  tmux (>= 2.6),
-  vim-nox (>= 2:8.0),
+  tmux,
+  vim-nox,
 Recommends:
   aptitude,
   bash-completion,
@@ -43,7 +43,7 @@ Recommends:
   patch,
   plocate | mlocate | locate,
   pwgen,
-  python3 (>= 3.7),
+  python3,
   rsync,
 Description: dseomn-standard
 
@@ -181,7 +181,7 @@ Recommends:
   simple-scan,
   thunderbird,
   thunderbird-l10n-nl,
-  vim-gtk3 (>= 2:8.0),
+  vim-gtk3,
 Description: dseomn-desktop
 
 Package: dseomn-desktop-full
