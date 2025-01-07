@@ -73,7 +73,7 @@ def main():
                 "--tab",
                 "--profile=exit-hold",
                 "--no-environment",
-                "--working-directory={pathlib.Path.home()}",
+                f"--working-directory={pathlib.Path.home()}",
                 "--",
                 "ssh",
                 host,
