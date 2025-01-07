@@ -36,6 +36,8 @@
 !/.config/snipphthalate/**
 !/.config/system-packages/
 !/.config/system-packages/**
+!/.config/systemd/
+!/.config/systemd/**
 !/.config/tmux/
 !/.config/tmux/**
 !/.config/whipper/
