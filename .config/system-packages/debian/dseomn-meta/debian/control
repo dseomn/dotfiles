@@ -229,6 +229,7 @@ Recommends:
   yubioath-desktop,
   zbar-tools,
 Suggests:
+  blobwars,
   frozen-bubble,
   kobodeluxe,
   lightyears,
@@ -236,5 +237,7 @@ Suggests:
   openrct2,
   performous,
   powermanga,
+  supertux,
   warmux,
+  warzone2100,
 Description: dseomn-desktop-full
