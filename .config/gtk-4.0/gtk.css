@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Google LLC
+ * Copyright 2025 David Mandelberg
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,11 @@
  */
 
 
-/* Reduce the height of default headerbars. */
-headerbar.default-decoration {
+/* Make Ptyxis's header and tab bars shorter. */
+.ptyxis-window headerbar {
+  min-height: 0;
+}
+.ptyxis-window headerbar button,
+.ptyxis-window tabbar tabbox {
   padding: 0;
 }

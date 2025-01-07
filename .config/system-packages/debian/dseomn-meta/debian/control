@@ -124,7 +124,7 @@ Depends:
   gnome-core,
   gnome-icon-theme,
   gnome-shell-extension-dash-to-panel,
-  gnome-terminal,
+  ptyxis,
 # Dependencies of dconf_load_yaml:
   python3-jinja2,
   python3-jsonschema,

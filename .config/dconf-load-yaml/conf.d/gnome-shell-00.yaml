@@ -34,7 +34,7 @@
           'wsmatrix@martin.zurowietz.de']
       - key: favorite-apps
         value: >-
-          ['org.gnome.Terminal.desktop',
+          ['org.gnome.Ptyxis.desktop',
           'firefox.desktop',
           'thunderbird.desktop',
           'pidgin.desktop',
