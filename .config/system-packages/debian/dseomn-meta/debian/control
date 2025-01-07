@@ -159,7 +159,7 @@ Recommends:
   ibus-gtk,
   ibus-gtk3,
   ibus-gtk4,
-  ibus-m17n,
+  ibus-typing-booster,
   imagemagick,
   libreoffice,
   libreoffice-gnome,

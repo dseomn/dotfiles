@@ -33,9 +33,9 @@
         - key: show-all-sources
           value: "true"
         - key: sources
-          value: "[('ibus', 'm17n:t:rfc1345-plus'), ('xkb', 'us')]"
+          value: "[('ibus', 'typing-booster'), ('xkb', 'us')]"
         - key: mru-sources
-          value: "[('ibus', 'm17n:t:rfc1345-plus'), ('xkb', 'us')]"
+          value: "[('ibus', 'typing-booster'), ('xkb', 'us')]"
         - key: xkb-options
           value: "['caps:escape_shifted_capslock']"
       - dir: interface
