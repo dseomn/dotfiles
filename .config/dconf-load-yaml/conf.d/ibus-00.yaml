@@ -76,6 +76,14 @@
           # enable_lookup and tabenable work to minimize use of the pre-edit.
           - key: addspaceoncommit
             value: "false"
+          - # See https://github.com/mike-fabian/ibus-typing-booster/issues/580
+            # for why prefercommit is set here.
+            key: autosettings
+            value: >-
+              [
+              ['prefercommit', 'false', '^[^:]*:blobwars:'],
+              ['prefercommit', 'false', '^[^:]*:supertuxkart:']
+              ]
           - key: candidatesdelaymilliseconds
             value: "@u 0"
           - key: dictionary
