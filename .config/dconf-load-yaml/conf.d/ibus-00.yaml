@@ -24,28 +24,18 @@
         reset: false
       - key: use-system-keyboard-layout
         value: "true"
-      - key: use-global-engine
-        value: "true"
       - key: enable-by-default
         value: "true"
       - key: engines-order
         value: "['typing-booster', 'xkb:us::eng']"
       - key: preload-engines
         value: "['typing-booster', 'xkb:us::eng']"
-      - key: embed-preedit-text
-        value: "true"
-      - key: switcher-delay-time
-        value: "400"
       - dir: hotkey
         children:
         - key: triggers
           value: "['<Control>space']"
     - dir: panel
       children:
-      - key: show
-        value: "0"
-      - key: show-icon-on-systray
-        value: "true"
       - dir: emoji
         children:
         - key: hotkey
@@ -54,8 +44,6 @@
           value: "true"
         - key: partial-match-condition
           value: "2"
-        - key: partial-match-length
-          value: "3"
         - key: favorite-annotations
           reset: false
         - key: favorites
