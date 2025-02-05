@@ -48,7 +48,7 @@ session_fmt="$(count windows)"
 session_fmt="${session_fmt}#{?session_grouped, | group #{session_group},}"
 session_fmt="${session_fmt}#{?session_attached, | $(count clients),}"
 
-window_fmt="#{pane_title} | #{pane_current_command}"
+window_fmt="#{?#{n:window_name},#{window_name} | ,}#{pane_title} | #{pane_current_command}"
 window_fmt="${window_fmt}#{?#{==:#{window_panes},1},, | $(count panes)}"
 
 pane_fmt="#{pane_title} | #{pane_current_command}"

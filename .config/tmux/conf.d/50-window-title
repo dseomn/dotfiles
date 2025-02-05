@@ -18,5 +18,5 @@
 tmux set -g set-titles on
 
 session_fmt="#{session_name}#{?session_many_attached,+,}:#{session_windows}[#{window_index}]"
-window_fmt="#{pane_title} | #{pane_current_command}"
+window_fmt="#{?#{n:window_name},#{window_name} | ,}#{pane_title} | #{pane_current_command}"
 tmux set -g set-titles-string "${session_fmt} | ${window_fmt}"
