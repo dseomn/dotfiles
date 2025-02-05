@@ -45,6 +45,8 @@
           'org.gnome.Nautilus.desktop']
       - key: had-bluetooth-devices-setup
         reset: false
+      - key: welcome-dialog-last-shown-version
+        reset: false
       - dir: app-switcher
         children:
         - key: current-workspace-only
