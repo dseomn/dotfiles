@@ -30,20 +30,6 @@
         value: "['typing-booster', 'xkb:us::eng']"
       - key: preload-engines
         value: "['typing-booster', 'xkb:us::eng']"
-    - dir: panel
-      children:
-      - dir: emoji
-        children:
-        - key: hotkey
-          value: "['<Control><Shift>e']"
-        - key: has-partial-match
-          value: "true"
-        - key: partial-match-condition
-          value: "2"
-        - key: favorite-annotations
-          reset: false
-        - key: favorites
-          reset: false
 - dir: org
   children:
   - dir: freedesktop

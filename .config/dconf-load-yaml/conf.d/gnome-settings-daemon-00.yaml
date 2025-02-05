@@ -48,9 +48,22 @@
             value: "['<Super>l', '<Primary><Alt>l']"
           - key: custom-keybindings
             value: >-
-              ['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/rotate-play-mode/']
+              [
+              '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/emoji-picker/',
+              '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/rotate-play-mode/',
+              '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/toggle-ibus-typing-booster/'
+              ]
           - dir: custom-keybindings
             children:
+            - dir: emoji-picker
+              children:
+              - key: name
+                value: "'Open emoji-picker'"
+              - key: binding
+                value: "'<Control><Shift><Alt>e'"
+              - key: command
+                value: >-
+                  "emoji-picker --all"
             - dir: rotate-play-mode
               children:
               - key: name
@@ -60,6 +73,18 @@
               - key: command
                 value: >-
                   "dconf-rotate-values /org/gnome/Lollypop/repeat \"'auto_random'\" \"'track'\""
+            - dir: toggle-ibus-typing-booster
+              children:
+              - key: name
+                value: "'Toggle ibus-typing-booster main features'"
+              - key: binding
+                value: "'<Control><Shift>e'"
+              - key: command
+                value: >-
+                  "bash -c \"
+                  dconf-rotate-values /org/freedesktop/ibus/engine/typing-booster/dictionary \\\"'None'\\\" \\\"'en_US'\\\" &&
+                  dconf-rotate-values /org/freedesktop/ibus/engine/typing-booster/tabenable \\\"true\\\" \\\"false\\\"
+                  \""
         - dir: power
           children:
           - key: sleep-inactive-ac-type
