@@ -23,6 +23,9 @@
 (include (t rfc1345) map map)
 
 (map
+  (overrides
+    ("&&" "&&")
+    )
   (extras
     ("&eI" "ə")  ; U+0259 LATIN SMALL LETTER SCHWA
     ("&_!" 0x0300)  ; U+0300 COMBINING GRAVE ACCENT
@@ -140,6 +143,7 @@
 
 (state
   (init
+    (overrides)
     (map)
     (extras)
     ))
