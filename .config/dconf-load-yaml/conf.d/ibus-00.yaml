@@ -30,10 +30,6 @@
         value: "['typing-booster', 'xkb:us::eng']"
       - key: preload-engines
         value: "['typing-booster', 'xkb:us::eng']"
-      - dir: hotkey
-        children:
-        - key: triggers
-          value: "['<Control>space']"
     - dir: panel
       children:
       - dir: emoji
