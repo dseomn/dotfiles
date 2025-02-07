@@ -51,8 +51,7 @@
             key: autosettings
             value: >-
               [
-              ['prefercommit', 'false', '^[^:]*:blobwars:'],
-              ['prefercommit', 'false', '^[^:]*:supertuxkart:']
+              ['prefercommit', 'false', '^SDL2_Application:']
               ]
           - key: candidatesdelaymilliseconds
             value: "@u 0"
