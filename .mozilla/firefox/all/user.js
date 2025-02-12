@@ -13,6 +13,9 @@
 // limitations under the License.
 
 
+user_pref("apz.gtk.kinetic_scroll.enabled", false);
+user_pref("apz.overscroll.enabled", false);
+
 user_pref("browser.aboutConfig.showWarning", false);
 
 user_pref("browser.download.always_ask_before_handling_new_types", true);
