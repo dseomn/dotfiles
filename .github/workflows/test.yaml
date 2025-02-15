@@ -54,7 +54,7 @@ jobs:
     - name: Check types
       # TODO(https://github.com/google/pytype/issues/1475): Remove this
       # condition.
-      if: ${{ matrix.python-version != '3.12' }}
+      if: ${{ matrix.python-version != '3.13' }}
       run: |
         pip install pytype
         cd .local/lib/python3/site-packages
