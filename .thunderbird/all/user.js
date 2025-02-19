@@ -15,6 +15,8 @@
  */
 
 // General.
+user_pref("apz.gtk.kinetic_scroll.enabled", false);
+user_pref("apz.overscroll.enabled", false);
 user_pref('general.warnOnAboutConfig', false);
 user_pref('mail.uidensity', 0);
 user_pref("ui.key.menuAccessKeyFocuses", false);
