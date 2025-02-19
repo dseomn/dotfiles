@@ -1,0 +1,36 @@
+# Copyright 2019 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+[org/gnome/gthumb/importer]
+/reset=true
+destination='file://{{ env.HOME }}/Pictures/Photographs/%5Bunsorted%5D'
+subfolder-template='%D{ %Y-%m-%d }'
+warn-delete-unsupported=false
+
+[org/gnome/gthumb/photo-importer]
+/reset=true
+delete-from-device=true
+
+[org/gnome/gthumb/pixbuf-savers]
+/reset=true
+
+[org/gnome/gthumb/pixbuf-savers/jpeg]
+default-ext='jpg'
+quality=100
+
+[org/gnome/gthumb/pixbuf-savers/png]
+compression-level=9
+
+[org/gnome/gthumb/pixbuf-savers/webp]
+lossless=true
