@@ -125,11 +125,7 @@ Depends:
   gnome-icon-theme,
   gnome-shell-extension-dash-to-panel,
   ptyxis,
-# Dependencies of dconf_load_yaml:
   python3-jinja2,
-  python3-jsonschema,
-  python3-yaml,
-# Dependencies of ~/.local/lib/inhibiter/inhibiter.py
   python3-pyudev,
 Recommends:
   blueman,
