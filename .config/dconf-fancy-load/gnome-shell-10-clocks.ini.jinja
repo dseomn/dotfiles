@@ -24,26 +24,16 @@
     "<(uint32 2, <('Sydney', 'YSSY', true, [(-0.59253928105207498, 2.6386469349889961)], [(-0.59137572239964786, 2.6392287230418559)])>)>",
 ] %}
 
-- dir: org
-  children:
-  - dir: gnome
-    children:
-    - dir: shell
-      children:
-      - dir: world-clocks
-        children:
-        - key: locations
-          value: >-
-            [{{ ', '.join(locations) }}]
-    - dir: clocks
-      reset: true
-      children:
-      - key: world-clocks
-        value: >-
-          [
-            {%- set comma = joiner(', ') -%}
-            {%- for location in locations -%}
-              {{- comma() -}}
-              {'location': {{ location -}} }
-            {%- endfor -%}
-          ]
+[org/gnome/shell/world-clocks]
+locations=[{{ ', '.join(locations) }}]
+
+[org/gnome/clocks]
+/reset=true
+world-clocks=
+  [
+    {%- set comma = joiner(', ') -%}
+    {%- for location in locations -%}
+      {{- comma() -}}
+      {'location': {{ location -}} }
+    {%- endfor -%}
+  ]
