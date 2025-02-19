@@ -12,17 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+[org/gnome/system]
+/reset=true
 
-- dir: org
-  children:
-  - dir: gnome
-    children:
-    - dir: system
-      reset: true
-      children:
-      - dir: location
-        children:
-        - key: enabled
-          value: "true"
-        - key: max-accuracy-level
-          value: "'city'"
+[org/gnome/system/location]
+enabled=true
+max-accuracy-level='city'
