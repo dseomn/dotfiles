@@ -8,8 +8,8 @@
 !/.config/config-merge-template/**
 !/.config/containers/
 !/.config/containers/**
-!/.config/dconf-load-yaml/
-!/.config/dconf-load-yaml/**
+!/.config/dconf-fancy-load/
+!/.config/dconf-fancy-load/**
 !/.config/dir-alias/
 !/.config/dir-alias/**
 !/.config/dotfiles/
@@ -110,6 +110,7 @@
 !/third_party/**
 
 /.config/dotfiles/conf.local.d/
+/.local/bin/dconf-fancy-load
 /.ssh/authorized_keys
 /.ssh/control/**
 /.ssh/id_*
