@@ -1,0 +1,129 @@
+# Copyright 2020 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+[org/gnome/shell]
+/reset=true
+command-history/reset=false
+# TODO(https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1086595): Switch back
+# to a better system-monitor with graphs.
+enabled-extensions=
+  [
+    'caffeine@patapon.info',
+    'dash-to-panel@jderose9.github.com',
+    'no-overview@fthx',
+    'system-monitor@gnome-shell-extensions.gcampax.github.com',
+    'ubuntu-appindicators@ubuntu.com',
+    'wsmatrix@martin.zurowietz.de'
+  ]
+favorite-apps=
+  [
+    'org.gnome.Ptyxis.desktop',
+    'firefox.desktop',
+    'thunderbird.desktop',
+    'pidgin.desktop',
+    'io.github.quodlibet.QuodLibet.desktop',
+    'org.musicbrainz.Picard.desktop',
+    'io.github.quodlibet.ExFalso.desktop',
+    'org.gnome.gThumb.desktop',
+    'org.gnome.Nautilus.desktop'
+  ]
+had-bluetooth-devices-setup/reset=false
+welcome-dialog-last-shown-version/reset=false
+
+[org/gnome/shell/app-switcher]
+current-workspace-only=true
+
+[org/gnome/shell/extensions/caffeine]
+countdown-timer/reset=false
+enable-fullscreen=false
+restore-state=true
+show-notifications=false
+toggle-state/reset=false
+user-enabled/reset=false
+
+[org/gnome/shell/extensions/dash-to-panel]
+appicon-margin=4
+appicon-padding=2
+click-action='CYCLE'
+dot-style-focused='SEGMENTED'
+dot-style-unfocused='SEGMENTED'
+multi-monitors=false
+panel-element-positions=
+  '{
+    "0": [
+      {
+        "element": "showAppsButton",
+        "visible": true,
+        "position": "stackedTL"
+      },
+      {
+        "element": "activitiesButton",
+        "visible": false,
+        "position": "stackedTL"
+      },
+      {
+        "element": "leftBox",
+        "visible": true,
+        "position": "stackedTL"
+      },
+      {
+        "element": "taskbar",
+        "visible": true,
+        "position": "stackedTL"
+      },
+      {
+        "element": "centerBox",
+        "visible": true,
+        "position": "centerMonitor"
+      },
+      {
+        "element": "dateMenu",
+        "visible": true,
+        "position": "centerMonitor"
+      },
+      {
+        "element": "rightBox",
+        "visible": true,
+        "position": "stackedBR"
+      },
+      {
+        "element": "systemMenu",
+        "visible": true,
+        "position": "stackedBR"
+      },
+      {
+        "element": "desktopButton",
+        "visible": false,
+        "position": "stackedBR"
+      }
+    ]
+  }'
+panel-position='TOP'
+panel-size=28
+scroll-panel-action='NOTHING'
+show-window-previews=false
+
+[org/gnome/shell/extensions/wsmatrix]
+multi-monitor=true
+num-columns=4
+num-rows=3
+popup-timeout=0
+show-workspace-names=false
+
+[org/gnome/shell/keybindings]
+screenshot=@as []
+screenshot-window=@as []
+
+[org/gnome/shell/weather]
+locations/reset=false
