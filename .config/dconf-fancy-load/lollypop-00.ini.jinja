@@ -1,0 +1,37 @@
+# Copyright 2023 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# For the magic numbers below, see
+# https://gitlab.gnome.org/World/lollypop/-/blob/master/lollypop/define.py
+[org/gnome/Lollypop]
+/reset=true
+artist-artwork=false
+auto-update=false
+cover-size=256
+flatpak-access-migration/reset=false
+music-uris=['file://{{ env['HOME'] }}/Music/default-profile']
+network-access-acl={{ 0b00000000001000000100 }}
+# https://gitlab.gnome.org/World/lollypop/-/blob/master/lollypop/container_notification.py
+notification-flag={{ 0b11 }}
+notifications='mpris'
+repeat='auto_random'
+replay-gain='album'
+replay-gain-db=-12.0
+save-state=true
+show-tag-tracknumber=true
+shown-album-lists=[-4, -5, -13, -15, -99, -101, -103]
+transitions=false
+window-maximized/reset=false
+window-position/reset=false
+window-size/reset=false
