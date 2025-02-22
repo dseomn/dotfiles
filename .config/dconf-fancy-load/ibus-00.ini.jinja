@@ -30,10 +30,9 @@ preload-engines=['typing-booster', 'xkb:us::eng']
 # https://mike-fabian.github.io/ibus-typing-booster/docs/user/ for how
 # enable_lookup and tabenable work to minimize use of the pre-edit.
 addspaceoncommit=false
-# See https://github.com/mike-fabian/ibus-typing-booster/issues/580 for why
-# prefercommit is set here.
 autosettings=
   [
+    # https://github.com/mike-fabian/ibus-typing-booster/issues/580
     ['prefercommit', 'false', '^SDL2_Application:']
   ]
 candidatesdelaymilliseconds=@u 0
