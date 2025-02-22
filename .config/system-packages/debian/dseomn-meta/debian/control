@@ -222,6 +222,7 @@ Recommends:
   vorbis-tools,
   whipper,
   yubikey-manager,
+  yubikey-touch-detector,
   yubioath-desktop,
   zbar-tools,
 Suggests:

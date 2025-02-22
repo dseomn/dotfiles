@@ -46,6 +46,8 @@
 !/.config/yadm/**
 !/.config/yapf/
 !/.config/yapf/**
+!/.config/yubikey-touch-detector/
+!/.config/yubikey-touch-detector/**
 !/.gitconfig
 !/.github/
 !/.github/**
