@@ -26,9 +26,6 @@ preload-engines=['typing-booster', 'xkb:us::eng']
 /reset=true
 
 [org/freedesktop/ibus/engine/typing-booster]
-# See section "Simulate the behaviour of ibus-m17n" of
-# https://mike-fabian.github.io/ibus-typing-booster/docs/user/ for how
-# enable_lookup and tabenable work to minimize use of the pre-edit.
 addspaceoncommit=false
 autosettings=
   [
@@ -36,8 +33,9 @@ autosettings=
     ['prefercommit', 'false', '^SDL2_Application:']
   ]
 candidatesdelaymilliseconds=@u 0
-dictionary='None'
-emojipredictions=true
+dictionary='en_US'
+emojipredictions=false
+emojitriggercharacters=''
 inputmethod='t-rfc1345-plus'
 keybindings=
   {
@@ -47,7 +45,7 @@ keybindings=
     'commit_candidate_{{ i }}': <['KP_{{ i }}', 'F{{ i }}']>,
     'commit_candidate_{{ i }}_plus_space': <@as []>,
     {%- endfor %}
-    'enable_lookup': <@as []>,
+    'toggle_emoji_prediction': <['Shift+Control+E']>,
     'toggle_off_the_record': <@as []>
   }
 offtherecord=true
@@ -55,4 +53,4 @@ pagesize=9
 # 3 means nothing
 recordmode=3
 shownumberofcandidates=true
-tabenable=true
+wordpredictions=false

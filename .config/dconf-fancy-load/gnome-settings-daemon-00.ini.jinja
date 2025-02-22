@@ -32,7 +32,7 @@ custom-keybindings=
   [
     '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/emoji-picker/',
     '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/rotate-play-mode/',
-    '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/toggle-ibus-typing-booster/'
+    '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/toggle-word-predictions/'
   ]
 
 [org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/emoji-picker]
@@ -45,14 +45,10 @@ name='Rotate music play mode'
 binding='<Shift><Alt>question'
 command="dconf-rotate-values /org/gnome/Lollypop/repeat \"'auto_random'\" \"'track'\""
 
-[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/toggle-ibus-typing-booster]
-name='Toggle ibus-typing-booster main features'
-binding='<Control><Shift>e'
-command=
-  "bash -c \"
-  dconf-rotate-values /org/freedesktop/ibus/engine/typing-booster/dictionary \\\"'None'\\\" \\\"'en_US'\\\" &&
-  dconf-rotate-values /org/freedesktop/ibus/engine/typing-booster/tabenable \\\"true\\\" \\\"false\\\"
-  \""
+[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/toggle-word-predictions]
+name='Toggle ibus-typing-booster word predictions'
+binding='<Control><Alt>e'
+command="dconf-rotate-values /org/freedesktop/ibus/engine/typing-booster/wordpredictions false true"
 
 [org/gnome/settings-daemon/plugins/power]
 sleep-inactive-ac-type='nothing'
