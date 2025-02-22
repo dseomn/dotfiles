@@ -48,11 +48,12 @@ for package_dir in "${workdir}/debian"/*; do
 done
 
 
-(
-  cd "${workdir}/debian" || exit 1
-  dpkg-scanpackages . > Packages || exit 1
-) || exit 1
+with_source_args=()
+for package in "${workdir}/debian"/*.deb; do
+  [[ -f "$package" ]] || continue
+  with_source_args+=("--with-source=${package}")
+done
 
 
 sudo apt-get $YADM_BOOTSTRAP_APT_GET_OPTIONS \
-  --with-source "${workdir}/debian/Packages" install $to_install
+  "${with_source_args[@]}" install $to_install
