@@ -90,7 +90,7 @@ def main():
                     "-dPS",
                     f"-c{pathlib.Path.home()}",
                     "-F#{session_id}:#{window_id}",
-                    f"-nssh {host}",
+                    f"-n🛂 ssh {host}",
                 ),
                 stdout=subprocess.PIPE,
                 check=True,
