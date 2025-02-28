@@ -1,4 +1,4 @@
-" Copyright 2018 Google LLC
+" Copyright 2025 David Mandelberg
 "
 " Licensed under the Apache License, Version 2.0 (the "License");
 " you may not use this file except in compliance with the License.
@@ -13,10 +13,5 @@
 " limitations under the License.
 
 
-" Interpret "\ec" as <M-c> for all ascii letters 'c'.
-for s:char_nr in
-    \ range(char2nr('a'), char2nr('z')) + range(char2nr('A'), char2nr('Z'))
-  let s:char = nr2char(s:char_nr)
-  " See :help :set-termcap
-  exe 'set <M-' . s:char . ">=\e" . s:char
-endfor
+" tmux supports mok2 if extended-keys is set to on or always.
+set keyprotocol+=tmux:mok2
