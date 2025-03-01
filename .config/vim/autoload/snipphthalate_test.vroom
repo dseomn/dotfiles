@@ -16,7 +16,7 @@
 
 Setup python.
 
-  :let g:py3_site_dir = $VROOMDIR . '/../../.local/lib/python3/site-packages'
+  :let g:py3_site_dir = $VROOMDIR . '/../../../.local/lib/python3/site-packages'
   :py3 import sys
   :py3 sys.path += [vim.vars['py3_site_dir'].decode()]
 
