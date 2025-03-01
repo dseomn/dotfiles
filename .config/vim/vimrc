@@ -13,6 +13,6 @@
 " limitations under the License.
 
 
-for s:vimrc in glob("~/.vim/vimrc.d/*.vim", v:false, v:true)
+for s:vimrc in glob("~/.config/vim/vimrc.d/*.vim", v:false, v:true)
   exe "source" fnameescape(s:vimrc)
 endfor

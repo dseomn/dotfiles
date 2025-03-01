@@ -31,8 +31,7 @@ try chmod go-rwx \
     ~/.local \
     ~/.mozilla \
     ~/.ssh \
-    ~/.thunderbird \
-    ~/.vim
+    ~/.thunderbird
 
 
 # Same, but for directories not created by this repository.

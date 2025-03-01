@@ -15,7 +15,7 @@
 
 " Where to store state. This should be somewhere that is backed up (not
 " ~/.cache) so that unsaved work in swap files is not lost.
-let s:state_dir = expand("~/.vim/state")
+let s:state_dir = expand("~/.local/state/vim")
 
 
 " Joins the state directory with all arguments, creates the resulting

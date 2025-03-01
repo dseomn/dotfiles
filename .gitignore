@@ -40,6 +40,8 @@
 !/.config/systemd/**
 !/.config/tmux/
 !/.config/tmux/**
+!/.config/vim/
+!/.config/vim/**
 !/.config/whipper/
 !/.config/whipper/**
 !/.config/yadm/
@@ -107,9 +109,6 @@
 !/.thunderbird/
 !/.thunderbird/all/
 !/.thunderbird/all/**
-!/.vim/
-!/.vim/**
-!/.vimrc
 !/third_party/
 !/third_party/**
 
@@ -118,7 +117,6 @@
 /.ssh/authorized_keys
 /.ssh/control/**
 /.ssh/id_*
-/.vim/state/
 /third_party/vim-*/doc/tags
 
 *.pyc
