@@ -16,10 +16,21 @@
 set completeopt=menu,preview,longest
 
 
-" Add easier-to-remember mappings for using the pop-up menu.
+" Add easier-to-remember mappings for using the pop-up menu. Note that the
+" mappings are different between modes, because completion works differently
+" in the different modes. If the highlighted candidate is not already filled
+" in (insert mode), <CR> selects it. If the highlighted candidate is already
+" filled in (command mode), <CR> works as usual. In all cases, <ESC> closes
+" the popup without changing the text that's already filled in before the
+" cursor.
+"
+" See https://github.com/vim/vim/discussions/16774 for why C-C is used in
+" command-line mode.
 inoremap <expr> <CR> pumvisible() ? "<C-Y>" : "<CR>"
 inoremap <expr> <ESC> pumvisible() ? "<C-E>" : "<ESC>"
+cnoremap <expr> <ESC> pumvisible() ? "<C-Y>" : "<C-C>"
 
 
 set wildmenu
 set wildmode=longest:full
+set wildoptions=pum
