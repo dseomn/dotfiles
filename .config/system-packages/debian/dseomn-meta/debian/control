@@ -130,7 +130,7 @@ Depends:
   python3-pyudev,
 Recommends:
   blueman,
-  d-feet,
+  d-spy,
   dconf-editor,
   dseomn-dev (= ${source:Version}),
   easyeffects,
