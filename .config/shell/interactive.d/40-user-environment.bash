@@ -26,3 +26,7 @@ unset editor_candidate
 export MANPAGER='env PAGER_TYPE=man editor-pager'
 export MANWIDTH=80
 export MANOPT="--no-hyphenation"
+
+
+export GIT_COMPLETION_SHOW_ALL=1
+export GIT_COMPLETION_SHOW_ALL_COMMANDS=1
