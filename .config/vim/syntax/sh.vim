@@ -18,5 +18,6 @@
 let g:is_posix = v:true
 
 
-" Fold only on functions.
-let g:sh_fold_enabled = 1
+" Vim's sh syntax folding seems to be really slow on larger files like
+" https://github.com/git/git/blob/master/contrib/completion/git-completion.bash
+let g:sh_fold_enabled = 0
