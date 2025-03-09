@@ -58,6 +58,9 @@
 	autoSquash = true
 	missingCommitsCheck = error
 
+[revert]
+	reference = true
+
 [core]
 	logAllRefUpdates = always
 
