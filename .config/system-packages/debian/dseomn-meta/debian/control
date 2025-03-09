@@ -230,6 +230,7 @@ Recommends:
 Suggests:
   blobwars,
   frozen-bubble,
+  hedgewars,
   kobodeluxe,
   lightyears,
   naev,
