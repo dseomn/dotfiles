@@ -16,4 +16,8 @@
 syntax on
 
 
+" Don't make text invisible.
+hi Ignore ctermfg=darkgray
+
+
 filetype plugin on
