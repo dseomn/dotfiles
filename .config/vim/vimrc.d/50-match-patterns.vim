@@ -43,7 +43,12 @@ function! s:MergeMarkerPattern(char_pattern) abort
 endfunction
 call custommatches#AddPatterns(
     \ 'mergeMarker',
-    \ s:MergeMarkerPattern('[<|=]'),
+    \ s:MergeMarkerPattern('[<|]'),
+    \)
+call custommatches#AddPatternsIf(
+    \ {-> index(['asciidoc', 'help'], &filetype) < 0},
+    \ 'mergeMarker',
+    \ s:MergeMarkerPattern('='),
     \)
 " An email message with nested replies could easily have lines that look like
 " '>>>>>>>' merge markers, so don't highlight that pattern for emails.
