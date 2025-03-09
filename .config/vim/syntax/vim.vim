@@ -13,5 +13,4 @@
 " limitations under the License.
 
 
-" Fold augroups and functions.
-let g:vimsyn_folding = "af"
+let g:vimsyn_folding = "f"
