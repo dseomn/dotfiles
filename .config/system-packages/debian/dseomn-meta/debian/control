@@ -161,7 +161,6 @@ Recommends:
   libreoffice,
   libreoffice-gnome,
   libreoffice-l10n-nl,
-  lollypop,
   m17n-db,
   network-manager-gnome,
   pidgin,

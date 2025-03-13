@@ -31,7 +31,6 @@ screensaver=['<Super>l', '<Primary><Alt>l']
 custom-keybindings=
   [
     '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/emoji-picker/',
-    '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/rotate-play-mode/',
     '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/toggle-word-predictions/'
   ]
 
@@ -39,11 +38,6 @@ custom-keybindings=
 name='Open emoji-picker'
 binding='<Control><Alt>e'
 command='emoji-picker --all'
-
-[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/rotate-play-mode]
-name='Rotate music play mode'
-binding='<Shift><Alt>question'
-command="dconf-rotate-values /org/gnome/Lollypop/repeat \"'auto_random'\" \"'track'\""
 
 [org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/toggle-word-predictions]
 name='Toggle ibus-typing-booster word predictions'
