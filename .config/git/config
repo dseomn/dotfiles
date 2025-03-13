@@ -1,4 +1,11 @@
 [alias]
+	# commit
+	amend = commit --reset-author --amend -C HEAD
+	reword = commit --reset-author --amend -c HEAD --only
+
+	# diff
+	d = diff
+
 	# log
 	r = log --pretty=fuller --stat -p --reverse
 	rin = r ..@{upstream}
@@ -13,18 +20,11 @@
 		bases=\"$(git merge-base --all --octopus ${all})\" && \
 		git g ${all} --not ${bases}"
 
-	# commit
-	amend = commit --reset-author --amend -C HEAD
-	reword = commit --reset-author --amend -c HEAD --only
-
-	# diff
-	d = diff
+	# push
+	fpush = push --force-with-lease
 
 	# status
 	st = status
-
-	# push
-	fpush = push --force-with-lease
 
 [color]
 	ui = true
@@ -33,10 +33,10 @@
 	logAllRefUpdates = always
 
 [diff]
-	mnemonicPrefix = true
-	renames = true
 	algorithm = histogram
 	colorMoved = true
+	mnemonicPrefix = true
+	renames = true
 
 [init]
 	defaultBranch = main
