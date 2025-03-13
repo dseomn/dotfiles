@@ -1,7 +1,3 @@
-[user]
-	email = david@mandelberg.org
-	name = David Mandelberg
-
 [alias]
 	# log
 	r = log --pretty=fuller --stat -p --reverse
@@ -30,14 +26,11 @@
 	# push
 	fpush = push --force-with-lease
 
-[pretty]
-	shorter = tformat:%C(auto)%h %ae %C(blue)%ar%C(auto)%d%n%s
-
 [color]
 	ui = true
 
-[init]
-	defaultBranch = main
+[core]
+	logAllRefUpdates = always
 
 [diff]
 	mnemonicPrefix = true
@@ -45,14 +38,17 @@
 	algorithm = histogram
 	colorMoved = true
 
-[status]
-	showStash = true
-
-[push]
-	default = upstream
+[init]
+	defaultBranch = main
 
 [merge]
 	conflictStyle = diff3
+
+[pretty]
+	shorter = tformat:%C(auto)%h %ae %C(blue)%ar%C(auto)%d%n%s
+
+[push]
+	default = upstream
 
 [rebase]
 	autoSquash = true
@@ -61,8 +57,8 @@
 [revert]
 	reference = true
 
-[core]
-	logAllRefUpdates = always
+[status]
+	showStash = true
 
 [transfer]
 	fsckObjects = true
@@ -81,6 +77,10 @@
 
 [url "ssh://git@ssh.gitlab.gnome.org/"]
 	pushInsteadOf = https://gitlab.gnome.org/
+
+[user]
+	email = david@mandelberg.org
+	name = David Mandelberg
 
 [include]
 	path = config.local
