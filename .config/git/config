@@ -26,6 +26,9 @@
 	# status
 	st = status
 
+[clean]
+	requireForce = false
+
 [commit]
 	verbose = true
 
