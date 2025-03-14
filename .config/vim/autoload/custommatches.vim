@@ -48,13 +48,6 @@ function! custommatches#ResetMatches() abort
 endfunction
 
 
-" Excludes the current buffer from all custom matches.
-function! custommatches#ExcludeBuffer() abort
-  let b:custommatches_excluded = v:true
-  call s:DeleteMatchesLocal()
-endfunction
-
-
 " End public interface.
 
 

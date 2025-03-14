@@ -82,25 +82,3 @@ custommatches.
 Clean up.
 
   :call matchdelete(to_clean_up)
-
-
-
-Test that matches are not set up in an excluded buffer.
-
-  :buffer
-  :call custommatches#ExcludeBuffer()
-  :echomsg string(len(getmatches()))
-  ~ 0
-
-
-
-Test that ExcludeBuffer doesn't affect other buffers.
-
-  :buffer
-  :new
-  :call custommatches#ExcludeBuffer()
-  :echomsg string(len(getmatches()))
-  ~ 0
-  :wincmd w
-  :echomsg string(len(getmatches()))
-  ~ [23] (glob)

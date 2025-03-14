@@ -14,7 +14,8 @@
 
 
 " Generic TODO highlights.
-call custommatches#AddPatterns(
+call custommatches#AddPatternsIf(
+    \ {-> &modifiable},
     \ 'Todo',
     \ '\<BUGS\?\>',
     \ '\<DO NOT\( [A-Z]\+\)\+\>',
@@ -41,19 +42,20 @@ hi link mergeMarker Error
 function! s:MergeMarkerPattern(char_pattern) abort
   return '^\(' . a:char_pattern . '\)\1\{3,}\(\s.*\)\?$'
 endfunction
-call custommatches#AddPatterns(
+call custommatches#AddPatternsIf(
+    \ {-> &modifiable},
     \ 'mergeMarker',
     \ s:MergeMarkerPattern('[<|]'),
     \)
 call custommatches#AddPatternsIf(
-    \ {-> index(['asciidoc', 'help'], &filetype) < 0},
+    \ {-> &modifiable && index(['asciidoc', 'help'], &filetype) < 0},
     \ 'mergeMarker',
     \ s:MergeMarkerPattern('='),
     \)
 " An email message with nested replies could easily have lines that look like
 " '>>>>>>>' merge markers, so don't highlight that pattern for emails.
 call custommatches#AddPatternsIf(
-    \ {-> &filetype != 'mail'},
+    \ {-> &modifiable && &filetype != 'mail'},
     \ 'mergeMarker',
     \ s:MergeMarkerPattern('>'),
     \)
@@ -68,7 +70,8 @@ hi link invalidWhitespace Todo
 "    the beginning of the file.
 " 4. Blank lines at the end of the file, except when the cursor is at the end
 "    of the file.
-call custommatches#AddPatterns(
+call custommatches#AddPatternsIf(
+    \ {-> &modifiable},
     \ 'invalidWhitespace',
     \ '\s\+\%#\@1<!$',
     \ ' \+\ze\t',
@@ -78,7 +81,7 @@ call custommatches#AddPatterns(
 
 " Any tabs, but only when expandtab is set.
 call custommatches#AddPatternsIf(
-    \ {-> &expandtab},
+    \ {-> &modifiable && &expandtab},
     \ 'invalidWhitespace',
     \ '\t',
     \)

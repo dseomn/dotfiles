@@ -26,4 +26,8 @@ imap <M-s> <C-\><C-O>:Snipphthalate<SPACE>
 
 " Highlight snippet variable placeholders.
 highlight default link snipphthalatePlaceholder Error
-call custommatches#AddPatterns('snipphthalatePlaceholder', '\m@!.\{-}!@')
+call custommatches#AddPatternsIf(
+    \ {-> &modifiable},
+    \ 'snipphthalatePlaceholder',
+    \ '\m@!.\{-}!@',
+    \)
