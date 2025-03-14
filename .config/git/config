@@ -26,6 +26,8 @@
 	# status
 	st = status
 
+[commit]
+	verbose = true
 
 [core]
 	logAllRefUpdates = always
