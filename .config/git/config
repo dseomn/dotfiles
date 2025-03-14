@@ -26,8 +26,6 @@
 	# status
 	st = status
 
-[color]
-	ui = true
 
 [core]
 	logAllRefUpdates = always
