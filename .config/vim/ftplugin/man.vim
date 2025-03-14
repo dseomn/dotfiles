@@ -20,7 +20,4 @@ let g:ft_man_folding_enable = v:true
 if &filetype != 'man' | finish | endif
 
 
-setlocal textwidth=0
-
-
 call custommatches#ExcludeBuffer()

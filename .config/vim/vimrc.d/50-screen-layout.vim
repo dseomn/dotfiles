@@ -25,8 +25,18 @@ set notitle
 set showcmd
 
 
-" Highlight the first column after textwidth.
-set colorcolumn=+1
+" Highlight the first column after textwidth in modifiable buffers. In
+" nomodifiable buffers like man pages and vim help, it's not useful.
+function! s:UpdateColorColumn() abort
+  if &modifiable
+    setlocal colorcolumn=+1
+  else
+    setlocal colorcolumn=
+  endif
+endfunction
+au VimEnter * tabdo windo call s:UpdateColorColumn()
+au WinNew,BufWinEnter,BufWinLeave * call s:UpdateColorColumn()
+au OptionSet modifiable call s:UpdateColorColumn()
 
 
 " Open new vertical splits to the right, and make it easier to use vertical
