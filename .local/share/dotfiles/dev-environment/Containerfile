@@ -1,0 +1,42 @@
+# Copyright 2021 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+FROM debian:testing
+
+ENV LANG C.UTF-8
+
+RUN apt-get update && apt-get -y install tasksel
+RUN apt-get -y install $(tasksel --task-packages standard)
+
+RUN apt-get update && apt-get -y install curl git sudo
+
+RUN \
+  adduser --disabled-password --gecos '' --add_extra_groups dseomn && \
+  adduser dseomn sudo && \
+  echo '%sudo ALL = (ALL:ALL) NOPASSWD: ALL' > /etc/sudoers.d/nopasswd
+
+RUN \
+  sudo -u dseomn mkdir -p \
+    /home/dseomn/.local/bin \
+    /home/dseomn/.config/dotfiles/conf.local.d && \
+  sudo -u dseomn curl -o /home/dseomn/.local/bin/yadm \
+    https://raw.githubusercontent.com/dseomn/dotfiles/public/third_party/yadm/yadm && \
+  sudo -u dseomn chmod +x /home/dseomn/.local/bin/yadm && \
+  sudo -u dseomn -H /home/dseomn/.local/bin/yadm clone \
+    --no-bootstrap -f https://github.com/dseomn/dotfiles.git && \
+  sudo -u dseomn -H /home/dseomn/.local/bin/yadm reset --hard HEAD && \
+  printf '[system-packages "debian"]\ninstall = dseomn-dev\n' | \
+    sudo -u dseomn tee /home/dseomn/.config/dotfiles/conf.local.d/local.cfg && \
+  sudo -u dseomn -H \
+    YADM_BOOTSTRAP_APT_GET_OPTIONS=-y /home/dseomn/.local/bin/yadm bootstrap
