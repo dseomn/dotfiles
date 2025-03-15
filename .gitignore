@@ -88,6 +88,8 @@
 !/.local/share/
 !/.local/share/bash-completion/
 !/.local/share/bash-completion/**
+!/.local/share/dotfiles/
+!/.local/share/dotfiles/**
 !/.local/share/endless-sky/
 !/.local/share/endless-sky/plugins/
 !/.local/share/endless-sky/plugins/**
