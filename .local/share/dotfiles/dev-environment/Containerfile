@@ -40,3 +40,5 @@ RUN \
     sudo -u dseomn tee /home/dseomn/.config/dotfiles/conf.local.d/local.cfg && \
   sudo -u dseomn -H \
     YADM_BOOTSTRAP_APT_GET_OPTIONS=-y /home/dseomn/.local/bin/yadm bootstrap
+
+CMD ["bash", "-l"]
