@@ -44,8 +44,6 @@
 !/.config/vim/**
 !/.config/whipper/
 !/.config/whipper/**
-!/.config/yadm/
-!/.config/yadm/**
 !/.config/yapf/
 !/.config/yapf/**
 !/.config/yubikey-touch-detector/
