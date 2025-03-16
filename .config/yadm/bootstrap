@@ -41,9 +41,6 @@ try yadm_unset_local status.showUntrackedFiles
 try dotfiles-update
 
 
-try check-environment
-
-
 # For the list of folders to check for new messages, see:
 # https://searchfox.org/comm-central/rev/4514b5d76206d03ddddced18e40cdd67fde36ee7/mailnews/imap/src/nsImapIncomingServer.cpp#2713-2714
 # https://searchfox.org/comm-central/rev/4514b5d76206d03ddddced18e40cdd67fde36ee7/mailnews/imap/src/nsImapMailFolder.cpp#2365-2366
