@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/mzur/gnome-shell-wsmatrix
+	branch = master
+	commit = 39ece285dde25c4bb89b91af0710e9392922a7e1
+	parent = bc87e08cb9812386b5e7542f7025d574d15a033a
+	method = merge
+	cmdver = 0.4.9
