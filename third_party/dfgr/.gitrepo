@@ -6,7 +6,7 @@
 [subrepo]
 	remote = https://github.com/dseomn/dfgr.git
 	branch = main
-	commit = 6c661df94b567ecdcd29a3eaced1862e60317b02
-	parent = 2f125af8c21ad4ce6a600708b9e331c2a0802376
+	commit = ec2ac969b39291848a007a84e52dda31cfe1c9ae
+	parent = cc757b27036772a4c722848da6b02199c785213c
 	method = merge
 	cmdver = 0.4.9
