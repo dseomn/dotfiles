@@ -1,0 +1,8 @@
+*
+
+!/.gitignore
+!/profile_*/
+!/profile_*/*.py
+!/profile_*/startup/
+!/profile_*/startup/*.ipy
+!/profile_*/startup/*.py

@@ -54,16 +54,11 @@
 !/.github/
 !/.github/**
 !/.gnupg/
-!/.gnupg/keyring.d/
-!/.gnupg/keyring.d/**
+!/.gnupg/**
 !/.hgrc
 !/.inputrc.local
 !/.ipython/
-!/.ipython/profile_*/
-!/.ipython/profile_*/*.py
-!/.ipython/profile_*/startup/
-!/.ipython/profile_*/startup/*.ipy
-!/.ipython/profile_*/startup/*.py
+!/.ipython/**
 !/.local/
 !/.local/bin/
 !/.local/bin/**
@@ -113,13 +108,6 @@
 !/.thunderbird/all/**
 !/third_party/
 !/third_party/**
-
-/.config/dotfiles/conf.local.d/
-/.local/bin/dconf-fancy-load
-/.ssh/authorized_keys
-/.ssh/control/**
-/.ssh/id_*
-/third_party/vim-*/doc/tags
 
 *.pyc
 *.pyo
