@@ -16,13 +16,13 @@
 shrcutil_source /usr/lib/git-core/git-sh-prompt || return
 
 
-# Show YADM (https://thelocehiliosan.github.io/yadm/) status.
+# Show dfgr (https://github.com/dseomn/dfgr) status.
 #
-# YADM status is not per-directory, so there isn't a particularly good way to
+# dfgr status is not per-directory, so there isn't a particularly good way to
 # know when it's relevant. To compensate, hide the status when on the "correct"
 # branch in a clean, up-to-date state.
-__prompt_part_yadm() {
-  [[ -d ~/.local/share/yadm/repo.git ]] || return
+__prompt_part_dfgr() {
+  [[ -d ~/.local/share/dfgr/dotfiles.git ]] || return
 
   # Dotfiles affect the general environment, not just paths under $HOME, so the
   # `cd` commands below are to show the same status regardless of $PWD. Most of
@@ -31,9 +31,9 @@ __prompt_part_yadm() {
 
   local target_branch="$(dotfiles-config --get dotfiles.branch)"
 
-  local yadm_ps1="$(
+  local dfgr_ps1="$(
     cd
-    export GIT_DIR=~/.local/share/yadm/repo.git
+    export GIT_DIR=~/.local/share/dfgr/dotfiles.git
     GIT_PS1_SHOWCONFLICTSTATE=yes
     GIT_PS1_SHOWDIRTYSTATE=yes
     GIT_PS1_SHOWSTASHSTATE=yes
@@ -44,14 +44,14 @@ __prompt_part_yadm() {
 
   if
       [[ -z "$target_branch" ]] ||
-      [[ "$yadm_ps1" != "${target_branch} =" ]]
+      [[ "$dfgr_ps1" != "${target_branch} =" ]]
       then
     prompt_append_raw ' ('
-    prompt_append_raw 'yadm' "${FgMagenta}"
+    prompt_append_raw 'dfgr' "${FgMagenta}"
     prompt_append_raw ': '
-    prompt_append "$yadm_ps1"
+    prompt_append "$dfgr_ps1"
     prompt_append_raw ')'
   fi
 }
 
-prompt_register __prompt_part_yadm ps1
+prompt_register __prompt_part_dfgr ps1
