@@ -1,0 +1,6 @@
+/Picard-*.ini
+/Picard.ini
+/Picard.ini.old
+/Picard/plugins/*.zip
+
+.*.synclock

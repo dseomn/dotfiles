@@ -1,6 +1,13 @@
 *
 
+!/.bash_login
+!/.bash_profile
+!/.bashrc
 !/.config/
+!/.config/MusicBrainz/
+!/.config/MusicBrainz/**
+!/.config/OpenRCT2/
+!/.config/OpenRCT2/**
 !/.config/autostart/
 !/.config/autostart/**
 !/.config/black
@@ -24,6 +31,10 @@
 !/.config/fontconfig/**
 !/.config/git/
 !/.config/git/**
+!/.config/gthumb/
+!/.config/gthumb/**
+!/.config/gtk-*/
+!/.config/gtk-*/**
 !/.config/hg/
 !/.config/hg/**
 !/.config/pipewire/
@@ -53,9 +64,12 @@
 !/.gitconfig
 !/.github/
 !/.github/**
+!/.gitignore
 !/.gnupg/
 !/.gnupg/**
+!/.guile
 !/.hgrc
+!/.inputrc
 !/.inputrc.local
 !/.ipython/
 !/.ipython/**
@@ -101,11 +115,13 @@
 !/.mozilla/firefox/
 !/.mozilla/firefox/all/
 !/.mozilla/firefox/all/**
+!/.profile
 !/.ssh/
 !/.ssh/**
 !/.thunderbird/
 !/.thunderbird/all/
 !/.thunderbird/all/**
+!/LICENSE
 !/third_party/
 !/third_party/**
 
