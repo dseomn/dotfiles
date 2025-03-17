@@ -13,4 +13,5 @@
 " limitations under the License.
 
 
+au BufNewFile,BufRead */.config/dfgr/config{,.*} setf gitconfig
 au BufNewFile,BufRead */.config/git/config.* setf gitconfig
