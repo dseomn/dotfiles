@@ -62,6 +62,7 @@ Recommends:
   default-jdk-headless,
   devscripts,
   dpkg-dev,
+  git-subrepo,
   ipython3,
   isort,
   jsbeautifier,
