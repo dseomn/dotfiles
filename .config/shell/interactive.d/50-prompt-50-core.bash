@@ -27,6 +27,8 @@ __prompt_part_core() {
   local host_color="$FgBrGreen"
   if [[ -n "$SSH_CONNECTION" ]]; then
     host_color="$FgBrYellow"
+  elif [[ -e /run/.containerenv ]] || [[ -e /var/run/.containerenv ]]; then
+    host_color="$FgBrMagenta"
   fi
   prompt_append_raw '\h' "$host_color"
 
