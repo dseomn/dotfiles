@@ -29,19 +29,17 @@ RUN \
   adduser dseomn sudo && \
   echo '%sudo ALL = (ALL:ALL) NOPASSWD: ALL' > /etc/sudoers.d/nopasswd
 
+USER dseomn
+WORKDIR /home/dseomn
+
 RUN \
-  sudo -u dseomn mkdir -p \
-    /home/dseomn/.config/dotfiles/conf.local.d \
-    /home/dseomn/.local/share/dfgr && \
-  sudo -u dseomn -H git --git-dir /home/dseomn/.local/share/dfgr/dotfiles.git \
-    --work-tree /home/dseomn init && \
-  sudo -u dseomn -H git --git-dir /home/dseomn/.local/share/dfgr/dotfiles.git \
+  mkdir -p ~/.config/dotfiles/conf.local.d ~/.local/share/dfgr && \
+  git --git-dir ~/.local/share/dfgr/dotfiles.git --work-tree ~ init && \
+  git --git-dir ~/.local/share/dfgr/dotfiles.git \
     remote add -f origin https://github.com/dseomn/dotfiles.git && \
-  sudo -u dseomn -H git --git-dir /home/dseomn/.local/share/dfgr/dotfiles.git \
-    switch --force public && \
+  git --git-dir ~/.local/share/dfgr/dotfiles.git switch --force public && \
   printf '[system-packages "debian"]\ninstall = dseomn-dev\n' | \
-    sudo -u dseomn tee /home/dseomn/.config/dotfiles/conf.local.d/local.cfg && \
-  sudo -u dseomn -H DOTFILES_BOOTSTRAP_APT_GET_OPTIONS=-y \
-    /home/dseomn/.local/bin/dotfiles-bootstrap
+    tee ~/.config/dotfiles/conf.local.d/local.cfg && \
+  DOTFILES_BOOTSTRAP_APT_GET_OPTIONS=-y ~/.local/bin/dotfiles-bootstrap
 
 CMD ["bash", "-l"]
