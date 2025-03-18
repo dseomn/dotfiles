@@ -1,4 +1,6 @@
-# Copyright 2021 Google LLC
+#!/bin/bash
+
+# Copyright 2025 David Mandelberg
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,11 +14,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-[containers]
-base_hosts_file = "none"
+# TODO: https://github.com/containers/podman/issues/25565 - Use --runtime-flag
+# in containers.conf and delete this wrapper.
 
-[engine]
-runtime = "runsc-wrapper"
+set -euo pipefail
 
-[engine.runtimes]
-runsc-wrapper = []  # fallback to a $PATH search
+# TODO: https://github.com/google/gvisor/issues/11543 - Remove -ignore-cgroups
+# TODO: https://github.com/google/gvisor/issues/10359 - Remove -network=host
+# TODO: https://github.com/google/gvisor/issues/11559 - Remove -overlay2=none
+exec runsc \
+  -ignore-cgroups \
+  -network=host \
+  -overlay2=none \
+  "$@"
