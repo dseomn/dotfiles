@@ -16,6 +16,9 @@ FROM debian:testing
 
 ENV LANG C.UTF-8
 
+RUN sed -i -e 's/^Types: deb$/Types: deb deb-src/' \
+  /etc/apt/sources.list.d/debian.sources
+
 RUN apt-get update && apt-get -y install tasksel
 RUN apt-get -y install $(tasksel --task-packages standard)
 
