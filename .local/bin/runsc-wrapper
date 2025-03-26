@@ -21,9 +21,7 @@ set -euo pipefail
 
 # TODO: https://github.com/google/gvisor/issues/11543 - Remove -ignore-cgroups
 # TODO: https://github.com/google/gvisor/issues/10359 - Remove -network=host
-# TODO: https://github.com/google/gvisor/issues/11559 - Remove -overlay2=none
 exec runsc \
   -ignore-cgroups \
   -network=host \
-  -overlay2=none \
   "$@"
