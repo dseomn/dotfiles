@@ -47,7 +47,9 @@ count() {
 }
 
 
-common_window_fmt="#{?#{n:window_name},#{window_name} | ,}#{pane_title} | #{pane_current_command}"
+common_window_fmt=
+common_window_fmt+="#{?#{n:window_name},#{window_name} | ,}"
+common_window_fmt+="#{pane_title} | #{pane_current_command}"
 
 
 tree_session_fmt=
