@@ -47,13 +47,16 @@ count() {
 }
 
 
+common_window_fmt="#{?#{n:window_name},#{window_name} | ,}#{pane_title} | #{pane_current_command}"
+
+
 tree_session_fmt=
 tree_session_fmt+="$(count windows)"
 tree_session_fmt+="#{?session_grouped, | group #{session_group},}"
 tree_session_fmt+="#{?session_attached, | $(count clients),}"
 
 tree_window_fmt=
-tree_window_fmt+="#{?#{n:window_name},#{window_name} | ,}#{pane_title} | #{pane_current_command}"
+tree_window_fmt+="${common_window_fmt}"
 tree_window_fmt+="#{?#{==:#{window_panes},1},, | $(count panes)}"
 
 tree_pane_fmt="#{pane_title} | #{pane_current_command}"
@@ -67,5 +70,4 @@ tmux bind w choose-tree -wZ -F "${tree_fmt}" -O name
 tmux set -g set-titles on
 
 title_session_fmt="#{session_name}#{?session_many_attached,+,}:#{session_windows}[#{window_index}]"
-title_window_fmt="#{?#{n:window_name},#{window_name} | ,}#{pane_title} | #{pane_current_command}"
-tmux set -g set-titles-string "${title_session_fmt} | ${title_window_fmt}"
+tmux set -g set-titles-string "${title_session_fmt} | ${common_window_fmt}"
