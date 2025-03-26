@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Copyright 2018 Google LLC
 #
@@ -14,12 +14,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+set -euo pipefail
+
 
 pecho() { printf '%s\n' "$*"; }
 
 
 # Prints a format that expands to "1 foo" or "N foos" as appropriate.
 count() {
+  local var singular plural
   case "$1" in
     clients)
       var=session_attached
@@ -44,12 +47,14 @@ count() {
 }
 
 
-session_fmt="$(count windows)"
-session_fmt="${session_fmt}#{?session_grouped, | group #{session_group},}"
-session_fmt="${session_fmt}#{?session_attached, | $(count clients),}"
+session_fmt=
+session_fmt+="$(count windows)"
+session_fmt+="#{?session_grouped, | group #{session_group},}"
+session_fmt+="#{?session_attached, | $(count clients),}"
 
-window_fmt="#{?#{n:window_name},#{window_name} | ,}#{pane_title} | #{pane_current_command}"
-window_fmt="${window_fmt}#{?#{==:#{window_panes},1},, | $(count panes)}"
+window_fmt=
+window_fmt+="#{?#{n:window_name},#{window_name} | ,}#{pane_title} | #{pane_current_command}"
+window_fmt+="#{?#{==:#{window_panes},1},, | $(count panes)}"
 
 pane_fmt="#{pane_title} | #{pane_current_command}"
 
