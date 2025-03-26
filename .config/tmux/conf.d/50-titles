@@ -48,6 +48,7 @@ count() {
 
 
 common_window_emoji_fmt=
+common_window_emoji_fmt+='#{?#{m/r:^podman($| ),#{window_name}},🦭,}'
 common_window_emoji_fmt+='#{?#{m/r:^ssh($| ),#{window_name}},🛂,}'
 common_window_emoji_fmt="#{?#{n:${common_window_emoji_fmt}},${common_window_emoji_fmt},❓}"
 
