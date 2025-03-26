@@ -47,8 +47,12 @@ count() {
 }
 
 
+common_window_emoji_fmt=
+common_window_emoji_fmt+='#{?#{m/r:^ssh($| ),#{window_name}},🛂,}'
+common_window_emoji_fmt="#{?#{n:${common_window_emoji_fmt}},${common_window_emoji_fmt},❓}"
+
 common_window_fmt=
-common_window_fmt+="#{?#{n:window_name},#{window_name} | ,}"
+common_window_fmt+="#{?#{n:window_name},${common_window_emoji_fmt} #{window_name} | ,}"
 common_window_fmt+="#{pane_title} | #{pane_current_command}"
 
 
