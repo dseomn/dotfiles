@@ -22,7 +22,7 @@ RUN sed -i -e 's/^Types: deb$/Types: deb deb-src/' \
 RUN apt-get update && apt-get -y install tasksel
 RUN apt-get -y install $(tasksel --task-packages standard)
 
-RUN apt-get update && apt-get -y install git sudo
+RUN apt-get update && apt-get -y install catatonit git sudo
 
 RUN \
   adduser --disabled-password --gecos '' --add_extra_groups dseomn && \
@@ -42,4 +42,4 @@ RUN \
     tee ~/.config/dotfiles/conf.local.d/local.cfg && \
   DOTFILES_BOOTSTRAP_APT_GET_OPTIONS=-y ~/.local/bin/dotfiles-bootstrap
 
-CMD ["bash", "-l"]
+CMD ["catatonit", "-P"]
