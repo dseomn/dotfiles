@@ -57,3 +57,10 @@ choose_tree_fmt="#{?pane_format,${pane_fmt},#{?window_format,${window_fmt},${ses
 
 tmux bind s choose-tree -sZ -F "${choose_tree_fmt}" -O name
 tmux bind w choose-tree -wZ -F "${choose_tree_fmt}" -O name
+
+
+tmux set -g set-titles on
+
+session_fmt="#{session_name}#{?session_many_attached,+,}:#{session_windows}[#{window_index}]"
+window_fmt="#{?#{n:window_name},#{window_name} | ,}#{pane_title} | #{pane_current_command}"
+tmux set -g set-titles-string "${session_fmt} | ${window_fmt}"
