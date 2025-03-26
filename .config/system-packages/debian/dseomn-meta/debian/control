@@ -31,11 +31,11 @@ Depends:
 Recommends:
   aptitude,
   bash-completion,
+  bind9-dnsutils,
   bind9-host | host,
   command-not-found,
   curl,
   diffutils,
-  dnsutils,
   file,
   ncurses-term,
   netcat-openbsd | netcat-traditional | netcat,
