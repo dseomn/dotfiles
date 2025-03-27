@@ -21,6 +21,16 @@ fatal() { error "$*"; exit 1; }
 try() { "$@" || fatal "Command failed: $*"; }
 
 
+uname_s="$(try uname -s)" || exit 1
+case "$uname_s" in
+  Linux) ;;
+  *)
+    pecho "Not updating locale on unsupported system: $uname_s"
+    exit 0
+    ;;
+esac
+
+
 # localedef(1) tries to read some things from the current directory, so make
 # sure it only finds what we want it to find.
 empty_dir="$(try mktemp -d)" || exit 1
