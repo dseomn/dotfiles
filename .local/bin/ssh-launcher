@@ -108,7 +108,7 @@ def main():
                     "send-keys",
                     "-l",
                     f"-t{new_window}",
-                    f"ssh -Mt -- {shlex.quote(host)} tmux new-session -A",
+                    f"ssh -Mt -- {shlex.quote(host)} tmux new-session -A\n",
                 ),
                 check=True,
             )
