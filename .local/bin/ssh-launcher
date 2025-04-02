@@ -88,7 +88,8 @@ def main():
                 (
                     "tmux",
                     "new-window",
-                    "-dPS",
+                    *(("-d",) if args.glob else ()),
+                    "-PS",
                     f"-c{pathlib.Path.home()}",
                     "-F#{session_id}:#{window_id}",
                     f"-nssh {host}",
