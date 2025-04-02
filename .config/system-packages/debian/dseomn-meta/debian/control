@@ -59,6 +59,7 @@ Recommends:
   black,
   clang-format,
   cmake,
+  debuginfod,
   default-jdk-headless,
   devscripts,
   dpkg-dev,
