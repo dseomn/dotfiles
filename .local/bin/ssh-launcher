@@ -23,6 +23,7 @@ import argparse
 from collections.abc import Iterable
 import fnmatch
 import pathlib
+import shlex
 import subprocess
 import time
 
@@ -106,7 +107,7 @@ def main():
                     "send-keys",
                     "-l",
                     f"-t{new_window}",
-                    f"ssh -Mt {host} tmux new-session -A",
+                    f"ssh -Mt -- {shlex.quote(host)} tmux new-session -A",
                 ),
                 check=True,
             )
