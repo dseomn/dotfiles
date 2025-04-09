@@ -67,6 +67,7 @@ Recommends:
   ipython3,
   isort,
   jsbeautifier,
+  lua,
   manpages-dev,
   manpages-posix,
   manpages-posix-dev,
