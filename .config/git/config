@@ -72,11 +72,11 @@
 [url "ssh://git@gitlab.com/"]
 	pushInsteadOf = https://gitlab.com/
 
-[url "ssh://git@gitlab.freedesktop.org/"]
-	pushInsteadOf = https://gitlab.freedesktop.org/
-
 [url "ssh://git@salsa.debian.org/"]
 	pushInsteadOf = https://salsa.debian.org/
+
+[url "ssh://git@ssh.gitlab.freedesktop.org/"]
+	pushInsteadOf = https://gitlab.freedesktop.org/
 
 [url "ssh://git@ssh.gitlab.gnome.org/"]
 	pushInsteadOf = https://gitlab.gnome.org/
