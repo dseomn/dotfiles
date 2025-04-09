@@ -48,7 +48,7 @@ call custommatches#AddPatternsIf(
     \ s:MergeMarkerPattern('[<|]'),
     \)
 call custommatches#AddPatternsIf(
-    \ {-> &modifiable && index(['asciidoc', 'help'], &filetype) < 0},
+    \ {-> &modifiable && index(['asciidoc', 'help', 'rst'], &filetype) < 0},
     \ 'mergeMarker',
     \ s:MergeMarkerPattern('='),
     \)
