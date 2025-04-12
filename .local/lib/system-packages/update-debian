@@ -42,10 +42,20 @@ cleanup_actions+=('rm -rf "${workdir}"')
 cp -LR ~/.config/system-packages/debian "${workdir}"
 
 
+version="$(date --utc +%Y%m%d.%H%M%S)"
+
+
 for package_dir in "${workdir}/debian"/*; do
   [[ -d "${package_dir}" ]] || continue
   (
     cd "${package_dir}"
+    debchange \
+      --create \
+      --distribution=UNRELEASED \
+      --empty \
+      --newversion="$version" \
+      --package="${package_dir##*/}" \
+      'Placeholder changelog entry.'
     debuild --no-sign
   )
 done
