@@ -15,6 +15,9 @@
 # limitations under the License.
 
 
+set -euxo pipefail
+
+
 cleanup_actions=()
 trap 'exit 1' HUP INT TERM
 trap 'for cleanup in "${cleanup_actions[@]}"; do eval "$cleanup"; done' EXIT
@@ -29,30 +32,30 @@ fi
 
 
 # Install this script's dependencies.
-sudo apt-get $DOTFILES_BOOTSTRAP_APT_GET_OPTIONS install devscripts
+sudo apt-get ${DOTFILES_BOOTSTRAP_APT_GET_OPTIONS-} install devscripts
 
 
-workdir="$(mktemp -d)" || exit 1
+workdir="$(mktemp -d)"
 cleanup_actions+=('rm -rf "${workdir}"')
 
 
-cp -LR ~/.config/system-packages/debian "${workdir}" || exit 1
+cp -LR ~/.config/system-packages/debian "${workdir}"
 
 
 for package_dir in "${workdir}/debian"/*; do
   [[ -d "${package_dir}" ]] || continue
   (
-    cd "${package_dir}" || exit 1
-    debuild --no-sign || exit 1
-  ) || exit 1
+    cd "${package_dir}"
+    debuild --no-sign
+  )
 done
 
 
 (
-  cd "${workdir}/debian" || exit 1
-  dpkg-scanpackages . > Packages || exit 1
-) || exit 1
+  cd "${workdir}/debian"
+  dpkg-scanpackages . > Packages
+)
 
 
-sudo apt-get $DOTFILES_BOOTSTRAP_APT_GET_OPTIONS \
+sudo apt-get ${DOTFILES_BOOTSTRAP_APT_GET_OPTIONS-} \
   --with-source "${workdir}/debian/Packages" install $to_install
