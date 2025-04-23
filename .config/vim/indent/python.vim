@@ -13,6 +13,7 @@
 " limitations under the License.
 
 let g:python_indent = {
+    \ 'closed_paren_align_last_line': v:false,
     \ 'continue': 'shiftwidth()',
     \ 'open_paren': 'shiftwidth()',
     \}
