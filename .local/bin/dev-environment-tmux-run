@@ -20,8 +20,12 @@ podman run \
   --detach \
   --name=tmux \
   --rm \
+  --volume="$HOME/Code/bash-completion:$HOME/bash-completion:ro" \
   --volume="$HOME/Code/tmux:$HOME/tmux:ro" \
   localhost/dev-environment
 podman exec --user=root tmux apt-get update
 podman exec --user=root tmux apt-get -y build-dep tmux
 podman exec tmux ln -s ~/work/tmux ~/.local/bin/tmux
+podman exec tmux ln -s \
+  ~/bash-completion/completions/tmux \
+  ~/.local/share/bash-completion/completions/tmux
