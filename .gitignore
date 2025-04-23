@@ -8,6 +8,7 @@
 !/.config/MusicBrainz/**
 !/.config/OpenRCT2/
 !/.config/OpenRCT2/**
+!/.config/alsoft.conf
 !/.config/autostart/
 !/.config/autostart/**
 !/.config/black
