@@ -58,6 +58,8 @@
 !/.config/vim/**
 !/.config/whipper/
 !/.config/whipper/**
+!/.config/wireplumber/
+!/.config/wireplumber/**
 !/.config/yapf/
 !/.config/yapf/**
 !/.config/yubikey-touch-detector/
@@ -110,6 +112,8 @@
 !/.local/share/gnome-shell/extensions/**
 !/.local/share/i18n/
 !/.local/share/i18n/**
+!/.local/share/wireplumber/
+!/.local/share/wireplumber/**
 !/.m17n.d/
 !/.m17n.d/**
 !/.mozilla/
