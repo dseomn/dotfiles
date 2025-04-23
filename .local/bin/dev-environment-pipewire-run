@@ -23,4 +23,5 @@ podman run \
   --volume="$HOME/Code/pipewire:$HOME/pipewire:ro" \
   --volume="$HOME/Code/wireplumber:$HOME/wireplumber:ro" \
   localhost/dev-environment
+podman exec --user=root pipewire apt-get update
 podman exec --user=root pipewire apt-get -y build-dep pipewire wireplumber

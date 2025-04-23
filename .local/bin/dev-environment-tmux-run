@@ -22,5 +22,6 @@ podman run \
   --rm \
   --volume="$HOME/Code/tmux:$HOME/tmux:ro" \
   localhost/dev-environment
+podman exec --user=root tmux apt-get update
 podman exec --user=root tmux apt-get -y build-dep tmux
 podman exec tmux ln -s ~/work/tmux ~/.local/bin/tmux
