@@ -12,5 +12,7 @@
 " See the License for the specific language governing permissions and
 " limitations under the License.
 
-let g:pyindent_continue = 'shiftwidth()'
-let g:pyindent_open_paren = 'shiftwidth()'
+let g:python_indent = {
+    \ 'continue': 'shiftwidth()',
+    \ 'open_paren': 'shiftwidth()',
+    \}
