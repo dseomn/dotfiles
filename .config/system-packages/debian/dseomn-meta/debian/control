@@ -172,6 +172,7 @@ Recommends:
   thunderbird,
   thunderbird-l10n-nl,
   vim-gtk3,
+  wev,
 Description: dseomn-desktop
 
 Package: dseomn-desktop-full
