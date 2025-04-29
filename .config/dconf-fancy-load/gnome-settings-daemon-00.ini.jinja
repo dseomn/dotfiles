@@ -30,19 +30,13 @@ mic-mute=['<Primary><Shift>question']
 screensaver=['<Super>l', '<Primary><Alt>l']
 custom-keybindings=
   [
-    '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/emoji-picker/',
-    '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/toggle-word-predictions/'
+    '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/emoji-picker/'
   ]
 
 [org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/emoji-picker]
 name='Open emoji-picker'
 binding='<Control><Alt>e'
 command='emoji-picker --all'
-
-[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/toggle-word-predictions]
-name='Toggle ibus-typing-booster word predictions'
-binding='<Shift><Control>d'
-command="dconf-rotate-values /org/freedesktop/ibus/engine/typing-booster/wordpredictions false true"
 
 [org/gnome/settings-daemon/plugins/power]
 sleep-inactive-ac-type='nothing'
