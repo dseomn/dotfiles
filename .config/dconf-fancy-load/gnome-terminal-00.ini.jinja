@@ -12,17 +12,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-[org/gnome/Ptyxis]
+[org/gnome/terminal/legacy]
 /reset=true
-default-profile-uuid='5e30b31b260249e88d89ff91cd53fcb7'
-disable-padding=true
-profile-uuids=['5e30b31b260249e88d89ff91cd53fcb7']
-restore-session=false
-scrollbar-policy='never'
+default-show-menubar=false
+headerbar=just false
+schema-version=uint32 3
 
-[org/gnome/Ptyxis/Profiles/5e30b31b260249e88d89ff91cd53fcb7]
-label='default'
-
-[org/gnome/Ptyxis/Shortcuts]
+[org/gnome/terminal/legacy/keybindings]
 close-tab=''
 close-window=''
+
+[org/gnome/terminal/legacy/profiles:]
+default='b1dcc9dd-5262-4d8d-a863-c897e6d979b9'
+list=['b1dcc9dd-5262-4d8d-a863-c897e6d979b9']
+
+[org/gnome/terminal/legacy/profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9]
+preserve-working-directory='never'
+scrollbar-policy='never'
+visible-name='default'

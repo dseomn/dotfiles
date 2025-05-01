@@ -126,7 +126,7 @@ Depends:
   gnome-core,
   gnome-icon-theme,
   gnome-shell-extension-dash-to-panel,
-  ptyxis,
+  gnome-terminal,
   python3-jinja2,
   python3-pyudev,
 Recommends:
