@@ -1,0 +1,5 @@
+{% filter comment.block -%}
+SPDX-FileCopyrightText: {{ year }} {{ copyright_holder }} <{{ contact_address }}>
+
+SPDX-License-Identifier: {{ spdx_license_expression }}
+{%- endfilter %}
