@@ -23,8 +23,14 @@ set softtabstop=-1
 set expandtab
 
 
-" Enable per-filetype indentation.
+" Enable and configure per-filetype indentation.
 filetype indent on
+
+let g:python_indent = {
+    \ 'closed_paren_align_last_line': v:false,
+    \ 'continue': 'shiftwidth()',
+    \ 'open_paren': 'shiftwidth()',
+    \}
 
 
 " Wrap at 80 columns by default.
