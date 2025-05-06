@@ -201,6 +201,7 @@ Recommends:
   gnome-games,
   gthumb,
   hugin,
+  ibus-m17n,
   inkscape,
   joystick,
   kdenlive,
