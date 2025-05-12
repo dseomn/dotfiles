@@ -168,6 +168,7 @@ Recommends:
   network-manager-gnome,
   pidgin,
   pidgin-plugin-pack,
+  python3-icu,
   python3-pip,
   quodlibet,
   simple-scan,
