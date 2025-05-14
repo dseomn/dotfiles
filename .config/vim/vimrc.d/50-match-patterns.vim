@@ -13,18 +13,24 @@
 " limitations under the License.
 
 
+" Like \< \>, but independent of the value of 'iskeyword'.
+function s:WordPattern(word_pattern) abort
+  return '\w\@<!\%(' .. a:word_pattern .. '\)\w\@!'
+endfunction
+
+
 " Generic TODO highlights.
 call custommatches#AddPatternsIf(
     \ {-> &modifiable},
     \ 'Todo',
-    \ '\<BUGS\?\>',
-    \ '\<DO NOT\( [A-Z]\+\)\+\>',
-    \ '\<FIX\(ME\)\?\>',
-    \ '\<NOTES\?\>',
-    \ '\<TBD\>',
-    \ '\<TODO[sS]\?\>',
-    \ '\<WARNINGS\?\>',
-    \ '\<XXX\>',
+    \ s:WordPattern('BUGS\?'),
+    \ s:WordPattern('DO NOT\( [A-Z]\+\)\+'),
+    \ s:WordPattern('FIX\(ME\)\?'),
+    \ s:WordPattern('NOTES\?'),
+    \ s:WordPattern('TBD'),
+    \ s:WordPattern('TODO[sS]\?'),
+    \ s:WordPattern('WARNINGS\?'),
+    \ s:WordPattern('XXX'),
     \)
 
 
@@ -32,8 +38,8 @@ call custommatches#AddPatternsIf(
 hi link rfc2119Keyword Todo
 call custommatches#AddPatterns(
     \ 'rfc2119Keyword',
-    \ '\<\(MUST\|SHALL\|SHOULD\)\( NOT\)\?\>',
-    \ '\<\(REQUIRED\|RECOMMENDED\|MAY\)\>',
+    \ s:WordPattern('\(MUST\|SHALL\|SHOULD\)\( NOT\)\?'),
+    \ s:WordPattern('\(REQUIRED\|RECOMMENDED\|MAY\)'),
     \)
 
 
