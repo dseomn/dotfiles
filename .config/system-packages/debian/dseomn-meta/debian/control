@@ -220,6 +220,7 @@ Recommends:
   musescore,
   picard,
   povray,
+  python3-evdev,
   rawtherapee,
   rsgain,
   scdaemon,
