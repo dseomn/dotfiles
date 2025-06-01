@@ -13,6 +13,10 @@
 " limitations under the License.
 
 
+" Let the terminal handle bidi rendering and shaping (e.g., for Arabic).
+set termbidi
+
+
 " Always show the status line, and customize it.
 set laststatus=2
 call customstatus#Init()
