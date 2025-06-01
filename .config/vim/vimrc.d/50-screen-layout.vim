@@ -15,6 +15,8 @@
 
 " Let the terminal handle bidi rendering and shaping (e.g., for Arabic).
 set termbidi
+" TODO: https://github.com/vim/vim/issues/7148 - Remove this.
+exe "set fillchars+=vert:\u2800"
 
 
 " Always show the status line, and customize it.
