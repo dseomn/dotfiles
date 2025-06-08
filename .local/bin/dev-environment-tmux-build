@@ -16,7 +16,7 @@
 
 set -euxo pipefail
 
-podman exec --tty tmux bash -l -c '
+podman exec --interactive --tty tmux bash -l -c '
   set -euxo pipefail
   rsync -va --del tmux/ work/
   cd work

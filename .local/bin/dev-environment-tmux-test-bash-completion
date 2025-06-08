@@ -18,7 +18,7 @@ set -euxo pipefail
 
 shellcheck ~/Code/bash-completion/completions/tmux
 shfmt --diff ~/Code/bash-completion/completions/tmux
-podman exec --tty tmux bash -l -c '
+podman exec --interactive --tty tmux bash -l -c '
   set -euxo pipefail
   cd bash-completion
   pytest test/t/test_tmux.py
