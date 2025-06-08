@@ -30,6 +30,7 @@
 	requireForce = false
 
 [commit]
+	cleanup = scissors
 	verbose = true
 
 [core]
