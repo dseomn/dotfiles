@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright 2020 Google LLC
+# Copyright 2025 David Mandelberg
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,15 +14,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 set -euo pipefail
 
-if [[ -z "${DBUS_SESSION_BUS_ADDRESS-}" ]]; then
-  echo 'Not updating dconf, because $DBUS_SESSION_BUS_ADDRESS is empty.'
-  exit 0
-fi
-
-pip-install-system-without-deps \
-  git+https://github.com/dseomn/dconf-fancy-load.git
-
-dconf-fancy-load
+exec pip install \
+  --user \
+  --break-system-packages \
+  --no-build-isolation \
+  --no-deps \
+  --no-index \
+  --upgrade \
+  "$@"

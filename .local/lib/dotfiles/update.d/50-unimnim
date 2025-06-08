@@ -21,13 +21,6 @@ if [[ -z "${DISPLAY-}" ]]; then
   exit 0
 fi
 
-pip install \
-  --user \
-  --break-system-packages \
-  --no-build-isolation \
-  --no-deps \
-  --no-index \
-  --upgrade \
-  git+https://github.com/dseomn/unimnim.git
+pip-install-system-without-deps git+https://github.com/dseomn/unimnim.git
 
 unimnim --write-m17n ~/.m17n.d/unimnim.mim
