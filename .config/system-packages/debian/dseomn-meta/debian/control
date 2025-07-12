@@ -74,7 +74,6 @@ Recommends:
   mypy,
   mypy-protobuf,
   ninja-build,
-  nodejs,
   protobuf-compiler,
   python3-absl,
   python3-dateutil,
@@ -104,7 +103,6 @@ Recommends:
   valgrind,
   virtualenv,
   vroom,
-  xsltproc,
 Description: dseomn-dev
 
 Package: dseomn-dev-full
@@ -115,11 +113,13 @@ Depends:
 Recommends:
   android-sdk,
   guile-2.2,
+  nodejs,
   pgpdump,
   podman,
   runsc,
   texlive-fonts-extra,
   texlive-latex-recommended,
+  xsltproc,
 Description: dseomn-dev-full
 
 Package: dseomn-desktop
