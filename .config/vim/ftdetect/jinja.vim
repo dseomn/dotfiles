@@ -21,4 +21,7 @@ vim9script
 au BufNewFile,BufRead *.conf.{j2,jinja,jinja2} setl ft=conf.jinja
 au BufNewFile,BufRead *.ini.{j2,jinja,jinja2} setl ft=dosini.jinja
 au BufNewFile,BufRead *.html.{j2,jinja,jinja2} setl ft=html.jinja
+au BufNewFile,BufRead *.ninja.{j2,jinja,jinja2} setl ft=ninja.jinja
+au BufNewFile,BufRead *.atom.{j2,jinja,jinja2} setl ft=xml.jinja
+au BufNewFile,BufRead *.xml.{j2,jinja,jinja2} setl ft=xml.jinja
 au BufNewFile,BufRead *.{yaml,yml}.{j2,jinja,jinja2} setl ft=yaml.jinja
