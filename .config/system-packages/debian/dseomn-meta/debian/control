@@ -116,6 +116,7 @@ Recommends:
   android-sdk,
   apache2-bin,
   guile-2.2,
+  libm17n-dev,
   minify,
   node-less,
   node-postcss-cli,
