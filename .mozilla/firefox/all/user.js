@@ -36,6 +36,7 @@ user_pref("browser.tabs.crashReporting.sendReport", false);
 user_pref("browser.translations.automaticallyPopup", false);
 
 user_pref("browser.urlbar.quicksuggest.enabled", false);
+user_pref("browser.urlbar.trimURLs", false);
 
 user_pref("dom.security.https_only_mode", true);
 
