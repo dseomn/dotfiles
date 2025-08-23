@@ -104,6 +104,8 @@
 !/.local/share/bash-completion/**
 !/.local/share/dotfiles/
 !/.local/share/dotfiles/**
+!/.local/share/emoji-picker/
+!/.local/share/emoji-picker/**
 !/.local/share/endless-sky/
 !/.local/share/endless-sky/plugins/
 !/.local/share/endless-sky/plugins/**
