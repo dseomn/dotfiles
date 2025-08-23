@@ -259,6 +259,7 @@ Recommends:
   zbar-tools,
 Suggests:
   blobwars,
+  flightgear,
   frozen-bubble,
   hedgewars,
   kobodeluxe,
