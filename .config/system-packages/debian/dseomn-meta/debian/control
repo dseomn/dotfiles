@@ -115,6 +115,8 @@ Depends:
 Recommends:
   android-sdk,
   apache2-bin,
+  brotli,
+  fonttools,
   guile-2.2,
   libm17n-dev,
   minify,
@@ -125,14 +127,19 @@ Recommends:
   optipng,
   pgpdump,
   podman,
+  python3-brotli,
+  python3-fonttools,
   python3-markupsafe,
   python3-pil,
   python3-wand,
+# TODO: python >= 3.14 - Remove this.
+  python3-zstandard,
   ruby-html-proofer,
   runsc,
   texlive-fonts-extra,
   texlive-latex-recommended,
   xsltproc,
+  zstd,
 Description: dseomn-dev-full
 
 Package: dseomn-desktop
