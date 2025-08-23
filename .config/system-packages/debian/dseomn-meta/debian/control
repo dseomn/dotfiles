@@ -245,6 +245,7 @@ Recommends:
   vlc,
   vorbis-tools,
   whipper,
+  yt-dlp,
   yubikey-manager,
   yubikey-touch-detector,
   yubioath-desktop,
