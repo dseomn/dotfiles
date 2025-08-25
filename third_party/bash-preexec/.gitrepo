@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/rcaloras/bash-preexec
+	branch = 8926de0a1f69d17f5b05099cfaaa52d833084c2f
+	commit = 8926de0a1f69d17f5b05099cfaaa52d833084c2f
+	parent = 9325911f04f1699d6f65528c7b2eb5faf94fc28c
+	method = merge
+	cmdver = 0.4.9
