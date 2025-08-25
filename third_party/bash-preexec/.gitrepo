@@ -5,8 +5,8 @@
 ;
 [subrepo]
 	remote = https://github.com/rcaloras/bash-preexec
-	branch = 8926de0a1f69d17f5b05099cfaaa52d833084c2f
-	commit = 8926de0a1f69d17f5b05099cfaaa52d833084c2f
-	parent = 9325911f04f1699d6f65528c7b2eb5faf94fc28c
+	branch = master
+	commit = b73ed5f7f953207b958f15b1773721dded697ac3
+	parent = c905f24fed42673e6b4dab7f9eadd48d5f073c9b
 	method = merge
 	cmdver = 0.4.9
