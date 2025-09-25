@@ -59,12 +59,6 @@ user_pref('calendar.registry.13946703-f1ef-473a-84fb-fe13311f277b.calendar-main-
 user_pref('calendar.registry.13946703-f1ef-473a-84fb-fe13311f277b.disabled', false);
 user_pref('calendar.registry.13946703-f1ef-473a-84fb-fe13311f277b.refreshInterval', 60);
 
-// CardBook.
-user_pref('extensions.cardbook.autocompleteSortByPopularity', false);
-user_pref('extensions.cardbook.autocompleteWithColor', false);
-user_pref('extensions.cardbook.technicalTabView', true);
-user_pref('extensions.cardbook.vcardTabView', true);
-
 // Mail and news.
 user_pref('mail.biff.play_sound', false);
 user_pref('mail.biff.show_alert', false);

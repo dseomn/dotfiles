@@ -45,7 +45,6 @@ Firefox:
 Thunderbird:
   * Add profiles.
   * Re-run dotfiles-update.
-  * Install CardBook.
   * Add email accounts.
   * Add calendar accounts.
   * Add contacts accounts.
