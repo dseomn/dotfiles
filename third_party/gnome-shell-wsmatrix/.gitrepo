@@ -6,7 +6,7 @@
 [subrepo]
 	remote = https://github.com/mzur/gnome-shell-wsmatrix
 	branch = master
-	commit = 39ece285dde25c4bb89b91af0710e9392922a7e1
-	parent = bc87e08cb9812386b5e7542f7025d574d15a033a
+	commit = c927c5dae0c678053c475c229cce12878a4179f5
+	parent = f66fabc49d2a7bedab3838d2082633e29a83f483
 	method = merge
 	cmdver = 0.4.9
