@@ -54,6 +54,7 @@
 !/.config/systemd/**
 !/.config/tmux/
 !/.config/tmux/**
+!/.config/user-dirs.*
 !/.config/vim/
 !/.config/vim/**
 !/.config/whipper/
