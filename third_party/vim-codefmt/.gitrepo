@@ -5,7 +5,7 @@
 ;
 [subrepo]
 	remote = https://github.com/google/vim-codefmt
-	branch = ff464a478202df40ae484e6e94a1d56587fcc69e
+	branch = master
 	commit = ff464a478202df40ae484e6e94a1d56587fcc69e
 	parent = f6515cef7679c2de88f14355e2b6717fcfc21590
 	method = merge
