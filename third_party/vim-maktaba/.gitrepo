@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/google/vim-maktaba
+	branch = master
+	commit = fe95bb10f6bb250943a44632107f6a3d76ce5f28
+	parent = 81db3a96b5fe6f9804ee03a1ed0bc14112791ac8
+	method = merge
+	cmdver = 0.4.9
