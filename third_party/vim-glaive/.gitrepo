@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/google/vim-glaive
+	branch = master
+	commit = 3c5db8d279f86355914200119e8727a085863fcd
+	parent = 6a7fd11b3db645bb1f1d1453942d8e7a721b57db
+	method = merge
+	cmdver = 0.4.9
