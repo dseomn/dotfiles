@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/rhansen/tap4sh
+	branch = master
+	commit = 1eb3c55b9f560c951fb72dcc2ff9b8f00f48b5c7
+	parent = 4049318035907dc7a1e77455a2ad907a695f0bb3
+	method = merge
+	cmdver = 0.4.9

@@ -1,0 +1,53 @@
+v1.6, not yet released
+  * silence an "unused label 'skip'" warning on some sed
+    implementations
+  * define and use t4s_unset() to work around another NetBSD shell
+    bug:  http://gnats.netbsd.org/49595
+
+v1.5, released 2016-02-20
+  * remove some unneeded quotes to work around a NetBSD shell bug:
+    http://gnats.netbsd.org/50827
+  * add t4s_testcase_diff() for comparing two (text) files
+  * add a helper function to discard the last N arguments
+  * work around a strange issue where a segfault in a testcase can
+    cause a t4s_testcase() subshell to exit before the testcase's
+    return value is recorded
+
+v1.4, released 2016-01-11
+  * add a new '--exit-hook' argument to t4s_setup() to run
+    user-specified code on exit (traps on EXIT, HUP, INT, and TERM are
+    reserved by t4s_setup())
+  * support empty bailout messages
+  * if the script exits unexpectedly, log the reason for the exit in
+    the bailout message ("unexpected early exit" or signal name)
+  * fix t4s_esc() to properly escape arguments with trailing newlines
+  * print "command not found" if t4s_subtests() is given an invalid
+    command
+
+v1.3, released 2015-11-07
+  * run subtests in a subshell to prevent them from interfering with
+    the test environment
+  * use file descriptor 9 for bailout message communication to reduce
+    the chance of conflict with testcases
+  * close unnecessary file descriptors before running testcases and
+    subtests to prevent tests from interfering with the test
+    environment
+  * permit positional arguments for the testcase script
+  * the tap4sh version is now available in the t4s_version,
+    t4s_version_major, and t4s_version_minor variables
+
+v1.2, released 2015-06-14
+  * add t4s_give() for marking a prerequisite as satisfied
+
+v1.1, released 2015-06-14
+  * t4s_log() now prefixes each line with '# ' when not in a
+    testcase (t4s_testcase() already prefixes lines written to
+    stdout with '# ')
+  * t4s_log() now reads stdin for lines to log if not given any
+    arguments
+  * t4s_testcase() now supports prerequisites for automatically
+    skipping tests if certain previous tests failed (via the new
+    --needs and --gives arguments)
+
+v1.0, released 2015-06-12:
+  * initial release

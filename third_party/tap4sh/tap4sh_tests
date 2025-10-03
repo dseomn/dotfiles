@@ -1,0 +1,412 @@
+#!/bin/sh
+
+######################################################################
+#
+# Copyright (c) 2015-2016, Richard Hansen <rhansen@rhansen.org>
+# All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
+#
+#   1. Redistributions of source code must retain the above copyright
+#      notice, this list of conditions and the following disclaimer.
+#
+#   2. Redistributions in binary form must reproduce the above
+#      copyright notice, this list of conditions and the following
+#      disclaimer in the documentation and/or other materials provided
+#      with the distribution.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+# FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+# COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+# INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+# BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+# LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+# CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+# LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+# ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+# POSSIBILITY OF SUCH DAMAGE.
+#
+######################################################################
+
+# unit tests for tap4sh itself
+
+d=${0%/*}
+cd "${d}" || exit 1
+. ./tap4sh.sh
+
+tmpd=${0##*/}.tmp
+export tmpd
+mkdir -p "${tmpd}" || exit 1
+
+t4s_setup "$@"
+
+testcase() {
+    s=$1; shift || exit 1
+    expected_out=$1; shift || exit 1
+    expected_ret=$1; shift || exit 1
+    printf %s "${expected_out}" >${tmpd}/testcase.expected
+    sh -c '
+        . ./tap4sh.sh || exit 100
+        t4s_setup
+        eval "$1"
+        t4s_done
+    ' inner_shell "${s}" >${tmpd}/testcase.actual
+    actual_ret=$?
+    testname=$1; shift
+    t4s_testcase "$@" "${testname} (return value)" '
+        [ "${actual_ret}" -eq "${expected_ret}" ] || {
+            t4s_log "return value differs:"
+            t4s_log "  expected: ${expected_ret}"
+            t4s_log "  actual:   ${actual_ret}"
+            exit 1
+        }
+    '
+    [ -f "${tmpd}"/testcase.expected ] \
+        || t4s_bailout "missing expected output"
+    [ -f "${tmpd}"/testcase.actual ] \
+        || t4s_bailout "missing actual output"
+    t4s_testcase_diff "$@" "${testname} (output)" \
+        "${tmpd}"/testcase.expected "${tmpd}"/testcase.actual
+}
+
+t4s_testcase "t4s_esc() handles trailing newlines" '
+    newline="
+"
+    esc=$(t4s_esc "${newline}")
+    [ "$(eval "printf %s\\\\n a${esc}b")" = a"${newline}"b ]
+'
+
+for args in \
+    "0 a b c" \
+    "1 a b" \
+    "2 a" \
+    "3 " \
+    "4 " \
+    ;
+do
+    n=${args%% *}
+    exp=${args#* }
+    t4s_testcase "t4s_discard_last_args $n (expect: ${exp:-<empty>})" '
+        set -- a b c
+        to_eval=$(t4s_discard_last_args "$n" "$#") \
+            || t4s_fatal "t4s_discard_last_args() failed"
+        eval "${to_eval}" \
+            || t4s_fatal "eval of t4s_discard_last_args() output failed"
+        [ "$*" = "${exp}" ] || t4s_fatal "expected \"${exp}\" got \"$*\""
+    '
+done
+
+testcase '
+    t4s_testcase inner true
+' "\
+ok 1 inner
+1..1
+" 0 "expected pass"
+
+testcase '
+    t4s_testcase inner false
+' "\
+not ok 1 inner
+1..1
+" 1 "unexpected fail"
+
+testcase '
+    t4s_testcase -x msg inner false
+' "\
+not ok 1 inner # TODO msg
+1..1
+" 0 "expected fail"
+
+testcase '
+    t4s_testcase -x msg inner true
+' "\
+ok 1 inner # TODO msg
+1..1
+" 1 "unexpected pass"
+
+testcase '
+    t4s_testcase inner '\''t4s_log " foo  bar"'\''
+' "\
+#  foo  bar
+ok 1 inner
+1..1
+" 0 "log message"
+
+testcase '
+    t4s_testcase -s msg inner '\''t4s_log "should not see me"; false'\''
+' "\
+ok 1 inner # skip msg
+1..1
+" 0 "skip"
+
+testcase '
+    t4s_bailout "outer bailout msg"
+' "\
+Bail out! outer bailout msg
+" 1 "outer bailout with message"
+
+testcase '
+    t4s_bailout
+' "\
+Bail out!
+" 1 "outer bailout no message"
+
+testcase '
+    t4s_testcase inner '\''t4s_bailout "inner bailout msg"'\''
+' "\
+Bail out! inner bailout msg
+" 1 "inner bailout with message"
+
+testcase '
+    t4s_testcase inner t4s_bailout
+' "\
+Bail out!
+" 1 "inner bailout no message"
+
+testcase '
+    exit 0
+' "\
+Bail out! (unexpected early exit)
+" 1 "bailout from unexpected early exit"
+
+testcase '
+    kill -HUP $$
+' "\
+Bail out! (SIGHUP)
+" 1 "bailout from SIGHUP"
+
+testcase '
+    kill -INT $$
+' "\
+Bail out! (SIGINT)
+" 1 "bailout from SIGINT"
+
+testcase '
+    kill -TERM $$
+' "\
+Bail out! (SIGTERM)
+" 1 "bailout from SIGTERM"
+
+cat <<EOF >${tmpd}/subtests_script
+1..5
+# foo
+ok 1 subtest expected pass
+not ok 2 subtest unexpected fail
+not ok 3 subtest expected fail # TODO msg
+ok 4 subtest unexpected pass # TODO msg
+ok 5 subtest skip # skip msg
+EOF
+
+testcase '
+    scripted() { cat "${tmpd}"/subtests_script; }
+    t4s_subtests scripted
+' "\
+# foo
+ok 1 scripted: subtest expected pass
+not ok 2 scripted: subtest unexpected fail
+not ok 3 scripted: subtest expected fail # TODO msg
+ok 4 scripted: subtest unexpected pass # TODO msg
+ok 5 scripted: subtest skip # skip msg
+1..5
+" 1 "subtests scripted"
+
+nested='
+    nested() {
+        t4s_setup
+        t4s_testcase "subtest expected pass" true
+        t4s_testcase "subtest unexpected fail" false
+        t4s_testcase -x msg "subtest expected fail" false
+        t4s_testcase -x msg "subtest unexpected pass" true
+        t4s_testcase -s msg "subtest skip" true
+        t4s_done
+    }
+'
+
+testcase '
+    '"${nested}"'
+    t4s_subtests nested
+' "\
+ok 1 nested: subtest expected pass
+not ok 2 nested: subtest unexpected fail
+not ok 3 nested: subtest expected fail # TODO msg
+ok 4 nested: subtest unexpected pass # TODO msg
+ok 5 nested: subtest skip # skip msg
+1..5
+" 1 "subtests nested"
+
+testcase '
+    scripted() { cat "${tmpd}"/subtests_script; }
+    '"${nested}"'
+    scripted_and_nested() {
+        t4s_setup
+        t4s_subtests scripted
+        t4s_subtests nested
+        t4s_done
+    }
+    t4s_subtests scripted_and_nested
+' "\
+# foo
+ok 1 scripted_and_nested: scripted: subtest expected pass
+not ok 2 scripted_and_nested: scripted: subtest unexpected fail
+not ok 3 scripted_and_nested: scripted: subtest expected fail # TODO msg
+ok 4 scripted_and_nested: scripted: subtest unexpected pass # TODO msg
+ok 5 scripted_and_nested: scripted: subtest skip # skip msg
+ok 6 scripted_and_nested: nested: subtest expected pass
+not ok 7 scripted_and_nested: nested: subtest unexpected fail
+not ok 8 scripted_and_nested: nested: subtest expected fail # TODO msg
+ok 9 scripted_and_nested: nested: subtest unexpected pass # TODO msg
+ok 10 scripted_and_nested: nested: subtest skip # skip msg
+1..10
+" 1 "subtests scripted and nested"
+
+testcase '
+    t4s_log "outside testcase"
+    t4s_testcase inner '\''t4s_log "inside testcase"'\''
+' "\
+# outside testcase
+# inside testcase
+ok 1 inner
+1..1
+" 0 "t4s_log() prefixes lines properly"
+
+testcase '
+    printf "outside #1\\noutside #2\\n" | t4s_log
+    t4s_testcase inner '\''
+        printf "inside #1\\ninside #2\\n" | t4s_log
+    '\''
+' "\
+# outside #1
+# outside #2
+# inside #1
+# inside #2
+ok 1 inner
+1..1
+" 0 "t4s_log() reads from stdin with no arguments"
+
+testcase '
+    t4s_testcase -g prereq1 "prereq1 xpass" true
+    t4s_testcase -g prereq2 "prereq2 unxfail" false
+    t4s_testcase -g prereq3 -x msg "prereq3 xfail" false
+    t4s_testcase -g prereq4 -x msg "prereq4 unxpass" true
+    t4s_testcase -g prereq5 -s msg "prereq5 skipped" true
+    t4s_testcase -n prereq1 -g prereq6 "prereq6 (for chaining)" true
+
+    for x in 1 2 3 4 5 6; do
+        t4s_testcase -n prereq${x} "needs prereq${x} xpass" true
+        t4s_testcase -n prereq${x} "needs prereq${x} unxfail" false
+        t4s_testcase -n prereq${x} -x msg "needs prereq${x} xfail" false
+        t4s_testcase -n prereq${x} -x msg "needs prereq${x} unxpass" true
+        t4s_testcase -n prereq${x} -s msg "needs prereq${x} skipped" true
+    done
+
+    t4s_testcase -g prereq7 "prereq7 additional xpass" true
+    t4s_testcase -n "prereq1 prereq2" "needs prereq1 and prereq2" true
+    t4s_testcase -n "prereq1 prereq7" "needs prereq1 and prereq7" true
+' "\
+ok 1 prereq1 xpass
+not ok 2 prereq2 unxfail
+not ok 3 prereq3 xfail # TODO msg
+ok 4 prereq4 unxpass # TODO msg
+ok 5 prereq5 skipped # skip msg
+ok 6 prereq6 (for chaining)
+ok 7 needs prereq1 xpass
+not ok 8 needs prereq1 unxfail
+not ok 9 needs prereq1 xfail # TODO msg
+ok 10 needs prereq1 unxpass # TODO msg
+ok 11 needs prereq1 skipped # skip msg
+ok 12 needs prereq2 xpass # skip unsatisfied requirement: prereq2
+ok 13 needs prereq2 unxfail # skip unsatisfied requirement: prereq2
+ok 14 needs prereq2 xfail # skip unsatisfied requirement: prereq2
+ok 15 needs prereq2 unxpass # skip unsatisfied requirement: prereq2
+ok 16 needs prereq2 skipped # skip msg
+ok 17 needs prereq3 xpass # skip unsatisfied requirement: prereq3
+ok 18 needs prereq3 unxfail # skip unsatisfied requirement: prereq3
+ok 19 needs prereq3 xfail # skip unsatisfied requirement: prereq3
+ok 20 needs prereq3 unxpass # skip unsatisfied requirement: prereq3
+ok 21 needs prereq3 skipped # skip msg
+ok 22 needs prereq4 xpass
+not ok 23 needs prereq4 unxfail
+not ok 24 needs prereq4 xfail # TODO msg
+ok 25 needs prereq4 unxpass # TODO msg
+ok 26 needs prereq4 skipped # skip msg
+ok 27 needs prereq5 xpass # skip unsatisfied requirement: prereq5
+ok 28 needs prereq5 unxfail # skip unsatisfied requirement: prereq5
+ok 29 needs prereq5 xfail # skip unsatisfied requirement: prereq5
+ok 30 needs prereq5 unxpass # skip unsatisfied requirement: prereq5
+ok 31 needs prereq5 skipped # skip msg
+ok 32 needs prereq6 xpass
+not ok 33 needs prereq6 unxfail
+not ok 34 needs prereq6 xfail # TODO msg
+ok 35 needs prereq6 unxpass # TODO msg
+ok 36 needs prereq6 skipped # skip msg
+ok 37 prereq7 additional xpass
+ok 38 needs prereq1 and prereq2 # skip unsatisfied requirement: prereq2
+ok 39 needs prereq1 and prereq7
+1..39
+" 1 "prerequisite/requirement support via --gives, --needs"
+
+testcase '
+    t4s_give foo
+    t4s_testcase --needs foo "needs foo" true
+' "\
+ok 1 needs foo
+1..1
+" 0 "t4s_give() works"
+
+testcase '
+    t4s_testcase inner '\''
+        test x"$1" = xfoo
+    '\'' foo
+' "\
+ok 1 inner
+1..1
+" 0 "script arguments work"
+
+testcase '
+    t4s_setup --exit-hook '\''
+        t4s_log "running exit hook"
+    '\''
+' "\
+1..0
+# running exit hook
+" 0 "exit hook works (normal exit)"
+
+testcase '
+    t4s_setup --exit-hook '\''
+        t4s_log "running exit hook"
+    '\''
+    kill -TERM $$
+' "\
+Bail out! (SIGTERM)
+# running exit hook
+" 1 "exit hook works (SIGTERM)"
+
+testcase '
+    t4s_pecho "foo" >${tmpd}/diff.expected
+    t4s_pecho "foo" >${tmpd}/diff.actual
+    t4s_testcase_diff "inner" "${tmpd}"/diff.expected "${tmpd}"/diff.actual
+' "\
+ok 1 inner
+1..1
+" 0 "t4s_testcase_diff (files match)"
+
+testcase '
+    t4s_pecho "foo" >${tmpd}/diff.expected
+    t4s_pecho "bar" >${tmpd}/diff.actual
+    t4s_testcase_diff "inner" "${tmpd}"/diff.expected "${tmpd}"/diff.actual
+' "\
+# output differs:
+# --- expected
+# +++ actual
+# @@ -1 +1 @@
+# -foo
+# +bar
+not ok 1 inner
+1..1
+" 1 "t4s_testcase_diff (files don't match)"
+
+t4s_done
