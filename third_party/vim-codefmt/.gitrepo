@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/ingydotnet/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/google/vim-codefmt
+	branch = ff464a478202df40ae484e6e94a1d56587fcc69e
+	commit = ff464a478202df40ae484e6e94a1d56587fcc69e
+	parent = f6515cef7679c2de88f14355e2b6717fcfc21590
+	method = merge
+	cmdver = 0.4.9

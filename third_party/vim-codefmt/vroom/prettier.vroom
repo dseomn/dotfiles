@@ -1,0 +1,145 @@
+The prettier formatter knows how to format JavaScript.
+If you aren't familiar with basic codefmt usage yet, see main.vroom first.
+
+We'll set up codefmt and configure the vroom environment, then jump into some
+examples.
+
+  :source $VROOMDIR/setupvroom.vim
+
+  :let g:repeat_calls = []
+  :function FakeRepeat(...)<CR>
+  |  call add(g:repeat_calls, a:000)<CR>
+  :endfunction
+  :call maktaba#test#Override('repeat#set', 'FakeRepeat')
+
+  :call codefmt#SetWhetherToPerformIsAvailableChecksForTesting(0)
+
+The default value of prettier_executable is a function that checks if npx is
+available. We need a deterministic result for these tests, so we'll replace that
+with a simple string.
+
+  :Glaive codefmt prettier_executable='prettier'
+
+The prettier formatter expects the prettier executable to be installed on your
+system.
+
+  % function HelloWorld(){if(!greeting){return null};}
+  :FormatCode prettier
+  ! cd .* prettier .*--parser babel.*
+  $ function HelloWorld() {
+  $   if (!greeting) {
+  $     return null;
+  $  }
+  $ }
+
+The name or path of the prettier executable can be configured via the
+prettier_executable flag if the default of "prettier" doesn't work.
+
+  :Glaive codefmt prettier_executable='myprettier'
+  :FormatCode prettier
+  ! cd .* myprettier .*
+  $ function HelloWorld() {
+  $   if (!greeting) {
+  $     return null;
+  $   }
+  $ }
+  :Glaive codefmt prettier_executable='prettier'
+
+
+You can format any buffer with prettier specifying the formatter explicitly.
+
+  @clear
+  % function HelloWorld(){if(!greeting){return null};}
+
+  :FormatCode prettier
+  ! cd .* prettier .*2>.*
+  $ function HelloWorld() {
+  $   if (!greeting) {
+  $     return null;
+  $   }
+  $ }
+  function HelloWorld() {
+    if (!greeting) {
+      return null;
+    }
+  }
+  @end
+
+Errors are reported using the quickfix list.
+
+  @clear
+  % function foo() {
+
+  :FormatCode prettier
+  ! cd .* prettier .*2> (.*)
+  $ 2 (status)
+  $ echo >\1 ' (command)
+  |[error] stdin: SyntaxError: Unexpected token (2:1)\n
+  |[error]   1 | function foo() {\n
+  |[error] > 2 |\n
+  |[error]     | ^'
+  ~ (1 of 1): SyntaxError: Unexpected token
+  function foo() {
+  @end
+  :echomsg line('.') . ',' . col('.')
+  ~ 1,1
+  :echomsg string(map(getqflist(),
+  |'v:val.lnum . "," . v:val.col . "," . v:val.text'))
+  ~ ['2,1,SyntaxError: Unexpected token']
+
+It can format specific line ranges of code using :FormatLines.
+
+  @clear
+  % function HelloWorld(){if(!greeting){return null};}<CR>
+  |function Greet(){if(!greeting){return null};}
+
+  :1,1FormatLines prettier
+  ! cd .* prettier .*--range-end 50.*2>.*
+  $ function HelloWorld() {
+  $   if (!greeting) {
+  $     return null;
+  $   }
+  $ }
+  $ function Greet(){if(!greeting){return null};}
+  function HelloWorld() {
+    if (!greeting) {
+      return null;
+    }
+  }
+  function Greet(){if(!greeting){return null};}
+  @end
+
+It is also the default formatter for several file types.
+
+  @clear
+  % f();
+
+  :silent file /foo/foo.markdown
+  :set filetype=markdown
+  :FormatCode
+  ! prettier .*--stdin-filepath /foo/foo.markdown.*2>.*
+  $ f();
+
+  :silent file /foo/foo.yaml
+  :set filetype=yaml
+  :FormatCode
+  ! prettier .*--stdin-filepath /foo/foo.yaml.*2>.*
+  $ f();
+
+  :silent file /foo/foo.jsx
+  :set filetype=jsx
+  :FormatCode
+  ! prettier .*--stdin-filepath /foo/foo.jsx.*2>.*
+  $ f();
+
+  :silent file /foo/foo.mdx
+  :set filetype=mdx
+  :FormatCode
+  ! prettier .*--stdin-filepath /foo/foo.mdx.*2>.*
+  $ f();
+
+  :silent file /foo/foo.vue
+  :set filetype=vue
+  :FormatCode
+  ! prettier .*--stdin-filepath /foo/foo.vue.*2>.*
+  $ f();
