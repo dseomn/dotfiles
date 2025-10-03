@@ -34,7 +34,8 @@ jobs:
         sudo apt-get -y install python3-jsonschema
     - name: Test
       run: |
-        script --quiet --return --command 'xvfb-run vroom --crawl .'
+        script --quiet --return --command \
+          'xvfb-run vroom --crawl . --skip third_party'
   python-tests:
     strategy:
       matrix:
