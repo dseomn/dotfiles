@@ -23,9 +23,10 @@ disc_template = s01
 unknown = True
 cdr = True
 
-{% for section in config.sections() if section.startswith('drive:') -%}
-[{{ section }}]
-{% for option in config[section] -%}
-{{ copy(section, option) -}}
-{% endfor -%}
-{% endfor %}
+
+{% set local_conf_path = (
+  pathlib.Path.home() / '.config/whipper/whipper.local.conf'
+) %}
+{% if local_conf_path.exists() %}
+{{ local_conf_path.read_text() }}
+{% endif %}
