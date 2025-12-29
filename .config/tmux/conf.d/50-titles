@@ -68,7 +68,7 @@ tree_window_fmt+="#{?#{==:#{window_panes},1},, | $(count panes)}"
 
 tree_pane_fmt="#{pane_title} | #{pane_current_command}"
 
-tree_fmt="#{?pane_format,${tree_pane_fmt},#{?window_format,${tree_window_fmt},${tree_session_fmt}}}"
+tree_fmt="#{?pane_format,${tree_pane_fmt},window_format,${tree_window_fmt},${tree_session_fmt}}"
 
 tmux bind s choose-tree -sZ -F "${tree_fmt}" -O name
 tmux bind w choose-tree -wZ -F "${tree_fmt}" -O name
