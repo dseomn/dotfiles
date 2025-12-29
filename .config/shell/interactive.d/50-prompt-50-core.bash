@@ -24,6 +24,7 @@ __prompt_part_core() {
   fi
   prompt_append_raw '\u@' "$user_color"
 
+  # Keep in sync with ~/.config/tmux/conf.d/30-window-type.conf
   local host_color="$FgBrGreen"
   if [[ -n "$SSH_CONNECTION" ]]; then
     host_color="$FgBrYellow"
