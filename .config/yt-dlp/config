@@ -13,4 +13,5 @@
 # limitations under the License.
 
 --abort-on-unavailable-fragments
+--write-info-json
 --write-subs
