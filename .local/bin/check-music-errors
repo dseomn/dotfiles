@@ -1,0 +1,92 @@
+#!/usr/bin/env python3
+
+# Copyright 2026 David Mandelberg
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+"""Checks for errors in audio files.
+
+See
+https://www.reddit.com/r/freegal/comments/1r9aaby/are_truncated_downloads_common/
+for the motivation.
+"""
+
+import argparse
+from collections.abc import Iterable
+from concurrent import futures
+import pathlib
+import subprocess
+import textwrap
+
+
+def _filter_ffprobe_output(lines: Iterable[str]) -> Iterable[str]:
+    for line in lines:
+        if any(
+            ignored in line
+            for ignored in (
+                "Estimating duration from bitrate, this may be inaccurate",
+            )
+        ):
+            continue
+        yield line
+
+
+def _files_to_check(paths: Iterable[pathlib.Path]) -> Iterable[pathlib.Path]:
+    for path in paths:
+        if not path.is_dir():
+            yield path
+            continue
+        for dirpath, dirnames, filenames in path.walk(follow_symlinks=True):
+            for filename in filenames:
+                if not filename.endswith(
+                    (
+                        ".gif",
+                        ".tif",
+                        ".jpg",
+                        ".png",
+                    )
+                ):
+                    yield dirpath / filename
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("path", nargs="+", type=pathlib.Path)
+    args = parser.parse_args()
+    executor = futures.ThreadPoolExecutor()
+    results = []
+    for path in _files_to_check(args.path):
+        results.append(
+            (
+                path,
+                executor.submit(
+                    subprocess.run,
+                    ("ffprobe", "-loglevel", "warning", f"file:{path}"),
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.STDOUT,
+                    check=True,
+                ),
+            )
+        )
+    for path, ffprobe_future in results:
+        output = "\n".join(
+            _filter_ffprobe_output(
+                ffprobe_future.result().stdout.decode().splitlines()
+            )
+        )
+        if output:
+            print(f"{path}:")
+            print(textwrap.indent(output, "  "))
+
+
+if __name__ == "__main__":
+    main()
