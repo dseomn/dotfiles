@@ -72,4 +72,22 @@
     wait-command="true"
     for-each-file="true"
     />
+
+  <script
+    id="K5hLuNHp"
+    shell-script="true"
+    display-name="zbarimg"
+    command="zbarimg -Senable -Scomposite.disable -- %F | zenity --text-info"
+    wait-command="false"
+    for-each-file="false"
+    />
+
+  <script
+    id="SGjZetmd"
+    shell-script="true"
+    display-name="ZXingReader"
+    command="ZXingReader %F | zenity --text-info"
+    wait-command="false"
+    for-each-file="false"
+    />
 </scripts>
