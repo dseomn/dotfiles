@@ -13,14 +13,14 @@
 # limitations under the License.
 
 LC_IDENTIFICATION
-title "Dutch locale for the United States (dseomn custom)"
+title "English locale for the United States (dseomn custom)"
 source "dseomn"
 address ""
 contact ""
 email ""
 tel ""
 fax ""
-language "Dutch"
+language "American English"
 territory "United States"
 revision ""
 date ""
@@ -40,7 +40,7 @@ category "i18n:2012";LC_ADDRESS
 END LC_IDENTIFICATION
 
 LC_CTYPE
-copy "nl_NL"
+copy "en_US"
 END LC_CTYPE
 
 LC_COLLATE
@@ -48,7 +48,7 @@ copy "C"
 END LC_COLLATE
 
 LC_MESSAGES
-copy "nl_NL"
+copy "en_US"
 END LC_MESSAGES
 
 LC_MONETARY
@@ -56,56 +56,55 @@ copy "en_US"
 END LC_MONETARY
 
 LC_NUMERIC
-copy "nl_NL"
+copy "en_US"
 END LC_NUMERIC
 
 LC_TIME
-# https://en.wikipedia.org/wiki/Date_and_time_notation_in_the_Netherlands
 # https://en.wikipedia.org/wiki/Date_and_time_notation_in_the_United_States
 # https://en.wikipedia.org/wiki/ISO_8601
 abday \
-  "zo";\
-  "ma";\
-  "di";\
-  "wo";\
-  "do";\
-  "vr";\
-  "za"
+  "Sun";\
+  "Mon";\
+  "Tue";\
+  "Wed";\
+  "Thu";\
+  "Fri";\
+  "Sat"
 day \
-  "zondag";\
-  "maandag";\
-  "dinsdag";\
-  "woensdag";\
-  "donderdag";\
-  "vrijdag";\
-  "zaterdag"
+  "Sunday";\
+  "Monday";\
+  "Tuesday";\
+  "Wednesday";\
+  "Thursday";\
+  "Friday";\
+  "Saturday"
 
 abmon \
-  "jan";\
-  "feb";\
-  "mrt";\
-  "apr";\
-  "mei";\
-  "jun";\
-  "jul";\
-  "aug";\
-  "sep";\
-  "okt";\
-  "nov";\
-  "dec"
+  "Jan";\
+  "Feb";\
+  "Mar";\
+  "Apr";\
+  "May";\
+  "Jun";\
+  "Jul";\
+  "Aug";\
+  "Sep";\
+  "Oct";\
+  "Nov";\
+  "Dec"
 mon \
-  "januari";\
-  "februari";\
-  "maart";\
-  "april";\
-  "mei";\
-  "juni";\
-  "juli";\
-  "augustus";\
-  "september";\
-  "oktober";\
-  "november";\
-  "december"
+  "January";\
+  "February";\
+  "March";\
+  "April";\
+  "May";\
+  "June";\
+  "July";\
+  "August";\
+  "September";\
+  "October";\
+  "November";\
+  "December"
 
 week 7;19971130;1
 first_weekday 1
@@ -132,7 +131,7 @@ copy "en_US"
 END LC_MEASUREMENT
 
 LC_NAME
-copy "nl_NL"
+copy "en_US"
 END LC_NAME
 
 LC_ADDRESS

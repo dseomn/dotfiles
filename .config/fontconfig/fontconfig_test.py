@@ -21,7 +21,7 @@ import unicodedata
 import pytest
 
 
-_DEFAULT_LANGUAGES = ("en", "en-us", "nl", "nl-us", "x-other")
+_DEFAULT_LANGUAGES = ("en", "en-us", "x-other")
 
 
 def _params(
