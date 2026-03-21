@@ -14,7 +14,7 @@
 
 
 [application]
-version=2.11.0.final0
+version=2.13.3.final0
 
 [persist]
 {{ copy('persist', 'album_view_header_locked') }}
@@ -50,6 +50,7 @@ view_cover_art=false
 
 [setting]
 {{ copy('setting', 'acoustid_apikey') }}
+artists_genres=false
 ca_providers=
 clear_existing_tags=true
 convert_punctuation=false
@@ -66,7 +67,11 @@ enabled_plugins={{
 file_renaming_scripts=
 file_save_warning=false
 folksonomy_tags=true
+id3v2_encoding=utf-8
+ignore_hidden_files=false
+ignore_regex=
 ignore_track_duration_difference_under=1
+join_genres=
 max_genres=100
 min_genre_usage=0
 nat_name=[non-album tracks]
@@ -123,6 +128,7 @@ show_new_user_dialog=false
 standardize_artists=true
 standardize_instruments=true
 track_ars=true
+translate_artist_names=false
 use_genres=true
 va_name=Various Artists
 write_id3v23=false
