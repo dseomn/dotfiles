@@ -61,6 +61,18 @@ def main():
             "SOX_OPTS": "--single-threaded",
         },
     )
+    subprocess.run(
+        (
+            "metaflac",
+            "--remove-tag=album",
+            "--remove-tag=artist",
+            "--remove-tag=title",
+            f"--set-tag=discnumber={args.disc_number}",
+            "--",
+            *whipper_disc_path.glob("*.flac"),
+        ),
+        check=True,
+    )
     for whipper_file_path in tuple(whipper_disc_path.iterdir()):
         # TODO(https://github.com/python/cpython/issues/56950): Fix this race
         # condition.
