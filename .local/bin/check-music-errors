@@ -50,9 +50,9 @@ def _files_to_check(paths: Iterable[pathlib.Path]) -> Iterable[pathlib.Path]:
                 if not filename.endswith(
                     (
                         ".gif",
-                        ".tif",
                         ".jpg",
                         ".png",
+                        ".tif",
                     )
                 ):
                     yield dirpath / filename
