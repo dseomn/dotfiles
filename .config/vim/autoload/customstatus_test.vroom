@@ -28,14 +28,11 @@ Helper functions.
 
 
 
-Test that Init sets the global statusline, which in turn sets the local
-statusline appropriately.
+Test that Init sets the statusline.
 
   :call customstatus#Init()
-  :echomsg &g:statusline
-  ~ *%{customstatus#InitWindow()}* (glob)
-  :echomsg &l:statusline
-  ~ %!customstatus#StatusLine(*) (glob)
+  :echomsg &statusline
+  ~ %!customstatus#StatusLine()
 
 
 
@@ -43,9 +40,7 @@ Test that Clear unsets the global and local statusline.
 
   :call customstatus#Init()
   :call customstatus#Clear()
-  :echomsg 'x' . &g:statusline
-  ~ x
-  :echomsg 'x' . &l:statusline
+  :echomsg 'x' . &statusline
   ~ x
 
 

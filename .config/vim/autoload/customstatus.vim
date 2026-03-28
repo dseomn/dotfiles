@@ -19,9 +19,7 @@ set cpo&vim
 
 " Start using the status lines in this file.
 function! customstatus#Init() abort
-  " Set the global statusline so that any window without a local statusline
-  " will call InitWindow(). InitWindow() then changes the local statusline.
-  let &statusline = '%{customstatus#InitWindow()}Initializing status line...'
+  set statusline=%!customstatus#StatusLine()
 
   hi statusUnmodified cterm=reverse
   hi statusUnmodifiedRo cterm=reverse
@@ -42,20 +40,13 @@ endfunction
 " Stop using the status lines defined in this file.
 function! customstatus#Clear() abort
   set statusline=
-  tabdo windo setlocal statusline<
 endfunction
 
 
-" Initialize the current window.
-function! customstatus#InitWindow() abort
-  let &l:statusline = '%!customstatus#StatusLine(' . string(win_getid()) . ')'
-  return ''
-endfunction
-
-
-function! customstatus#StatusLine(winid) abort
+function! customstatus#StatusLine() abort
   call customstatus#SetFillChars()
-  let [l:hl_left, l:hl_mid, l:hl_right] = customstatus#GetHighlights(a:winid)
+  let [l:hl_left, l:hl_mid, l:hl_right] =
+      \ customstatus#GetHighlights(g:statusline_winid)
 
   let l:parts = [l:hl_left]
 
@@ -80,11 +71,6 @@ function! customstatus#StatusLine(winid) abort
 
   " Ruler
   call add(l:parts, '%-14.(%l,%c%V%) %P')
-
-  " InitWindow is occasionally called in a weird state where win_getid()
-  " doesn't return the correct window ID. Calling it with each status line
-  " update ensures that the window ID in &l:statusline is kept up to date.
-  call add(l:parts, '%{customstatus#InitWindow()}')
 
   return join(l:parts, '')
 endfunction

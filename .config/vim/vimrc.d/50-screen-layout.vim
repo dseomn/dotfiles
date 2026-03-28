@@ -28,9 +28,6 @@ call customstatus#Init()
 set notitle
 
 
-set showcmd
-
-
 " Highlight the first column after textwidth in modifiable buffers. In
 " nomodifiable buffers like man pages and vim help, it's not useful.
 function! s:UpdateColorColumn() abort
