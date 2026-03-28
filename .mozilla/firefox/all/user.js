@@ -18,12 +18,21 @@ user_pref("apz.overscroll.enabled", false);
 
 user_pref("browser.aboutConfig.showWarning", false);
 
+user_pref("browser.ai.control.linkPreviewKeyPoints", "blocked");
+user_pref("browser.ai.control.pdfjsAltText", "blocked");
+user_pref("browser.ai.control.sidebarChatbot", "blocked");
+user_pref("browser.ai.control.smartTabGroups", "blocked");
+
 user_pref("browser.download.always_ask_before_handling_new_types", true);
 // https://bugzilla.mozilla.org/show_bug.cgi?id=1738574#c133
 user_pref("browser.download.start_downloads_in_tmp_dir", true);
 user_pref("browser.download.useDownloadDir", false);
 
 user_pref("browser.formfill.enable", false);
+
+user_pref("browser.ml.chat.enabled", false);
+user_pref("browser.ml.chat.menu", false);
+user_pref("browser.ml.linkPreview.enabled", false);
 
 user_pref("browser.newtabpage.enabled", false);
 
@@ -32,6 +41,8 @@ user_pref("browser.search.suggest.enabled", false);
 user_pref("browser.startup.homepage", "about:blank");
 
 user_pref("browser.tabs.crashReporting.sendReport", false);
+
+user_pref("browser.tabs.groups.smart.userEnabled", false);
 
 user_pref("browser.translations.automaticallyPopup", false);
 
