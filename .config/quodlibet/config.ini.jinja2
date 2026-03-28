@@ -14,7 +14,7 @@
 
 
 ; TODO(https://github.com/quodlibet/quodlibet/issues/1179): Replace
-; `<albumartist|<albumartist>|<performer>>` in patterns with `<albumartist>`.
+; `<<albumartist>||<performer>>` in patterns with `<albumartist>`.
 
 [__config__]
 version = 0
@@ -107,8 +107,7 @@ quodlibet.fake.plugins.waveformseekbar_show_current_pos = True
 quodlibet.fake.plugins.waveformseekbar_show_time_labels = False
 {{ copy('plugins', 'scrobbler_password') }}
 scrobbler_scrobbler_offline = False
-scrobbler_service = Other…
-scrobbler_url = https://post.audioscrobbler.com/
+scrobbler_service = Last.fm
 scrobbler_username = dseomn
 
 [rename]
