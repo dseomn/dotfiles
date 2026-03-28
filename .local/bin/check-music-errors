@@ -51,6 +51,7 @@ def _files_to_check(paths: Iterable[pathlib.Path]) -> Iterable[pathlib.Path]:
                     (
                         ".gif",
                         ".jpg",
+                        ".json",
                         ".png",
                         ".tif",
                     )
