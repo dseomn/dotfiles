@@ -67,3 +67,4 @@ user_pref('mail.showCondensedAddresses', false);
 user_pref('mailnews.default_sort_order', 1);
 // https://searchfox.org/comm-central/rev/59f3615b36c5ce10b1458e03aa5d68dae0e45d60/mailnews/base/public/nsIMsgDBView.idl#45
 user_pref('mailnews.default_view_flags', 33);
+user_pref('mailnews.start_page.enabled', false);
