@@ -27,17 +27,22 @@ for app_dir in ~/.mozilla/firefox ~/.thunderbird; do
       rm "${file}" || exit 1
     done
 
-    # Create links to files in the all/ directory.
+    # Create links to (or copies of) files in the all/ directory.
     (
       cd "${profile_dir}/../all" || exit 1
       for link_to in *; do
         [[ -e "${link_to}" ]] || continue
         link_from="${profile_dir}/${link_to}"
-        if [[ -e "${link_from}" ]] && ! [[ -h "${link_from}" ]]; then
+        if [[ "${link_to}" = "xulstore.json" ]]; then
+          # This file seems to get overwritten with a normal file even if it's a
+          # link.
+          cp -f "${link_to}" "${link_from}" || exit 1
+        elif [[ -e "${link_from}" ]] && ! [[ -h "${link_from}" ]]; then
           echo "ERROR: Not overwriting: ${link_from}" >&2
           exit 1
+        else
+          ln -sf "../all/${link_to}" "${link_from}" || exit 1
         fi
-        ln -sf "../all/${link_to}" "${link_from}" || exit 1
       done
     ) || exit 1
   done
