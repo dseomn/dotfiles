@@ -1,0 +1,34 @@
+{
+  "chrome://messenger/content/messenger.xhtml": {
+    "bottom-events-box": {
+      "height": "128"
+    },
+    "folderPaneBox": {
+      "width": "384"
+    },
+    "folderPaneHeaderBar": {
+      "hidden": "true"
+    },
+    "messageHeader": {
+      "layout": "{\"hideLabels\":false,\"subjectLarge\":false}"
+    },
+    "messengerWindow": {
+      "sizemode": "maximized"
+    },
+    "quickFilterBar": {
+      "visible": "true"
+    },
+    "spacesToolbar": {
+      "hidden": "true"
+    },
+    "threadPaneHeader": {
+      "hidden": "true"
+    },
+    "today-pane-panel": {
+      "collapsedinmodes": "calendar,mail"
+    },
+    "unifiedToolbar": {
+      "state": "{\"calendar\":[\"synchronize\",\"new-event\",\"spacer\",\"search-bar\",\"spacer\"],\"mail\":[\"get-messages\",\"write-message\",\"spacer\",\"search-bar\",\"spacer\"]}"
+    }
+  }
+}
