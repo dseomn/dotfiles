@@ -48,17 +48,6 @@ user_pref('calendar.view.dayendhour', 24);
 user_pref('calendar.view.daystarthour', 0);
 user_pref('calendar.view.visiblehours', 24);
 
-// Calendar accounts.
-user_pref('calendar.registry.13946703-f1ef-473a-84fb-fe13311f277b.name', 'US Holidays');
-user_pref('calendar.registry.13946703-f1ef-473a-84fb-fe13311f277b.uri', 'https://www.mozilla.org/media/caldata/USHolidays.ics');
-user_pref('calendar.registry.13946703-f1ef-473a-84fb-fe13311f277b.type', 'ics');
-user_pref('calendar.registry.13946703-f1ef-473a-84fb-fe13311f277b.readOnly', true);
-user_pref('calendar.registry.13946703-f1ef-473a-84fb-fe13311f277b.color', '#e78074');
-user_pref('calendar.registry.13946703-f1ef-473a-84fb-fe13311f277b.cache.enabled', true);
-user_pref('calendar.registry.13946703-f1ef-473a-84fb-fe13311f277b.calendar-main-in-composite', true);
-user_pref('calendar.registry.13946703-f1ef-473a-84fb-fe13311f277b.disabled', false);
-user_pref('calendar.registry.13946703-f1ef-473a-84fb-fe13311f277b.refreshInterval', 60);
-
 // Mail and news.
 user_pref('mail.biff.play_sound', false);
 user_pref('mail.biff.show_alert', false);
