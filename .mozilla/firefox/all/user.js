@@ -46,6 +46,9 @@ user_pref("browser.tabs.groups.smart.userEnabled", false);
 
 user_pref("browser.translations.automaticallyPopup", false);
 
+// https://github.com/mozilla-firefox/firefox/blob/febb0d9e1e34c385a230afc25f1b14ccc5b199f4/browser/app/profile/firefox.js#L259-L261
+user_pref("browser.uidensity", 1);
+
 user_pref("browser.urlbar.quicksuggest.enabled", false);
 user_pref("browser.urlbar.trimURLs", false);
 
