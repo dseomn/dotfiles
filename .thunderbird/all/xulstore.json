@@ -21,6 +21,9 @@
     "spacesToolbar": {
       "hidden": "true"
     },
+    "status-bar": {
+      "hidden": "true"
+    },
     "threadPaneHeader": {
       "hidden": "true"
     },
