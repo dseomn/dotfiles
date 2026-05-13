@@ -57,6 +57,8 @@ user_pref('mail.display_glyph', false);  // Don't convert :) to emoji.
 user_pref('mail.identity.default.archive_enabled', false);
 user_pref('mail.identity.default.compose_html', false);
 user_pref('mail.identity.default.sig_on_fwd', true);
+// https://github.com/thunderbird/thunderbird-desktop/blob/762ee446617ca2b80655476bf1c6e56d4c0faa9d/suite/mailnews/content/mailWindowOverlay.js#L12-L14
+user_pref('mail.pane_config.dynamic', 0);
 user_pref('mail.phishing.detection.enabled', false);
 user_pref('mail.server.default.check_all_folders_for_new', true);
 user_pref('mail.server.default.login_at_startup', true);
