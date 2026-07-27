@@ -16,6 +16,7 @@
 
 import argparse
 import pathlib
+import re
 import subprocess
 import sys
 
@@ -23,6 +24,14 @@ import sys
 def _require_nonexistent(path: pathlib.Path):
     if path.exists(follow_symlinks=False):
         raise Exception(f"{str(path)!r} already exists.")
+
+
+def _sessions_from_cdrdao_disk_info(info: str, *, path: pathlib.Path) -> int:
+    if (
+        match := re.search(r"^Sessions\s*:\s*([0-9]+)$", info, re.MULTILINE)
+    ) is None:
+        raise ValueError(f"Can't parse number of sessions from {path}")
+    return int(match.group(1))
 
 
 def main():
@@ -40,8 +49,17 @@ def main():
             stderr=disc_info_file,
             check=True,
         )
-    with disc_info_path.open("r") as disc_info_file:
-        sys.stdout.write(disc_info_file.read())
+    disc_info = disc_info_path.read_text()
+    sys.stdout.write(disc_info)
+    sessions = _sessions_from_cdrdao_disk_info(disc_info, path=disc_info_path)
+
+    with pathlib.Path(f"{path_prefix}.cd-info.txt").open("x") as cd_info_file:
+        subprocess.run(
+            ("cd-info", f"--cdrom-device={args.device}"),
+            stdout=cd_info_file,
+            stderr=cd_info_file,
+            check=True,
+        )
 
     whipper_disc_path = pathlib.Path(path_prefix)
     _require_nonexistent(whipper_disc_path)
@@ -74,6 +92,36 @@ def main():
         _require_nonexistent(new_path)
         whipper_file_path.rename(new_path)
     whipper_disc_path.rmdir()
+
+    # This combined with cd-info above seems to give enough data to manually
+    # extract the files from a data session.
+    # https://bitsgalore.org/2015/11/13/preserving-optical-media-from-the-command-line.html
+    # has some good information, including using bchunk to get a mostly usable
+    # ISO file. `dd if=... of=... bs=2K seek=N` where N is the LSN of the data
+    # track according to cd-info puts the ISO fs in the right place in a file,
+    # and `sudo mount -t iso9660 -o ro,sbsector=N` mounts it. Also check the
+    # output of `disktype` to see if there are other filesystems, like HFS.
+    for session in range(2, sessions + 1):
+        session_prefix = f"{path_prefix}s{session:02d}"
+        subprocess.run(
+            (
+                "cdrdao",
+                "read-cd",
+                "--device",
+                args.device,
+                "--session",
+                str(session),
+                "--read-raw",
+                "--datafile",
+                f"{session_prefix}.bin",
+                f"{session_prefix}.toc",
+            ),
+            check=True,
+        )
+        subprocess.run(
+            ("toc2cue", f"{session_prefix}.toc", f"{session_prefix}.cue"),
+            check=True,
+        )
 
 
 if __name__ == "__main__":
