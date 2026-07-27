@@ -15,7 +15,6 @@
 # limitations under the License.
 
 import argparse
-import os
 import pathlib
 import subprocess
 import sys
@@ -55,11 +54,6 @@ def main():
             f"--output-directory={whipper_disc_path}",
         ),
         check=True,
-        env={
-            **os.environ,
-            # TODO: https://codeberg.org/sox_ng/sox_ng/issues/826 - Remove this.
-            "SOX_OPTS": "--single-threaded",
-        },
     )
     subprocess.run(
         (
