@@ -119,7 +119,7 @@ Recommends:
   apache2-bin,
   brotli,
   fonttools,
-  guile-2.2,
+  guile-3.0,
   libm17n-dev,
   minify,
   node-less,
