@@ -34,7 +34,10 @@ def _known_hosts_files() -> Iterable[pathlib.Path]:
     ).stdout.decode()
     for line in config.splitlines():
         option, *values = line.split(" ")
-        if option not in ("globalknownhostsfile", "userknownhostsfile"):
+        if option.casefold() not in (
+            "globalknownhostsfile",
+            "userknownhostsfile",
+        ):
             continue
         yield from map(pathlib.Path, values)
 
